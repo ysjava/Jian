@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="data_rsp_error_service">服务器错误</string>
+    <string name="data_rsp_error_not_found_user">没找到用户</string>
+    <string name="data_rsp_error_create_user">创建账号失败</string>
+    <string name="data_rsp_error_create_message">消息发送失败</string>
+    <string name="data_rsp_error_parameters">参数错误</string>
+    <string name="data_rsp_error_parameters_exist_account">已经存在账户</string>
+    <string name="data_rsp_error_parameters_exist_name">已经存在名字</string>
+    <string name="data_rsp_error_account_token">账号过期了,请重新登陆</string>
+    <string name="data_rsp_error_account_register">账号注册失败</string>
+    <string name="data_rsp_error_account_no_permission">你没有此权限</string>
+    <string name="data_rsp_error_unknown">未知错误</string>
+    <string name="data_rsp_error_account_login">登陆失败</string>
+
+</resources>
