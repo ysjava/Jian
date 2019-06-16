@@ -1,4 +1,4 @@
-package com.wuxiankeneng.factory.presenter.base;
+package com.wuxiankeneng.common.factory.base;
 
 import com.wuxiankeneng.common.widget.recycler.RecyclerAdapter;
 
@@ -7,23 +7,22 @@ import com.wuxiankeneng.common.widget.recycler.RecyclerAdapter;
  * Describe :
  */
 public interface BaseContract {
-    interface View<T extends Presenter> {
+    interface View{
         //加载框
         void showLoading();
-
-        //设置p
-        void setPresenter(T presenter);
     }
 
-    interface Presenter {
+    interface Presenter<V extends View> {
         // 共用的开始触发
         void start();
 
         // 共用的销毁触发
         void destroy();
+
+        void attachView(V view);
     }
 
-    interface RecyclerView<T extends Presenter, ViewModel> extends View<T> {
+    interface RecyclerView<ViewModel> extends View {
         //拿到一个适配器
         RecyclerAdapter<ViewModel> getRecyclerAdapter();
 

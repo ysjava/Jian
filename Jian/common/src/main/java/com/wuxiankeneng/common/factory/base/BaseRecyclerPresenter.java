@@ -1,4 +1,4 @@
-package com.wuxiankeneng.factory.presenter.base;
+package com.wuxiankeneng.common.factory.base;
 
 import android.support.v7.util.DiffUtil;
 
@@ -16,9 +16,6 @@ import java.util.List;
 public class BaseRecyclerPresenter<ViewMode, View extends BaseContract.RecyclerView>
         extends BasePresenter<View> {
 
-    public BaseRecyclerPresenter(View mView) {
-        super(mView);
-    }
 
     /**
      * 刷新一堆新数据到界面中

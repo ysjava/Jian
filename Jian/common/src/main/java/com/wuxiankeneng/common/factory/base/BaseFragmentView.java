@@ -1,4 +1,4 @@
-package com.wuxiankeneng.factory.presenter.base;
+package com.wuxiankeneng.common.factory.base;
 
 import android.content.Context;
 
@@ -9,7 +9,7 @@ import com.wuxiankeneng.common.app.BaseFragment;
  * Describe : 基础契约的Fragment的v层
  */
 public abstract class BaseFragmentView<Presenter extends BaseContract.Presenter> extends BaseFragment
-        implements BaseContract.View<Presenter> {
+        implements BaseContract.View {
 
     private Presenter mPresenter;
 
@@ -31,8 +31,4 @@ public abstract class BaseFragmentView<Presenter extends BaseContract.Presenter>
         //TODO 显示loading
     }
 
-    @Override
-    public void setPresenter(Presenter presenter) {
-        this.mPresenter = presenter;
-    }
 }
