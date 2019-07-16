@@ -1,11 +1,14 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
+        <!--上面用作toolbar栏-->
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <!--上面一行用作状态栏-->
         <item name="colorAccent">@color/colorAccent</item>
+        <!--按钮的颜色或者点击或者选中-->
     </style>
 
 </resources>

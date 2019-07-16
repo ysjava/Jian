@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/ic_home"
+        android:icon="@drawable/ic_home"
+        android:title="@string/home" />
+    <!--android:icon="@drawable/selector_bottom_nav"  用作tab选中时的切换-->
+    <item
+        android:id="@+id/ic_order"
+        android:icon="@drawable/ic_order"
+        android:title="@string/order" />
+    <item
+        android:id="@+id/ic_mine"
+        android:icon="@drawable/ic_mine"
+        android:title="@string/mine" />
+</menu>
