@@ -6,15 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:background="@color/colorAccent"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_73"/>
-
     <FrameLayout
         android:id="@+id/lay_container"
-        android:layout_below="@id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/navigation" />
@@ -23,12 +16,12 @@
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="match_parent"
-        android:background="#fff"
-        app:itemIconSize="@dimen/dp_18"
-        android:elevation="@dimen/dp_4"
-        app:itemIconTint="@color/selector_main_bottom_tab_sel"
         android:layout_height="@dimen/dp_46"
         android:layout_alignParentBottom="true"
+        android:background="#fff"
+        android:elevation="@dimen/dp_4"
+        app:itemIconSize="@dimen/dp_18"
+        app:itemIconTint="@color/selector_main_bottom_tab_sel"
         app:menu="@menu/menu_bottom_nav" />
 
 </RelativeLayout>
