@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -36,8 +37,10 @@
                         android:focusable="false"
                         android:gravity="center"
                         android:hint="@string/txt_nav_edt_hint"
+                        android:inputType="text"
                         android:textColorHint="@color/grey_500"
-                        android:textSize="@dimen/sp_12" />
+                        android:textSize="@dimen/sp_12"
+                        tools:ignore="Autofill" />
                 </android.support.v7.widget.Toolbar>
 
                 <cn.bingoogolapple.bgabanner.BGABanner
@@ -45,6 +48,157 @@
                     style="@style/BannerDefaultStyle"
                     app:banner_transitionEffect="alpha" />
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp_6"
+                    android:baselineAligned="false">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/c_img_hot"
+                            android:layout_width="@dimen/dp_42"
+                            android:layout_height="@dimen/dp_42"
+                            android:background="@drawable/bg_main_cell"
+                            android:padding="@dimen/dp_8"
+                            android:src="@drawable/ic_ranking" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/txt_hot" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/c_img_fast_food"
+                            android:layout_width="@dimen/dp_42"
+                            android:layout_height="@dimen/dp_42"
+                            android:background="@drawable/bg_main_cell"
+                            android:padding="@dimen/dp_8"
+                            android:src="@drawable/ic_fast_food" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/txt_fast_food" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/c_img_fry_food"
+                            android:layout_width="@dimen/dp_42"
+                            android:layout_height="@dimen/dp_42"
+                            android:background="@drawable/bg_main_cell"
+                            android:padding="@dimen/dp_8"
+                            android:src="@drawable/ic_fry_food" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/txt_fry_food" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/c_img_drink"
+                            android:layout_width="@dimen/dp_42"
+                            android:layout_height="@dimen/dp_42"
+                            android:background="@drawable/bg_main_cell"
+                            android:padding="@dimen/dp_8"
+                            android:src="@drawable/ic_drink" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/txt_drink" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/c_img_all_food"
+                            android:layout_width="@dimen/dp_42"
+                            android:layout_height="@dimen/dp_42"
+                            android:background="@drawable/bg_main_cell"
+                            android:padding="@dimen/dp_8"
+                            android:src="@drawable/ic_all" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/txt_all" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_0_5"
+                    android:layout_marginTop="@dimen/dp_6"
+                    android:background="@color/grey_500" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:layout_marginTop="@dimen/dp_12"
+                    android:text="@string/txt_nearbay"
+                    android:textColor="@color/grey_900"
+                    android:textSize="@dimen/sp_18" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp_12"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txt_sort_all"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/txt_sort_all" />
+
+                    <TextView
+                        android:id="@+id/txt_sort_sales"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_18"
+                        android:text="@string/txt_sort_sales" />
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
             </LinearLayout>
 
 

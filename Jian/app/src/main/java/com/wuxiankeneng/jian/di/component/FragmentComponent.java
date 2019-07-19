@@ -1,7 +1,9 @@
 package com.wuxiankeneng.jian.di.component;
 
+import com.wuxiankeneng.jian.di.module.FragmentModule;
 import com.wuxiankeneng.jian.di.scope.ActivityScope;
 import com.wuxiankeneng.jian.di.scope.FragmentScope;
+import com.wuxiankeneng.jian.fragment.HomeFragment;
 
 import dagger.Component;
 
@@ -10,6 +12,7 @@ import dagger.Component;
  * Describe :
  */
 @FragmentScope
-@Component(dependencies = AppComponent.class)
+@Component(modules = FragmentModule.class,dependencies = AppComponent.class)
 public interface FragmentComponent {
+    void inject(HomeFragment fragment);
 }

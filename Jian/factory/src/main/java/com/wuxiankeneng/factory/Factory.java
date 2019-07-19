@@ -4,8 +4,7 @@ import android.support.annotation.StringRes;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.raizlabs.android.dbflow.config.FlowConfig;
-import com.raizlabs.android.dbflow.config.FlowManager;
+
 import com.wuxiankeneng.common.app.Application;
 import com.wuxiankeneng.common.factory.DataSource;
 import com.wuxiankeneng.factory.model.ResponseModel;
@@ -51,9 +50,9 @@ public class Factory {
      */
     public static void setup() {
         // 初始化数据库
-        FlowManager.init(new FlowConfig.Builder(app())
-                .openDatabasesOnInit(true) // 数据库初始化的时候就开始打开
-                .build());
+//        FlowManager.init(new FlowConfig.Builder(app())
+//                .openDatabasesOnInit(true) // 数据库初始化的时候就开始打开
+//                .build());
 
         // 持久化的数据进行初始化
         Account.load(app());

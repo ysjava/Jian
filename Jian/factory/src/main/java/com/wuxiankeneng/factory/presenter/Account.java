@@ -5,9 +5,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
-import com.raizlabs.android.dbflow.sql.language.SQLite;
+
 import com.wuxiankeneng.factory.Factory;
-import com.wuxiankeneng.factory.db.Student;
+
 
 
 /**

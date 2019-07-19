@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Jian</string>
+    <string name="txt_all">全部</string>
+    <string name="txt_drink">饮品</string>
+    <string name="txt_fry_food">炒菜</string>
+    <string name="txt_fast_food">快餐</string>
+    <string name="txt_hot">今日热销</string>
+    <string name="txt_nearbay">附近商店</string>
+    <string name="txt_sort_all">综合排序</string>
+    <string name="txt_sort_sales">销量</string>
 </resources>

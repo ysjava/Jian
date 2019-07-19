@@ -9,6 +9,9 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.wuxiankeneng.common.app.BaseFragment;
+import com.wuxiankeneng.common.factory.base.BaseFragmentView;
+
+import com.wuxiankeneng.common.factory.presenter.HomePresenter;
 import com.wuxiankeneng.jian.MainActivity;
 import com.wuxiankeneng.jian.R;
 
@@ -21,7 +24,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import cn.bingoogolapple.bgabanner.BGABanner;
 
-public class HomeFragment extends BaseFragment {
+public class HomeFragment extends BaseFragmentView<HomePresenter> {
     @BindView(R.id.edt_nav_search)
     EditText editText;
     @BindView(R.id.banner)
@@ -63,5 +66,11 @@ public class HomeFragment extends BaseFragment {
     @OnClick(R.id.edt_nav_search)
     public void testClick() {
         Toast.makeText(getContext(), "NNN", Toast.LENGTH_LONG).show();
+    }
+
+
+    @Override
+    protected void initInject() {
+
     }
 }
