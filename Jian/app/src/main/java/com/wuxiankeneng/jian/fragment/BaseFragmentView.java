@@ -7,6 +7,7 @@ import com.wuxiankeneng.common.app.BaseFragment;
 import com.wuxiankeneng.common.factory.base.BaseContract;
 import com.wuxiankeneng.common.factory.base.BasePresenter;
 import com.wuxiankeneng.jian.App;
+
 import com.wuxiankeneng.jian.di.component.DaggerFragmentComponent;
 import com.wuxiankeneng.jian.di.component.FragmentComponent;
 import com.wuxiankeneng.jian.di.module.FragmentModule;

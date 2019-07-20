@@ -1,14 +1,21 @@
 package com.wuxiankeneng.factory.db;
 
+import com.wuxiankeneng.factory.tools.DiffUiDataCallback;
+
 import org.litepal.crud.LitePalSupport;
 
-public class Shop extends LitePalSupport {
+import java.util.List;
+import java.util.Objects;
+
+public class Shop extends LitePalSupport
+        implements DiffUiDataCallback.UiDataDiffer<Shop> {
     private String id;
     private String sId;
     private String name;
     private String desc;
     private String img;
     private String sales;
+    private List<Goods> recommendGoods;
 
     public String getId() {
         return id;
@@ -56,5 +63,29 @@ public class Shop extends LitePalSupport {
 
     public void setSales(String sales) {
         this.sales = sales;
+    }
+
+    public List<Goods> getRecommendGoods() {
+        return recommendGoods;
+    }
+
+    public void setRecommendGoods(List<Goods> recommendGoods) {
+        this.recommendGoods = recommendGoods;
+    }
+
+    @Override
+    public boolean isSame(Shop old) {
+        //对比id即可
+        return this == old || Objects.equals(sId, old.sId);
+    }
+
+    @Override
+    public boolean isUiContentSame(Shop old) {
+        return this == old || (
+                Objects.equals(name, old.name)
+                        && Objects.equals(desc, old.desc)
+                        && Objects.equals(img, old.img)
+                        && Objects.equals(recommendGoods, old.recommendGoods)
+        );
     }
 }

@@ -24,7 +24,13 @@ public class RecommendCard {
         Recommend recommend = new Recommend();
         recommend.setImgPath(mImgUrl);
         recommend.setUrlOrId(mShopId);
-        recommend.setType(0);//这儿设置的类型应该对mShopId进行判断,是id还是链接
+        //判断是链接还是id
+        String substring = mShopId.substring(0, 4);
+        boolean isHttp = substring.equals("http");
+        if (isHttp)
+            recommend.setType(Recommend.TYPE_URL);
+        else
+            recommend.setType(Recommend.TYPE_ID);
 
         return recommend;
     }

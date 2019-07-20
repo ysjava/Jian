@@ -13,6 +13,8 @@ import com.wuxiankeneng.factory.model.ResponseModel;
 import com.wuxiankeneng.factory.net.Network;
 import com.wuxiankeneng.factory.net.RemoteService;
 
+import org.litepal.LitePal;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,50 +27,59 @@ public class HomeHelper {
         //推广应该有个固定链接
         String url = "";
         RemoteService service = Network.remote();
-        service.loadRecommend(url).enqueue(new Callback<ResponseModel<List<RecommendCard>>>() {
-            @Override
-            public void onResponse(Call<ResponseModel<List<RecommendCard>>> call, Response<ResponseModel<List<RecommendCard>>> response) {
-                ResponseModel<List<RecommendCard>> model = response.body();
-                assert model != null;
-                if (model.success()) {
-                    List<RecommendCard> cards = model.getResult();
-                    List<Recommend> recommends = new ArrayList<>();
-                    for (RecommendCard card : cards) {
-                        recommends.add(card.buildRecommend());
+        service.loadRecommend(url)
+                .enqueue(new Callback<ResponseModel<List<RecommendCard>>>() {
+                    @Override
+                    public void onResponse(Call<ResponseModel<List<RecommendCard>>> call, Response<ResponseModel<List<RecommendCard>>> response) {
+                        ResponseModel<List<RecommendCard>> model = response.body();
+                        assert model != null;
+                        if (model.success()) {
+                            List<RecommendCard> cards = model.getResult();
+                            List<Recommend> recommends = new ArrayList<>();
+                            for (RecommendCard card : cards) {
+                                recommends.add(card.buildRecommend());
+                            }
+                            callback.onDataLoaded(recommends);
+                        } else {
+                            Factory.decodeRspCode(model, callback);
+                        }
                     }
-                    callback.onDataLoaded(recommends);
-                } else {
-                    Factory.decodeRspCode(model, callback);
-                }
-            }
 
-            @Override
-            public void onFailure(Call<ResponseModel<List<RecommendCard>>> call, Throwable t) {
-                callback.onDataNotAvailable(R.string.data_network_error);
-            }
-        });
+                    @Override
+                    public void onFailure(Call<ResponseModel<List<RecommendCard>>> call, Throwable t) {
+                        callback.onDataNotAvailable(R.string.data_network_error);
+                    }
+                });
     }
 
     //加载店铺
-    public static void loadShop(String schoolId,DataSource.Callback<ShopCard> callback){
+    public static void loadShop(String schoolId, final DataSource.Callback<List<Shop>> callback) {
         //TODO 针对学校的外卖平台 所以加载商店的时候就用学生的学校id去找店铺,每个店铺都应该有个学校id
         if (TextUtils.isEmpty(schoolId))
             return;
         RemoteService service = Network.remote();
+
         service.loadShop(schoolId).enqueue(new Callback<ResponseModel<List<ShopCard>>>() {
             @Override
             public void onResponse(Call<ResponseModel<List<ShopCard>>> call, Response<ResponseModel<List<ShopCard>>> response) {
                 ResponseModel<List<ShopCard>> model = response.body();
                 assert model != null;
-                if (model.success()){
-                    List<ShopCard> shops = model.getResult();
-
+                if (model.success()) {
+                    List<ShopCard> shopCards = model.getResult();
+                    List<Shop> shops = new ArrayList<>();
+                    for (ShopCard shopCard : shopCards) {
+                        Shop shop = shopCard.build();
+                        shops.add(shop);
+                    }
+                    callback.onDataLoaded(shops);
+                    //保存
+                    DbHelper.saveAll(shops.toArray(new Shop[0]));
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseModel<List<ShopCard>>> call, Throwable t) {
-
+                callback.onDataNotAvailable(R.string.data_network_error);
             }
         });
 

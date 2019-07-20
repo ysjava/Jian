@@ -1,11 +1,15 @@
 package com.wuxiankeneng.factory.presenter.main.hone;
 
+import android.support.v7.util.DiffUtil;
+
 import com.wuxiankeneng.common.factory.DataSource;
 import com.wuxiankeneng.common.factory.base.BasePresenter;
 import com.wuxiankeneng.common.factory.base.BaseRecyclerPresenter;
+import com.wuxiankeneng.common.widget.recycler.RecyclerAdapter;
 import com.wuxiankeneng.factory.card.Recommend;
 import com.wuxiankeneng.factory.db.Shop;
 import com.wuxiankeneng.factory.helper.HomeHelper;
+import com.wuxiankeneng.factory.tools.DiffUiDataCallback;
 
 import net.qiujuer.genius.kit.handler.Run;
 import net.qiujuer.genius.kit.handler.runable.Action;
@@ -26,9 +30,47 @@ public class HomePresenter extends BaseRecyclerPresenter<Shop, HomeContact.View>
         HomeHelper.loadRecommend(this);
     }
 
+    //加载商店信息
     @Override
     public void loadShops() {
+        HomeHelper.loadShop("", new DataSource.Callback<List<Shop>>() {
+            @Override
+            public void onDataNotAvailable(final int strRes) {
+                Run.onUiAsync(new Action() {
+                    @Override
+                    public void call() {
+                        HomeContact.View view = getView();
+                        if (view != null) {
+                            view.showError(strRes);
+                        }
+                    }
+                });
+            }
 
+            @Override
+            public void onDataLoaded(final List<Shop> shops) {
+                Run.onUiAsync(new Action() {
+                    @Override
+                    public void call() {
+                        HomeContact.View view = getView();
+                        if (view == null)
+                            return;
+                        //拿到商店列表的适配器
+                        RecyclerAdapter<Shop> adapter = view.getRecyclerAdapter();
+                        //拿到旧数据
+                        List<Shop> oldShops = adapter.getItems();
+                        //进行数据对比
+                        DiffUtil.Callback callback = new DiffUiDataCallback<>(oldShops, shops);
+                        DiffUtil.DiffResult result = DiffUtil.calculateDiff(callback);
+                        // 改变数据集合并不通知界面刷新
+                        adapter.getItems().clear();
+                        adapter.getItems().addAll(shops);
+                        // 进行增量更新
+                        result.dispatchUpdatesTo(adapter);
+                    }
+                });
+            }
+        });
     }
 
 

@@ -1,9 +1,9 @@
 package com.wuxiankeneng.jian.di.component;
 
 import com.wuxiankeneng.jian.di.module.FragmentModule;
-import com.wuxiankeneng.jian.di.scope.ActivityScope;
 import com.wuxiankeneng.jian.di.scope.FragmentScope;
-import com.wuxiankeneng.jian.fragment.HomeFragment;
+import com.wuxiankeneng.jian.fragment.main.HomeFragment;
+
 
 import dagger.Component;
 
