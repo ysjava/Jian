@@ -237,4 +237,17 @@ public abstract class RecyclerAdapter<Data> extends RecyclerView.Adapter<Recycle
         mDataList.addAll(dataList);
         notifyDataSetChanged();
     }
+
+    public static class AdapterListenerImpl<M> implements AdapterListener<M>{
+
+        @Override
+        public void onItemClick(ViewHolder viewHolder, M m) {
+
+        }
+
+        @Override
+        public void onItemLongClick(ViewHolder viewHolder, M m) {
+
+        }
+    }
 }

@@ -1,6 +1,18 @@
 package com.wuxiankeneng.factory.net;
 
 
+import com.wuxiankeneng.factory.card.Recommend;
+import com.wuxiankeneng.factory.card.RecommendCard;
+import com.wuxiankeneng.factory.card.ShopCard;
+import com.wuxiankeneng.factory.db.Shop;
+import com.wuxiankeneng.factory.model.ResponseModel;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Path;
+
 /**
  * 网络请求的所有的接口
  *
@@ -35,5 +47,21 @@ public interface RemoteService {
 //    @POST("account/bind/{pushId}")
 //    Call<RspModel<AccountRspModel>> accountBind(@Path(encoded = true, value = "pushId") String pushId);
 
+    /**
+     * 获取推荐列表
+     *
+     * @param url 推广链接地址
+     * @return RspModel<AccountRspModel>
+     */
+    @GET("user/recommend/{url}")
+    Call<ResponseModel<List<RecommendCard>>> loadRecommend(@Path("url") String url);
 
+    /**
+     * 获取商店列表
+     *
+     * @param schoolId 学校id
+     * @return RspModel<AccountRspModel>
+     */
+    @GET("user/shops/{schoolId}")
+    Call<ResponseModel<List<ShopCard>>> loadShop(@Path("schoolId") String schoolId);
 }

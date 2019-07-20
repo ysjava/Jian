@@ -13,7 +13,7 @@
     <style name="BannerDefaultStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">150dp</item>
-        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:layout_marginTop">3dp</item>
         <!--<item name="android:background">@drawable/banner_border</item>-->
         <!-- 自定义属性在styles.xml中不需要命名空间,直接用属性名就可以了 -->
         <!-- 开启自动轮播 -->

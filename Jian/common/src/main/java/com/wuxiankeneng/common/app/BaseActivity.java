@@ -19,9 +19,11 @@ import butterknife.ButterKnife;
  * Describe : 基类activity
  */
 public abstract class BaseActivity extends AppCompatActivity {
+    protected Bundle mSavedInstanceState;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mSavedInstanceState = savedInstanceState;
         //在界面未初始化之前初始化窗口
         initWindows();
         if (initArgs(getIntent().getExtras())) {

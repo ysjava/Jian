@@ -39,7 +39,8 @@ dependencies {
     //黄油刀
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-//dagger2
+    //dagger2
     implementation 'com.google.dagger:dagger:2.4'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.4'
+
 }

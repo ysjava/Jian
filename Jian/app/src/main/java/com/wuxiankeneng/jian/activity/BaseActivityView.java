@@ -1,8 +1,10 @@
 package com.wuxiankeneng.jian.activity;
 
+import com.wuxiankeneng.common.app.Application;
 import com.wuxiankeneng.common.app.BaseActivity;
 import com.wuxiankeneng.common.factory.base.BaseContract;
 import com.wuxiankeneng.common.factory.base.BasePresenter;
+import com.wuxiankeneng.factory.Factory;
 import com.wuxiankeneng.jian.App;
 import com.wuxiankeneng.jian.di.component.ActivityComponent;
 import com.wuxiankeneng.jian.di.component.DaggerActivityComponent;
@@ -41,7 +43,6 @@ public abstract class BaseActivityView<Presenter extends BasePresenter> extends 
     }
 
 
-
     @Override
     public void showLoading() {
         //TODO 显示loading
@@ -51,8 +52,8 @@ public abstract class BaseActivityView<Presenter extends BasePresenter> extends 
     protected abstract void initInject();
 
     //实例化需要传参就交给子类   不需要传的话就使用默认的空构造
-    protected  ActivityModule initActivityModule(){
-           return new ActivityModule();
+    protected ActivityModule initActivityModule() {
+        return new ActivityModule();
     }
 
     @Override
@@ -63,5 +64,10 @@ public abstract class BaseActivityView<Presenter extends BasePresenter> extends 
             mPresenter.destroy();
             mPresenter = null;
         }
+    }
+
+    @Override
+    public void showError(int str) {
+        Application.showToast(str);
     }
 }

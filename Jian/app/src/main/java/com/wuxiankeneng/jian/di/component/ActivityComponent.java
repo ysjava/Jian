@@ -17,6 +17,7 @@ import dagger.Component;
 public interface ActivityComponent {
 
     void inject(LoginActivity activity);
+
     void inject(RegisterActivity activity);
 
 }

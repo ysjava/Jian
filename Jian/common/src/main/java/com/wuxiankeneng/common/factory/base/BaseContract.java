@@ -1,5 +1,7 @@
 package com.wuxiankeneng.common.factory.base;
 
+import android.support.annotation.StringRes;
+
 import com.wuxiankeneng.common.widget.recycler.RecyclerAdapter;
 
 /**
@@ -8,6 +10,8 @@ import com.wuxiankeneng.common.widget.recycler.RecyclerAdapter;
  */
 public interface BaseContract {
     interface View{
+        //弹出错误
+        void showError(@StringRes int str);
         //加载框
         void showLoading();
     }
