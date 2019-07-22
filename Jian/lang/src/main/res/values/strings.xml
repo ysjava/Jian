@@ -2,4 +2,5 @@
     <string name="app_name">lang</string>
     <string name="txt_nav_edt_hint">输入商品或店名</string>
     <string name="data_network_error">网络错误</string>
+    <string name="account_or_password_error">账户或密码输入有误</string>
 </resources>

@@ -1,16 +1,27 @@
-package com.wuxiankeneng.factory.db;
+package com.wuxiankeneng.factory.card;
 
-import org.litepal.crud.LitePalSupport;
+import com.wuxiankeneng.factory.db.Student;
 
 import java.util.Date;
 
-public class Student extends LitePalSupport {
+public class StudentCard {
     private String id;
     private String name;
     private String phone;
     private Date modifyAt;
-    private String address;
     private String portrait;
+
+
+    public Student build() {
+        Student student = new Student();
+        student.setId(id);
+        student.setName(name);
+        student.setPhone(phone);
+        student.setModifyAt(modifyAt);
+        student.setPortrait(portrait);
+
+        return student;
+    }
 
     public String getId() {
         return id;
@@ -44,16 +55,6 @@ public class Student extends LitePalSupport {
         this.modifyAt = modifyAt;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-
-
     public String getPortrait() {
         return portrait;
     }
@@ -61,5 +62,4 @@ public class Student extends LitePalSupport {
     public void setPortrait(String portrait) {
         this.portrait = portrait;
     }
-
 }

@@ -19,6 +19,11 @@ allprojects {
         google()
         jcenter()
         maven { url "https://www.jitpack.io" }
+
+        //Maven URL地址
+        maven {
+            url "http://mvn.gt.igexin.com/nexus/content/repositories/releases/"
+        }
     }
 }
 

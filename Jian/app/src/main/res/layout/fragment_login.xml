@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/dp_10">
+
+    <ImageView
+        android:layout_width="@dimen/dp_100"
+        android:layout_height="@dimen/dp_56"
+        android:layout_marginTop="@dimen/dp_46"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/ic_login" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_24"
+        android:layout_marginEnd="@dimen/dp_20"
+        android:background="@drawable/bg_test">
+
+        <ImageView
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/dp_10"
+            android:contentDescription="@string/app_name"
+            android:paddingStart="@dimen/dp_4"
+            android:src="@drawable/ic_phone"
+            tools:ignore="RtlSymmetry" />
+
+        <EditText
+            android:id="@+id/edit_phone"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_38"
+            android:layout_marginStart="@dimen/dp_6"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:background="@drawable/bg_test"
+            android:cursorVisible="false"
+            android:hint="@string/txt_phone_nunber"
+            android:inputType="number"
+            android:maxLength="11"
+            android:maxLines="1"
+            android:textSize="@dimen/sp_12"
+            tools:ignore="Autofill,TextFields" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_24"
+        android:layout_marginEnd="@dimen/dp_20"
+        android:background="@drawable/bg_test">
+
+        <ImageView
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/dp_10"
+            android:padding="@dimen/dp_3"
+            android:src="@drawable/ic_password"
+            tools:ignore="ContentDescription" />
+
+        <EditText
+            android:id="@+id/edit_password"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_38"
+            android:layout_marginStart="@dimen/dp_6"
+            android:layout_marginEnd="@dimen/dp_10"
+            android:background="@drawable/bg_test"
+            android:cursorVisible="false"
+            android:hint="@string/txt_password"
+            android:inputType="textPassword"
+            android:maxLength="11"
+            android:maxLines="1"
+            android:textSize="@dimen/sp_12"
+            tools:ignore="Autofill" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_38"
+        android:layout_marginStart="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/dp_20"
+        android:background="@drawable/bg_btn_login"
+        android:text="@string/txt_login"
+        android:textColor="@color/white" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginEnd="@dimen/dp_20">
+
+        <TextView
+            android:id="@+id/txt_new_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="@string/txt_register"
+            android:textColor="@color/grey_900"
+            tools:ignore="RelativeOverlap" />
+
+        <TextView
+            android:id="@+id/txt_forget_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_forget_password"
+            android:textColor="@color/grey_900" />
+    </RelativeLayout>
+
+
+</LinearLayout>

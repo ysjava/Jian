@@ -9,6 +9,17 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        //个推相关参数
+        manifestPlaceholders = [
+                GETUI_APP_ID    : "F48FFgv3l4AkYlw9s2hsd8",
+                GETUI_APP_KEY   : "lYEJLeOg8865l6RazSKQO9",
+                GETUI_APP_SECRET: "lq1nKIH5Fs5EIrao7IByX1",
+        ]
+
+        ndk {
+            abiFilters "armeabi", "armeabi-v7a", "x86_64"
+        }
     }
     buildTypes {
         release {
@@ -44,4 +55,6 @@ dependencies {
     implementation 'org.litepal.android:java:3.0.0'
     //处理线程
     implementation 'net.qiujuer.genius:kit-handler:2.1.1'
+    //个推
+    implementation 'com.getui:sdk:2.13.2.0'
 }

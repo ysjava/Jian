@@ -6,11 +6,16 @@ import com.wuxiankeneng.factory.card.RecommendCard;
 import com.wuxiankeneng.factory.card.ShopCard;
 import com.wuxiankeneng.factory.db.Shop;
 import com.wuxiankeneng.factory.model.ResponseModel;
+import com.wuxiankeneng.factory.model.account.AccountRspModel;
+import com.wuxiankeneng.factory.model.account.LoginModel;
+import com.wuxiankeneng.factory.model.account.RegisterModel;
 
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 /**
@@ -26,8 +31,8 @@ public interface RemoteService {
      * @param model 传入的是RegisterModel
      * @return 返回的是RspModel<AccountRspModel>
      */
-//    @POST("account/register")
-//    Call<RspModel<AccountRspModel>> accountRegister(@Body RegisterModel model);
+    @POST("account/register")
+    Call<ResponseModel<AccountRspModel>> accountRegister(@Body RegisterModel model);
 
     /**
      * 登录接口
@@ -35,8 +40,8 @@ public interface RemoteService {
      * @param model LoginModel
      * @return RspModel<AccountRspModel>
      */
-//    @POST("account/login")
-//    Call<RspModel<AccountRspModel>> accountLogin(@Body LoginModel model);
+    @POST("account/login")
+    Call<ResponseModel<AccountRspModel>> accountLogin(@Body LoginModel model);
 
     /**
      * 绑定设备Id
@@ -44,8 +49,8 @@ public interface RemoteService {
      * @param pushId 设备Id
      * @return RspModel<AccountRspModel>
      */
-//    @POST("account/bind/{pushId}")
-//    Call<RspModel<AccountRspModel>> accountBind(@Path(encoded = true, value = "pushId") String pushId);
+    @POST("account/bind/{pushId}")
+    Call<ResponseModel<AccountRspModel>> accountBind(@Path(encoded = true, value = "pushId") String pushId);
 
     /**
      * 获取推荐列表

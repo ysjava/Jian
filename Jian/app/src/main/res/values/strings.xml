@@ -8,4 +8,9 @@
     <string name="txt_nearbay">附近商店</string>
     <string name="txt_sort_all">综合排序</string>
     <string name="txt_sort_sales">销量</string>
+    <string name="txt_password">密码</string>
+    <string name="txt_login">登陆</string>
+    <string name="txt_register">新用户注册</string>
+    <string name="txt_forget_password">忘记密码</string>
+    <string name="txt_phone_nunber">手机号</string>
 </resources>

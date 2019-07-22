@@ -4,10 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
+import android.util.Log;
 
 
 import com.wuxiankeneng.factory.Factory;
+import com.wuxiankeneng.factory.db.Student;
+import com.wuxiankeneng.factory.model.account.AccountRspModel;
 
+import org.litepal.LitePal;
 
 
 /**
@@ -146,13 +150,13 @@ public class Account {
      *
      * @param model AccountRspModel
      */
-//    public static void login(final AccountRspModel model) {
-//        // 存储当前登录的账户, token, 用户Id，方便从数据库中查询我的信息
-//        Account.token = model.getToken();
-//        Account.account = model.getAccount();
-//        Account.userId = model.getUserCard().build().getId();
-//        save(Factory.app());
-//    }
+    public static void login(final AccountRspModel model) {
+        // 存储当前登录的账户, token, 用户Id，方便从数据库中查询我的信息
+        Account.token = model.getToken();
+        Account.account = model.getPhone();
+        Account.stuId = model.getStudentCard().getId();
+        save(Factory.app());
+    }
 
     /**
      * 退出操作
@@ -177,13 +181,10 @@ public class Account {
      *
      * @return User
      */
-//    public static Student getUser() {
-//        // 如果为null返回一个new的User，其次从数据库查询
-//        return TextUtils.isEmpty(stuId) ? new Student() : SQLite.select()
-//                .from(Student.class)
-//                .where(Student_Table.stuId.eq(stuId))
-//                .querySingle();
-//    }
+    public static Student getUser() {
+        // 如果为null返回一个new的User，其次从数据库查询
+        return TextUtils.isEmpty(stuId) ? new Student() : LitePal.where("id=?", stuId).findFirst(Student.class);
+    }
 //
 //    public static Student getSelf() {
 //        // 返回自己

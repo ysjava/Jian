@@ -49,10 +49,7 @@ public class Factory {
      * Factory 中的初始化
      */
     public static void setup() {
-        // 初始化数据库
-//        FlowManager.init(new FlowConfig.Builder(app())
-//                .openDatabasesOnInit(true) // 数据库初始化的时候就开始打开
-//                .build());
+
 
         // 持久化的数据进行初始化
         Account.load(app());
