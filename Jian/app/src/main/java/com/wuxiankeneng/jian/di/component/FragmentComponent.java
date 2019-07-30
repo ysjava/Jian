@@ -17,6 +17,8 @@ import dagger.Component;
 @Component(modules = FragmentModule.class, dependencies = AppComponent.class)
 public interface FragmentComponent {
     void inject(HomeFragment fragment);
+
     void inject(LoginFragment fragment);
+
     void inject(RegisterFragment fragment);
 }

@@ -1,4 +1,5 @@
 package com.wuxiankeneng.factory.db;
+
 //商品表
 public class Goods {
     private String id;
@@ -6,10 +7,23 @@ public class Goods {
     private String name;
     private String desc;
     private String img;
-    private String selected;
-    private String number;
-    private int type;
+    private int count;
+    private String sales;
+    private String type;
+    private int typeId;
+    private double price;
     private Shop shop;
+
+
+    public Goods(String id, String name, String img, String sales, String type, int typeId, double price) {
+        this.id = id;
+        this.name = name;
+        this.img = img;
+        this.sales = sales;
+        this.type = type;
+        this.typeId = typeId;
+        this.price = price;
+    }
 
     public String getId() {
         return id;
@@ -51,27 +65,27 @@ public class Goods {
         this.img = img;
     }
 
-    public String getSelected() {
-        return selected;
+    public int getCount() {
+        return count;
     }
 
-    public void setSelected(String selected) {
-        this.selected = selected;
+    public void setCount(int count) {
+        this.count = count;
     }
 
-    public String getNumber() {
-        return number;
+    public String getSales() {
+        return sales;
     }
 
-    public void setNumber(String number) {
-        this.number = number;
+    public void setSales(String sales) {
+        this.sales = sales;
     }
 
-    public int getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(String type) {
         this.type = type;
     }
 
@@ -81,5 +95,21 @@ public class Goods {
 
     public void setShop(Shop shop) {
         this.shop = shop;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public int getTypeId() {
+        return typeId;
+    }
+
+    public void setTypeId(int typeId) {
+        this.typeId = typeId;
     }
 }

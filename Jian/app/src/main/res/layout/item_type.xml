@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dp_68"
+    android:minHeight="@dimen/dp_50"
+    android:layout_gravity="center"
+
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/txt_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:padding="5dp"
+        android:paddingStart="@dimen/dp_5"
+        android:paddingEnd="@dimen/dp_18"
+        android:maxLines="2"
+        android:maxLength="8"
+        android:textSize="@dimen/sp_11"
+        android:text="111种类在种类啊种类是" />
+
+    <TextView
+        android:id="@+id/txt_count"
+        android:layout_width="@dimen/dp_18"
+        android:layout_height="@dimen/dp_18"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="4dp"
+        android:background="@drawable/bg_circle_red"
+        android:gravity="center"
+
+        android:text="1"
+        android:textColor="#fff"
+        android:textSize="12sp" />
+</RelativeLayout>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingStart="@dimen/dp_10"
+    android:paddingEnd="@dimen/dp_10"
+    android:paddingBottom="@dimen/dp_20">
+
+    <com.wuxiankeneng.common.widget.RoundAngleImageView
+        android:id="@+id/img_goods_icon"
+        android:layout_width="@dimen/dp_50"
+        android:layout_height="@dimen/dp_50"
+        android:scaleType="centerCrop" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_66">
+
+        <TextView
+            android:id="@+id/txt_goods_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_6"
+            android:maxLines="2"
+            android:text="这是一首简单的小情歌,会有你们来与我会合,我会一直爱着你们"
+            android:textSize="@dimen/sp_13" />
+
+        <TextView
+            android:id="@+id/txt_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="@dimen/dp_6"
+
+            android:text="￥ 888"
+            android:textColor="@color/red_900" />
+
+        <ImageView
+            android:id="@+id/img_reduce"
+            android:layout_width="@dimen/dp_18"
+            android:layout_height="@dimen/dp_18"
+            android:layout_alignBottom="@+id/txt_count"
+            android:layout_marginEnd="@dimen/dp_6"
+            android:layout_toStartOf="@+id/txt_count"
+            android:src="@drawable/ic_reduce" />
+
+        <TextView
+            android:id="@+id/txt_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/img_plus"
+            android:layout_marginEnd="@dimen/dp_6"
+            android:layout_toStartOf="@+id/img_plus"
+            android:maxLines="1"
+            android:text="123"
+            android:textSize="@dimen/sp_15" />
+
+        <ImageView
+            android:id="@+id/img_plus"
+            android:layout_width="@dimen/dp_18"
+            android:layout_height="@dimen/dp_18"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/dp_3"
+            android:src="@drawable/ic_plus" />
+
+    </RelativeLayout>
+</LinearLayout>

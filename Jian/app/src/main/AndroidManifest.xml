@@ -29,6 +29,9 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".activity.AccountActivity" />
         <activity android:name=".LoginActivity" />
+        <activity android:name=".activity.SearchActivity" />
+        <activity android:name=".activity.ShopActivity"
+            android:launchMode="singleTop"/>
 
         <service
             android:name=".service.DemoPushService"

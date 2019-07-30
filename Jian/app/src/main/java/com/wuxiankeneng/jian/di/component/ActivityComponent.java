@@ -3,6 +3,8 @@ package com.wuxiankeneng.jian.di.component;
 
 import com.wuxiankeneng.jian.LoginActivity;
 import com.wuxiankeneng.jian.RegisterActivity;
+import com.wuxiankeneng.jian.activity.SearchActivity;
+import com.wuxiankeneng.jian.activity.ShopActivity;
 import com.wuxiankeneng.jian.di.module.ActivityModule;
 import com.wuxiankeneng.jian.di.scope.ActivityScope;
 
@@ -20,4 +22,7 @@ public interface ActivityComponent {
 
     void inject(RegisterActivity activity);
 
+    void inject(SearchActivity activity);
+
+    void inject(ShopActivity activity);
 }

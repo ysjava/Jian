@@ -80,6 +80,13 @@ public class HomeFragment extends BaseFragmentView<HomePresenter>
     protected void initWidget(View root) {
         super.initWidget(root);
 
+        mCellHot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getContext(), ShopActivity.class));
+            }
+        });
+
         mShopRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
         mShopRecycler.setAdapter(adapter = new RecyclerAdapter<Shop>() {
 
@@ -149,7 +156,6 @@ public class HomeFragment extends BaseFragmentView<HomePresenter>
         TextView mShopName;
         @BindView(R.id.txt_shop_describe)
         TextView mShopDesc;
-
         @BindView(R.id.tj_food_img_1)
         CircleImageView mTjImg1;
         @BindView(R.id.tj_food_img_2)
@@ -181,7 +187,7 @@ public class HomeFragment extends BaseFragmentView<HomePresenter>
                             .load(shop.getImg())
                             .into(mPortrait);
 
-                  List<Goods> goodsList = shop.getRecommendGoods();
+                    List<Goods> goodsList = shop.getRecommendGoods();
                     //into到推荐菜头像
                     Glide.with(getContext())
                             .load(goodsList.get(0).getImg())

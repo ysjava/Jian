@@ -67,6 +67,24 @@ public interface RemoteService {
      * @param schoolId 学校id
      * @return RspModel<AccountRspModel>
      */
-    @GET("user/shops/{schoolId}")
+    @GET("shops/{schoolId}")
     Call<ResponseModel<List<ShopCard>>> loadShop(@Path("schoolId") String schoolId);
+
+    /**
+     * 搜索商店
+     *
+     * @param shopName 商店名字
+     * @return RspModel<AccountRspModel>
+     */
+    @GET("shops/search/{shopName}")
+    Call<ResponseModel<List<ShopCard>>> searchShop(@Path("shopName") String shopName);
+
+    /**
+     * 用店铺id获取店铺信息
+     *
+     * @param shopId 店铺id
+     * @return RspModel<AccountRspModel>
+     */
+    @GET("shop/{shopId}")
+    Call<ResponseModel<ShopCard>> getShopById(@Path("shopId") String shopId);
 }
