@@ -1,5 +1,6 @@
 package com.wuxiankeneng.factory.presenter.shop;
 
+import com.wuxiankeneng.common.app.Application;
 import com.wuxiankeneng.common.factory.DataSource;
 import com.wuxiankeneng.common.factory.base.BasePresenter;
 import com.wuxiankeneng.common.factory.base.BaseRecyclerPresenter;
@@ -20,15 +21,18 @@ import javax.inject.Inject;
 
 public class ShopPresenter extends BasePresenter<ShopContract.View>
         implements DataSource.Callback<Shop> {
+    private String shopId;
 
     @Inject
-    public ShopPresenter() {
+    public ShopPresenter(String shopId) {
+        this.shopId = shopId;
     }
 
     @Override
     public void start() {
         super.start();
-        ShopHelper.getShopById("", this);
+
+        ShopHelper.getShopById(shopId, this);
     }
 
     @Override
@@ -37,6 +41,8 @@ public class ShopPresenter extends BasePresenter<ShopContract.View>
         Run.onUiAsync(new Action() {
             @Override
             public void call() {
+                Application.showToast(shopId);
+
                 ShopContract.View view = getView();
                 if (view == null)
                     return;
@@ -56,6 +62,7 @@ public class ShopPresenter extends BasePresenter<ShopContract.View>
                 typeAdapter.replace(typeBeans);
                 //网络拿回来的商品集合
                 adapter.replace(shop.getAllGoods());
+
             }
         });
     }

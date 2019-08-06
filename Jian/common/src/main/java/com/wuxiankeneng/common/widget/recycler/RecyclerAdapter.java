@@ -3,6 +3,7 @@ package com.wuxiankeneng.common.widget.recycler;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,12 @@ public abstract class RecyclerAdapter<Data> extends RecyclerView.Adapter<Recycle
         implements View.OnClickListener, View.OnLongClickListener, AdapterCallback<Data> {
     private List<Data> mDataList;
     private AdapterListener<Data> mListener;
+
+    private List<Data> mHeaderList = new ArrayList<>();
+    private List<Data> mFooterList = new ArrayList<>();
+
+    private int headerViewId;
+    private int footerViewId;
 
     public RecyclerAdapter() {
         this(null);
@@ -51,6 +58,15 @@ public abstract class RecyclerAdapter<Data> extends RecyclerView.Adapter<Recycle
 
     @Override
     public int getItemViewType(int position) {
+
+        if (position == 0 && headerViewId != 0) {
+            return headerViewId;
+        }
+        if (position == mDataList.size() - 1 && footerViewId != 0) {
+            return footerViewId;
+        }
+
+
         return getItemViewType(position, mDataList.get(position));
     }
 
@@ -64,6 +80,14 @@ public abstract class RecyclerAdapter<Data> extends RecyclerView.Adapter<Recycle
         View view = inflater.inflate(viewType, viewGroup, false);
         //通过实现类拿到viewHolder
         ViewHolder<Data> holder = onCreateViewHolder(view, viewType);
+
+        //当前type为页眉时
+        if (viewType == headerViewId)
+            return new HeaderAndFooterViewHolder<>(view);
+        //当前type为页尾时
+        if (viewType == footerViewId)
+            return new HeaderAndFooterViewHolder<>(view);
+
         // 设置View的Tag为ViewHolder，进行双向绑定
         view.setTag(R.id.tag_recycler_holder, holder);
         //设置点击事件
@@ -78,10 +102,36 @@ public abstract class RecyclerAdapter<Data> extends RecyclerView.Adapter<Recycle
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder<Data> dataViewHolder, int position) {
-        //拿到需要绑定的数据
-        Data data = mDataList.get(position);
-        //绑定
-        dataViewHolder.bind(data);
+
+        //判断条件为 : 当前位置为页脚与页眉时就不进行绑定了,啥都不做
+        if (!(headerViewId != 0 && position == 0) || !(footerViewId != 0 && position == mDataList.size() - 1)) {
+            //拿到需要绑定的数据
+            Data data = mDataList.get(position);
+            //绑定
+            dataViewHolder.bind(data);
+        }
+
+    }
+
+
+    /**
+     * 添加头部布局
+     *
+     * @param headerViewId 头部布局Id
+     */
+    public void addHeaderView(@LayoutRes int headerViewId) {
+        mHeaderList.add(null);
+        this.headerViewId = headerViewId;
+    }
+
+    /**
+     * 添加尾部布局
+     *
+     * @param footerViewId 尾部布局Id
+     */
+    public void addFooterView(@LayoutRes int footerViewId) {
+        mFooterList.add(null);
+        this.footerViewId = footerViewId;
     }
 
     @Override
@@ -98,6 +148,18 @@ public abstract class RecyclerAdapter<Data> extends RecyclerView.Adapter<Recycle
         return mDataList;
     }
 
+
+    class HeaderAndFooterViewHolder<Model> extends ViewHolder<Model> {
+
+        HeaderAndFooterViewHolder(@NonNull View itemView) {
+            super(itemView);
+        }
+
+        @Override
+        protected void onBind(Object o) {
+
+        }
+    }
 
     public static abstract class ViewHolder<Data> extends RecyclerView.ViewHolder {
         protected Data mData;
@@ -179,6 +241,7 @@ public abstract class RecyclerAdapter<Data> extends RecyclerView.Adapter<Recycle
         }
     }
 
+
     /**
      * 插入一条数据并通知插入
      *
@@ -232,13 +295,23 @@ public abstract class RecyclerAdapter<Data> extends RecyclerView.Adapter<Recycle
      */
     public void replace(Collection<Data> dataList) {
         mDataList.clear();
+        //当添加了页眉时,把页眉加进数据集合中
+        if (mHeaderList.size() > 0)
+            mDataList.add(mHeaderList.get(0));
+
         if (dataList == null || dataList.size() == 0)
             return;
+        //把数据添加到集合中
         mDataList.addAll(dataList);
+
+        //添加页脚到数据集合中
+        if (mFooterList.size() > 0)
+            mDataList.add(mFooterList.get(0));
+
         notifyDataSetChanged();
     }
 
-    public static class AdapterListenerImpl<M> implements AdapterListener<M>{
+    public static class AdapterListenerImpl<M> implements AdapterListener<M> {
 
         @Override
         public void onItemClick(ViewHolder viewHolder, M m) {

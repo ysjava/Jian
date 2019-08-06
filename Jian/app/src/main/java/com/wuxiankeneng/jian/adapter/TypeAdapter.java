@@ -45,9 +45,23 @@ public class TypeAdapter extends RecyclerAdapter<TypeBean> {
 
     @Override
     protected RecyclerAdapter.ViewHolder<TypeBean> onCreateViewHolder(View view, int viewType) {
+//        if (viewType == R.layout.item_goods_footer)
+//            return new FooterViewHolder(view);
+
         return new ViewHolder(view);
     }
 
+    class FooterViewHolder extends RecyclerAdapter.ViewHolder<TypeBean> {
+
+        FooterViewHolder(@NonNull View itemView) {
+            super(itemView);
+        }
+
+        @Override
+        protected void onBind(TypeBean bean) {
+
+        }
+    }
 
     class ViewHolder extends RecyclerAdapter.ViewHolder<TypeBean> {
         @BindView(R.id.txt_type)

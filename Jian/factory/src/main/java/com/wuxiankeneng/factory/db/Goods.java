@@ -14,6 +14,8 @@ public class Goods {
     private double price;
     private Shop shop;
 
+    public Goods() {
+    }
 
     public Goods(String id, String name, String img, String sales, String type, int typeId, double price) {
         this.id = id;

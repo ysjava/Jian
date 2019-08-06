@@ -73,7 +73,7 @@ public class HomeHelper {
                     }
                     callback.onDataLoaded(shops);
                     //保存
-                    DbHelper.saveAll(shops.toArray(new Shop[0]));
+                    DbHelper.save(Shop.class, shops.toArray(new Shop[0]));
                 }
             }
 

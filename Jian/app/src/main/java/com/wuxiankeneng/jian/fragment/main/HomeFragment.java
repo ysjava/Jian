@@ -24,6 +24,7 @@ import com.wuxiankeneng.factory.db.Shop;
 import com.wuxiankeneng.factory.presenter.main.hone.HomeContact;
 import com.wuxiankeneng.factory.presenter.main.hone.HomePresenter;
 import com.wuxiankeneng.jian.R;
+import com.wuxiankeneng.jian.activity.SearchActivity;
 import com.wuxiankeneng.jian.activity.ShopActivity;
 import com.wuxiankeneng.jian.fragment.BaseFragmentView;
 
@@ -83,7 +84,7 @@ public class HomeFragment extends BaseFragmentView<HomePresenter>
         mCellHot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getContext(), ShopActivity.class));
+                ShopActivity.show(getContext(),"test");
             }
         });
 
@@ -222,6 +223,7 @@ public class HomeFragment extends BaseFragmentView<HomePresenter>
 
     @OnClick(R.id.edt_nav_search)
     public void testClick() {
+        SearchActivity.show(getContext(),SearchActivity.TYPE_SHOP);
     }
 
 

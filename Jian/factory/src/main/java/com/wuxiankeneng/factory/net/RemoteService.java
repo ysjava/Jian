@@ -1,6 +1,7 @@
 package com.wuxiankeneng.factory.net;
 
 
+import com.wuxiankeneng.factory.card.GoodsCard;
 import com.wuxiankeneng.factory.card.Recommend;
 import com.wuxiankeneng.factory.card.RecommendCard;
 import com.wuxiankeneng.factory.card.ShopCard;
@@ -78,6 +79,15 @@ public interface RemoteService {
      */
     @GET("shops/search/{shopName}")
     Call<ResponseModel<List<ShopCard>>> searchShop(@Path("shopName") String shopName);
+
+    /**
+     * 搜索商品
+     *
+     * @param goodsName 商品名字
+     * @return RspModel<AccountRspModel>
+     */
+    @GET("goods/search/{goodsName}")
+    Call<ResponseModel<List<GoodsCard>>> searchGoods(@Path("goodsName") String goodsName);
 
     /**
      * 用店铺id获取店铺信息

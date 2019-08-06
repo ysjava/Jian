@@ -7,6 +7,7 @@ import com.google.gson.GsonBuilder;
 
 import com.wuxiankeneng.common.app.Application;
 import com.wuxiankeneng.common.factory.DataSource;
+
 import com.wuxiankeneng.factory.model.ResponseModel;
 import com.wuxiankeneng.factory.presenter.Account;
 import com.wuxiankeneng.factory.tools.DBFlowExclusionStrategy;
@@ -155,4 +156,7 @@ public class Factory {
     private void logout() {
 
     }
+
+
+
 }

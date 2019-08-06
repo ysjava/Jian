@@ -1,6 +1,7 @@
 package com.wuxiankeneng.common.widget;
 
 import android.support.annotation.LayoutRes;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -100,5 +101,6 @@ public abstract class BaseListAdapter<Data> extends BaseAdapter {
             return;
         mDataList.addAll(dataList);
         notifyDataSetChanged();
+
     }
 }

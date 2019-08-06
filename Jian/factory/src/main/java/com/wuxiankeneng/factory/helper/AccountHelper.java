@@ -50,7 +50,7 @@ public class AccountHelper {
                 AccountRspModel model = responseModel.getResult();
                 Student student = model.getStudentCard().build();
                 //保存
-                DbHelper.save(student);
+                DbHelper.save(Student.class, student);
 
                 //同步到xml持续化文件中
                 Account.login(model);

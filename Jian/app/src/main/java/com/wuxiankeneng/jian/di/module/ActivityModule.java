@@ -1,6 +1,9 @@
 package com.wuxiankeneng.jian.di.module;
 
-import com.wuxiankeneng.jian.LoginPresenter;
+//import com.wuxiankeneng.jian.LoginPresenter;
+
+import com.wuxiankeneng.factory.presenter.shop.ShopPresenter;
+import com.wuxiankeneng.jian.R;
 
 import dagger.Module;
 import dagger.Provides;
@@ -11,17 +14,22 @@ import dagger.Provides;
  */
 @Module
 public class ActivityModule {
-    private int id;
+    private String shopId;
 
     public ActivityModule() {
     }
 
-    public ActivityModule(int id) {
-        this.id = id;
+    public ActivityModule(String shopId) {
+        this.shopId = shopId;
     }
 
+//    @Provides
+//    public LoginPresenter provideLoginPre() {
+//        return new LoginPresenter(id);
+//    }
+
     @Provides
-    public LoginPresenter provideLoginPre() {
-        return new LoginPresenter(id);
+    public ShopPresenter provideShopPre() {
+        return new ShopPresenter(shopId);
     }
 }

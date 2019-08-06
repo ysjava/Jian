@@ -1,6 +1,10 @@
 package com.wuxiankeneng.jian.activity;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,6 +34,7 @@ import com.wuxiankeneng.factory.model.shop.TypeBean;
 import com.wuxiankeneng.factory.presenter.shop.ShopContract;
 import com.wuxiankeneng.factory.presenter.shop.ShopPresenter;
 import com.wuxiankeneng.factory.tools.Arithmetic;
+import com.wuxiankeneng.factory.tools.DensityUtils;
 import com.wuxiankeneng.jian.App;
 import com.wuxiankeneng.jian.CoordinatorStickyList;
 
@@ -37,6 +42,7 @@ import com.wuxiankeneng.jian.R;
 import com.wuxiankeneng.jian.adapter.GoodsAdapter;
 import com.wuxiankeneng.jian.adapter.SelectedGoodsAdapter;
 import com.wuxiankeneng.jian.adapter.TypeAdapter;
+import com.wuxiankeneng.jian.di.module.ActivityModule;
 
 
 import java.text.NumberFormat;
@@ -76,10 +82,10 @@ public class ShopActivity extends BaseActivityView<ShopPresenter>
 
     @BindView(R.id.img_back)
     ImageView mBack;
-
-
+    //记录的上一次位置
+    private int i = 0;
     TextView mClear;
-
+    LinearLayoutManager manager;
     RecyclerView mRecyclerBottomSheet;
 
     private ArrayList<Goods> goodsList = new ArrayList<>();
@@ -89,9 +95,28 @@ public class ShopActivity extends BaseActivityView<ShopPresenter>
     //保存商品信息
     private HashMap<String, Goods> goodsSparseArray = new HashMap<>();
 
+    private String shopId;
+
+    public static void show(Context context, String shopId) {
+        Intent intent = new Intent(context, ShopActivity.class);
+        intent.putExtra("shopId", shopId);
+        context.startActivity(intent);
+    }
+
     @Override
     protected int getContentLayoutId() {
         return R.layout.activity_shop;
+    }
+
+    @Override
+    protected boolean initArgs(Bundle bundle) {
+        shopId = bundle.getString("shopId");
+        return super.initArgs(bundle);
+    }
+
+    @Override
+    protected ActivityModule initActivityModule() {
+        return new ActivityModule(shopId);
     }
 
 
@@ -99,13 +124,19 @@ public class ShopActivity extends BaseActivityView<ShopPresenter>
     protected void initWidget() {
         super.initWidget();
 
-        mTypeRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        mTypeRecyclerView.setLayoutManager(manager = new LinearLayoutManager(this));
+
         mTypeRecyclerView.setAdapter(adapter = new TypeAdapter(new RecyclerAdapter.AdapterListenerImpl<TypeBean>() {
             @Override
             public void onItemClick(RecyclerAdapter.ViewHolder viewHolder, TypeBean typeBean) {
                 onTypeClicked(typeBean.getTypeId());
             }
         }, this));
+        //添加列表头部布局
+//        adapter.addHeaderView(R.layout.item_header_view,new TypeBean("null",-1));
+        //添加列表尾部布局
+        adapter.addFooterView(R.layout.item_type_footer);
 
 
         mAppBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
@@ -127,7 +158,7 @@ public class ShopActivity extends BaseActivityView<ShopPresenter>
                 }
             }
         });
-
+        mItemListView.addFooterView(getLayoutInflater().inflate(R.layout.item_goods_footer, null));
         mItemListView.setAdapter(mGoodsAdapter = new GoodsAdapter(this));
 
         mItemListView.setOnScrollListener(new AbsListView.OnScrollListener() {
@@ -143,11 +174,26 @@ public class ShopActivity extends BaseActivityView<ShopPresenter>
                 Goods goods = goodsList.get(firstVisibleItem);
                 //判断第一个item的类型id是否是选择的类型id,不是就赋给它
 
+
                 if (adapter.selectTypeId != goods.getTypeId()) {
                     adapter.selectTypeId = goods.getTypeId();
                     //赋给它后就刷新,然后会adapter会更具当前selectTypeId进行移动左边的类型栏
                     adapter.notifyDataSetChanged();
+                    //记录左边type的位置
+                    int currentPos = getSelectedGroupPosition(goods.getTypeId());
+
                     mTypeRecyclerView.smoothScrollToPosition(getSelectedGroupPosition(goods.getTypeId()));
+                    //如果当前位置大于8,就进行移动位置
+                    if (currentPos > 8) {
+                        //i为记录上一次的位置,用于对比当前位置进行判断是该上移还是下移
+                        if (currentPos > i)
+                            mTypeRecyclerView.scrollBy(0, (int) getResources().getDimension(R.dimen.dp_50));
+                        else
+                            mTypeRecyclerView.scrollBy(0, -(int) getResources().getDimension(R.dimen.dp_50));
+                    }
+                    //记录
+                    i = currentPos;
+
                 }
             }
         });
@@ -304,7 +350,7 @@ public class ShopActivity extends BaseActivityView<ShopPresenter>
         double totalPrice = 0;
         for (Goods goods : goodsSparseArray.values()) {
             totalCount += goods.getCount();
-            totalPrice = Arithmetic.round(Arithmetic.add(totalPrice, Arithmetic.mul(goods.getPrice(), goods.getCount())),2);
+            totalPrice = Arithmetic.round(Arithmetic.add(totalPrice, Arithmetic.mul(goods.getPrice(), goods.getCount())), 2);
 
         }
 
@@ -343,7 +389,7 @@ public class ShopActivity extends BaseActivityView<ShopPresenter>
 
     @OnClick(R.id.card_view)
     public void payClick() {
-//        Application.showToast("支付");
+//        Application.showToast(shopId);
         goodsList.clear();
         Goods goods;
         for (int i = 0; i < 18; i++) {
