@@ -1,7 +1,9 @@
 package com.wuxiankeneng.factory.db;
 
+import java.io.Serializable;
+
 //商品表
-public class Goods {
+public class Goods implements Serializable {
     private String id;
     private String sId;
     private String name;

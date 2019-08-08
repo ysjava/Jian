@@ -1,11 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/green_300">
+    android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler"
+    <com.flipboard.bottomsheet.BottomSheetLayout
+        android:id="@+id/lay_bottom_sheet"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <RelativeLayout
+                android:id="@+id/lay_shopping_cart"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_42"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="@dimen/dp_24"
+                android:layout_marginEnd="@dimen/dp_24"
+                android:layout_marginBottom="@dimen/dp_6"
+                android:background="@drawable/bg_shopping_cart">
+
+                <LinearLayout
+                    android:id="@+id/lay_contact"
+                    android:layout_width="@dimen/dp_50"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="@dimen/dp_6"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableTop="@drawable/ic_contact"
+                        android:text="联系商家"
+                        android:textColor="#CEBFBF"
+                        android:textSize="@dimen/sp_8" />
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/txt_total"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/lay_te"
+                    android:layout_marginStart="@dimen/dp_30"
+                    android:layout_marginTop="@dimen/dp_2"
+                    android:background="@drawable/bg_circle_red"
+                    android:elevation="1dp"
+                    android:gravity="center"
+                    android:minWidth="@dimen/dp_18"
+                    android:minHeight="@dimen/dp_18"
+                    android:text="12"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sp_12"
+                    android:visibility="gone"
+                    tool:visibility="visible" />
+
+                <LinearLayout
+                    android:id="@+id/lay_te"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_toEndOf="@id/lay_contact"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:id="@+id/view"
+                        android:layout_width="@dimen/dp_2"
+                        android:layout_height="match_parent"
+                        android:background="@color/white" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/dp_5"
+                        android:src="@drawable/ic_shopping_cart"
+                        tool:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/txt_total_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="@dimen/dp_14"
+                        android:text="0.0"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/sp_16" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/txt_go_pay"
+                    android:layout_width="@dimen/dp_60"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:background="@drawable/bg_go_pay"
+                    android:enabled="false"
+                    android:gravity="center"
+                    android:text="去结算"
+                    android:textColor="@color/white_alpha_240" />
+            </RelativeLayout>
+        </FrameLayout>
+    </com.flipboard.bottomsheet.BottomSheetLayout>
+
+
 </FrameLayout>

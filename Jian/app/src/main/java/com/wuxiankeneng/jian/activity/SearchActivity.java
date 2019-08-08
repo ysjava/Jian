@@ -3,9 +3,11 @@ package com.wuxiankeneng.jian.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -15,18 +17,17 @@ import com.bumptech.glide.Glide;
 import com.wuxiankeneng.common.app.BaseActivity;
 import com.wuxiankeneng.common.app.BaseFragment;
 
-import com.wuxiankeneng.common.widget.RoundAngleImageView;
-import com.wuxiankeneng.common.widget.recycler.RecyclerAdapter;
-import com.wuxiankeneng.factory.db.Shop;
 
+import com.wuxiankeneng.factory.db.Goods;
 import com.wuxiankeneng.jian.R;
 import com.wuxiankeneng.jian.fragment.search.GoodsSearchFragment;
 import com.wuxiankeneng.jian.fragment.search.ShopSearchFragment;
 
-import org.w3c.dom.Text;
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 
 public class SearchActivity extends BaseActivity {
@@ -43,15 +44,27 @@ public class SearchActivity extends BaseActivity {
     ImageView mBack;
     @BindView(R.id.txt_search)
     TextView mBtnSearch;
+    private HashMap<String, Goods> map;
 
     /**
-     * @param context 上下文
-     * @param type    搜索的类型
+     * @param context  上下文
+     * @param type     搜索的类型
+     * @param goodsMap 在店铺界面搜索才需要的参数: 已选中的菜品
      */
-    public static void show(Context context, int type) {
+    public static void show(Context context, int type, HashMap<String, Goods> goodsMap) {
         Intent intent = new Intent(context, SearchActivity.class);
         intent.putExtra(EXTRA_TYPE, type);
-        context.startActivity(intent);
+
+        if (type == TYPE_GOODS_IN_SHOP) {
+            intent.putExtra("GOODS_LIST", goodsMap);
+            ((ShopActivity) context).startActivityForResult(intent, 1);
+        } else if (type == TYPE_SHOP) {
+            context.startActivity(intent);
+        }
+    }
+
+    public HashMap<String, Goods> getMap() {
+        return map;
     }
 
     @Override
@@ -59,9 +72,15 @@ public class SearchActivity extends BaseActivity {
         return R.layout.activity_search;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     protected boolean initArgs(Bundle bundle) {
         this.type = bundle.getInt(EXTRA_TYPE);
+
+        if (type == TYPE_GOODS_IN_SHOP) {
+            map = (HashMap<String, Goods>) getIntent().getSerializableExtra("GOODS_LIST");
+        }
+
         return type == TYPE_GOODS_IN_SHOP || type == TYPE_SHOP;
     }
 
@@ -71,6 +90,11 @@ public class SearchActivity extends BaseActivity {
         mBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (type == TYPE_GOODS_IN_SHOP) {
+                    Intent intent = new Intent();
+                    intent.putExtra("GOODS_LIST", map);
+                    setResult(RESULT_OK, intent);
+                }
                 finish();
             }
         });
@@ -85,13 +109,13 @@ public class SearchActivity extends BaseActivity {
         //这儿是缓存一个而不是用全局的是因为就优化而言,使用局部变量快得多
         BaseFragment fragment;
         //显示对应的fragment
-        if (type == TYPE_SHOP) {
-            mSearch.setHint(R.string.txt_nav_edt_hint);
+        if (type == TYPE_GOODS_IN_SHOP) {
+            mSearch.setHint(R.string.txt_hint_goods_name);
             GoodsSearchFragment goodsSearchFragment = new GoodsSearchFragment();
             fragment = goodsSearchFragment;
             mSearchFragment = goodsSearchFragment;
         } else {
-            mSearch.setHint(R.string.txt_hint_goods_name);
+            mSearch.setHint(R.string.txt_nav_edt_hint);
             ShopSearchFragment shopSearchFragment = new ShopSearchFragment();
             fragment = shopSearchFragment;
             mSearchFragment = shopSearchFragment;
@@ -102,87 +126,9 @@ public class SearchActivity extends BaseActivity {
                 .commit();
     }
 
-    //    @BindView(R.id.img_back)
-//    ImageView mBack;
-//    @BindView(R.id.edt_search)
-//    EditText mSearch;
-//    @BindView(R.id.txt_search)
-//    TextView mBtnSearch;
-//    @BindView(R.id.recycler)
-//    RecyclerView mRecycler;
-//
-//    private RecyclerAdapter<Shop> adapter;
-
-//    @Override
-//    public RecyclerAdapter getRecyclerAdapter() {
-//        return adapter;
-//    }
-//
-//    @Override
-//    public void onAdapterDataChanged() {
-//
-//    }
-
-//    @Override
-//    protected void initInject() {
-//        getActivityComponent().inject(this);
-//    }
-
-    //    @Override
-//    protected void initWidget() {
-//        super.initWidget();
-//        mRecycler.setLayoutManager(new LinearLayoutManager(this));
-//        mRecycler.setAdapter(adapter = new RecyclerAdapter<Shop>() {
-//            @Override
-//            protected int getItemViewType(int position, Shop shop) {
-//                return R.layout.item_search_shop;
-//            }
-//
-//            @Override
-//            protected ViewHolder<Shop> onCreateViewHolder(View view, int viewType) {
-//                return new SearchActivity.ViewHolder(view);
-//            }
-//        });
-//    }
-//
-
-//
-//    @OnClick(R.id.img_back)
-//    public void backClick() {
-//        finish();
-//    }
-//
-//    @OnClick(R.id.txt_search)
-//    public void btnSearchClick() {
-//        String searchString = mSearch.getText().toString().trim();
-////        mPresenter.searchShop(searchString);
-//    }
-//
-//    class ViewHolder extends RecyclerAdapter.ViewHolder<Shop> {
-//        @BindView(R.id.portrait)
-//        RoundAngleImageView mPortrait;
-//        @BindView(R.id.txt_shop_name)
-//        TextView mShopName;
-//        @BindView(R.id.txt_shop_describe)
-//        TextView mShopDesc;
-//
-//        ViewHolder(@NonNull View itemView) {
-//            super(itemView);
-//        }
-//
-//        @Override
-//        protected void onBind(Shop shop) {
-//            Glide.with(SearchActivity.this)
-//                    .load(shop.getImg())
-//                    .dontAnimate()
-//                    .into(mPortrait);
-//
-//            mShopName.setText(shop.getName());
-//            mShopDesc.setText(shop.getDesc());
-//        }
-//    }
-
     public interface SearchFragment {
         void search(String content);
     }
+
+
 }

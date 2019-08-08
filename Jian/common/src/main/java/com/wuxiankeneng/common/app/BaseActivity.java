@@ -35,6 +35,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
+
+
     //初始化窗口
     protected void initWindows() {
 

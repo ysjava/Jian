@@ -78,8 +78,6 @@ public abstract class RecyclerAdapter<Data> extends RecyclerView.Adapter<Recycle
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
         //把xml id viewType转化为view
         View view = inflater.inflate(viewType, viewGroup, false);
-        //通过实现类拿到viewHolder
-        ViewHolder<Data> holder = onCreateViewHolder(view, viewType);
 
         //当前type为页眉时
         if (viewType == headerViewId)
@@ -88,6 +86,8 @@ public abstract class RecyclerAdapter<Data> extends RecyclerView.Adapter<Recycle
         if (viewType == footerViewId)
             return new HeaderAndFooterViewHolder<>(view);
 
+        //通过实现类拿到viewHolder
+        ViewHolder<Data> holder = onCreateViewHolder(view, viewType);
         // 设置View的Tag为ViewHolder，进行双向绑定
         view.setTag(R.id.tag_recycler_holder, holder);
         //设置点击事件

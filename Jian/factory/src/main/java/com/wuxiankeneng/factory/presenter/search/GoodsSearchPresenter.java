@@ -1,15 +1,20 @@
 package com.wuxiankeneng.factory.presenter.search;
 
+import android.util.Log;
+
 import com.wuxiankeneng.common.factory.DataSource;
 import com.wuxiankeneng.common.factory.base.BasePresenter;
 import com.wuxiankeneng.common.factory.base.BaseRecyclerPresenter;
+import com.wuxiankeneng.common.widget.recycler.RecyclerAdapter;
 import com.wuxiankeneng.factory.db.Goods;
 import com.wuxiankeneng.factory.helper.SearchHelper;
 
 import net.qiujuer.genius.kit.handler.Run;
 import net.qiujuer.genius.kit.handler.runable.Action;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -26,11 +31,34 @@ public class GoodsSearchPresenter extends BaseRecyclerPresenter<Goods, GoodsSear
 
 
     @Override
-    public void onDataLoaded(final List<Goods> goods) {
+    public void onDataLoaded(final List<Goods> goodsList) {
+        //拿到选中商品的列表
+        Map<String, Goods> selectedGoodsList = getView().getSelectedGoodsList();
+        //保存 转换后的 以选中商品数据
+        final ArrayList<Goods> list = new ArrayList<>();
+        //把搜索回来的数据和已经选中的数据进行对比,如果id有相同的,就把选中的商品的数量赋值到对应结果上
+        for (Goods goods : goodsList) {
+            for (Goods value : selectedGoodsList.values()) {
+                if (goods.getId().equals(value.getId())) {
+                    //id相同,表示搜索回来的商品和已经选中的商品有相同的,那么就把选中的商品的数量赋值到结果上去
+                    goods.setCount(value.getCount());
+
+                    list.add(goods);
+                }
+            }
+        }
+
+        selectedGoodsList.clear();
+        for (Goods goods : list) {
+            selectedGoodsList.put(goods.getId(), goods);
+        }
+
         Run.onUiAsync(new Action() {
             @Override
             public void call() {
-                refreshData(goods);
+                refreshData(goodsList);
+                //当搜索的数据和已选中的数据处理完成后的购物车刷新
+                getView().updateShopping();
             }
         });
     }

@@ -31,7 +31,7 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/dp_26"
                 android:layout_marginStart="@dimen/dp_12"
-                android:layout_marginEnd="@dimen/dp_6"
+                android:layout_marginEnd="@dimen/dp_16"
                 android:layout_weight="1"
                 android:background="@drawable/bg_edt_nav_search"
                 android:gravity="center"
@@ -45,9 +45,9 @@
                 android:id="@+id/txt_search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/dp_6"
+                android:layout_marginEnd="@dimen/dp_10"
                 android:text="@string/search"
-                android:textColor="@color/grey_900" />
+                android:textColor="@color/white" />
         </LinearLayout>
 
     </android.support.v7.widget.Toolbar>

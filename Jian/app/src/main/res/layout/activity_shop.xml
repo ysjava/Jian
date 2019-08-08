@@ -6,6 +6,7 @@
     xmlns:tool="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/trans"
     android:orientation="vertical">
 
     <com.flipboard.bottomsheet.BottomSheetLayout
@@ -28,7 +29,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#FFF8F8F9"
-
                     app:contentScrim="@color/white"
                     app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
@@ -187,6 +187,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="@dimen/dp_5"
                 android:orientation="horizontal"
+                android:transformPivotY="-60dp"
                 app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior">
 
                 <android.support.v7.widget.RecyclerView
@@ -203,8 +204,8 @@
                         android:id="@+id/itemListView"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:listSelector="@color/trans"
                         android:divider="#fff"
+                        android:listSelector="@color/trans"
                         android:scrollbars="vertical" />
                 </android.support.v4.widget.NestedScrollView>
 
@@ -226,18 +227,12 @@
                     android:layout_height="match_parent"
                     android:layout_marginStart="@dimen/dp_6"
                     android:gravity="center"
-                    android:orientation="vertical"
-                    tool:ignore="UseCompoundDrawables">
-
-                    <ImageView
-                        android:layout_width="@dimen/dp_20"
-                        android:layout_height="@dimen/dp_20"
-                        android:src="@drawable/ic_contact"
-                        tool:ignore="ContentDescription" />
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:drawableTop="@drawable/ic_contact"
                         android:text="联系商家"
                         android:textColor="#CEBFBF"
                         android:textSize="@dimen/sp_8" />
@@ -301,15 +296,18 @@
                     android:layout_height="match_parent"
                     android:layout_alignParentEnd="true"
                     android:background="@drawable/bg_go_pay"
-                    android:enabled="false"
+                    android:enabled="true"
                     android:gravity="center"
                     android:text="去结算"
                     android:textColor="@color/white_alpha_240" />
             </RelativeLayout>
 
+
         </android.support.design.widget.CoordinatorLayout>
 
+
     </com.flipboard.bottomsheet.BottomSheetLayout>
+
 
 </LinearLayout>
 

@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -42,19 +44,25 @@ import com.wuxiankeneng.jian.R;
 import com.wuxiankeneng.jian.adapter.GoodsAdapter;
 import com.wuxiankeneng.jian.adapter.SelectedGoodsAdapter;
 import com.wuxiankeneng.jian.adapter.TypeAdapter;
+import com.wuxiankeneng.jian.adapter.UpdateCallback;
 import com.wuxiankeneng.jian.di.module.ActivityModule;
 
 
+import java.io.Serializable;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
 public class ShopActivity extends BaseActivityView<ShopPresenter>
-        implements View.OnClickListener, ShopContract.View {
+        implements View.OnClickListener, ShopContract.View, UpdateCallback {
+
+    private ShopActivity activity;
+
     @BindView(R.id.appbar)
     AppBarLayout mAppBarLayout;
     @BindView(R.id.itemListView)
@@ -85,14 +93,15 @@ public class ShopActivity extends BaseActivityView<ShopPresenter>
     //记录的上一次位置
     private int i = 0;
     TextView mClear;
-    LinearLayoutManager manager;
+
     RecyclerView mRecyclerBottomSheet;
 
+    //店铺的所有商品集合
     private ArrayList<Goods> goodsList = new ArrayList<>();
 
     //保存类型中的商品数量和
     private SparseIntArray mSelectTypeCount = new SparseIntArray();
-    //保存商品信息
+    //保存选中的商品信息
     private HashMap<String, Goods> goodsSparseArray = new HashMap<>();
 
     private String shopId;
@@ -123,9 +132,9 @@ public class ShopActivity extends BaseActivityView<ShopPresenter>
     @Override
     protected void initWidget() {
         super.initWidget();
+        activity = this;
 
-
-        mTypeRecyclerView.setLayoutManager(manager = new LinearLayoutManager(this));
+        mTypeRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         mTypeRecyclerView.setAdapter(adapter = new TypeAdapter(new RecyclerAdapter.AdapterListenerImpl<TypeBean>() {
             @Override
@@ -205,6 +214,79 @@ public class ShopActivity extends BaseActivityView<ShopPresenter>
 
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        switch (requestCode) {
+            case 1:
+                if (resultCode == RESULT_OK) {
+                    HashMap<String, Goods> resultMap = (HashMap<String, Goods>) (data != null ? data.getSerializableExtra("GOODS_LIST") : null);
+                    if (resultMap == null)
+                        return;
+                    //数据回来时进行对原数据的覆盖,所以先清空还原原数据
+                    mSelectTypeCount.clear();
+
+                    goodsSparseArray.clear();
+
+                    if (resultMap.size() > 0) {
+
+                        //保存 转换后的 以选中商品数据
+                        ArrayList<Goods> list = new ArrayList<>();
+                        list.clear();
+                        //有数据,进行覆盖
+                        for (Goods goods : resultMap.values()) {
+                            int typeCount = mSelectTypeCount.get(goods.getTypeId());
+                            if (typeCount == 0) {
+                                mSelectTypeCount.append(goods.getTypeId(), goods.getCount());
+                            } else {
+                                mSelectTypeCount.append(goods.getTypeId(), typeCount + goods.getCount());
+                            }
+
+                            // tag1
+                            for (int i = 0; i < goodsList.size(); i++) {
+                                if (goods.getId().equals(goodsList.get(i).getId())) {
+                                    Goods gd = goodsList.get(i);
+                                    gd.setCount(goods.getCount());
+                                    list.add(goodsList.get(i));
+
+                                } else if (!list.contains(goodsList.get(i))) {
+                                    Goods gd = goodsList.get(i);
+                                    gd.setCount(0);
+
+                                }
+                            }
+
+                        }
+                        //这儿由于返回的resultMap集合中的数据和原来的goodsList中的数据不是同一对象
+                        //所以需要把resultMap中数据转换成goodsList中的数据,比如id为1的商品,回传后id不变
+                        //但对象不再是原来的id为1的对象了. 在购物车界面进行加减时,需要操作同一对象,所以配合tag1进行转换
+                        for (Goods goods : list) {
+                            goodsSparseArray.put(goods.getId(), goods);
+                        }
+                    }
+                    //回来时已经没数据了,就对列表进行遍历复原
+                    if (resultMap.size() == 0) {
+                        for (Goods goods : goodsList) {
+                            goods.setCount(0);
+                        }
+                        goodsSparseArray.clear();
+                    }
+                }
+                break;
+        }
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        update(true);
+    }
+
+    @OnClick(R.id.edt_search_goods)
+    public void testClick() {
+
+        SearchActivity.show(this, SearchActivity.TYPE_GOODS_IN_SHOP, goodsSparseArray);
+    }
 
     @OnClick(R.id.card_view)
     public void test() {
@@ -387,14 +469,15 @@ public class ShopActivity extends BaseActivityView<ShopPresenter>
         }
     }
 
-    @OnClick(R.id.card_view)
+    @OnClick(R.id.txt_go_pay)
     public void payClick() {
 //        Application.showToast(shopId);
         goodsList.clear();
         Goods goods;
         for (int i = 0; i < 18; i++) {
             for (int j = 0; j < 10; j++) {
-                goods = new Goods("" + i + j, "商品" + (i * 100 + j), "",
+                goods = new Goods("" + i + j, "商品" + (i * 100 + j),
+                        "https://italker-im-new.oss-cn-hongkong.aliyuncs.com/portrait/201812/5e2f33d5b2c89271b736e5f9c387ef91.jpg",
                         String.valueOf((int) (Math.random() * 1000)), "类型" + i, i, Math.random() * 100);
                 goodsList.add(goods);
             }
@@ -420,6 +503,7 @@ public class ShopActivity extends BaseActivityView<ShopPresenter>
         mPresenter.onDataLoaded(shop);
     }
 
+
     @Override
     protected void initInject() {
         getActivityComponent().inject(this);
@@ -433,5 +517,15 @@ public class ShopActivity extends BaseActivityView<ShopPresenter>
     @Override
     public BaseListAdapter<Goods> getGoodsAdapter() {
         return mGoodsAdapter;
+    }
+
+    @Override
+    public void addGoods(Goods goods) {
+
+    }
+
+    @Override
+    public void removeGoods(Goods goods) {
+
     }
 }

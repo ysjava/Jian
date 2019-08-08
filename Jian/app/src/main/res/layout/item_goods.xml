@@ -51,9 +51,9 @@
                 android:id="@+id/txt_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
                 android:layout_marginTop="@dimen/dp_10"
                 android:text="￥ 100"
-                android:layout_alignParentBottom="true"
                 android:textColor="#FF3300"
                 android:textSize="16sp"
                 tools:ignore="HardcodedText" />

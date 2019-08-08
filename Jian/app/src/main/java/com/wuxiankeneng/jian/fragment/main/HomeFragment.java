@@ -223,7 +223,7 @@ public class HomeFragment extends BaseFragmentView<HomePresenter>
 
     @OnClick(R.id.edt_nav_search)
     public void testClick() {
-        SearchActivity.show(getContext(),SearchActivity.TYPE_SHOP);
+        SearchActivity.show(getContext(),SearchActivity.TYPE_SHOP,null);
     }
 
 
