@@ -12,7 +12,6 @@ import static org.junit.Assert.*;
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() {
-        String s = "shopwdsadasdwasdzxc";
-        System.out.println(s.startsWith("shop"));
+
     }
 }
