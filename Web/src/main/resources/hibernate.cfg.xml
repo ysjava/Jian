@@ -55,33 +55,8 @@
         update: 这个操作启动的时候会去检查schema是否一致，如果不一致会做scheme更新
         validate: 启动时验证现有schema与你配置的hibernate是否一致，如果不一致就抛出异常，并不做更新
         -->
-
-<!--        <mapping package="com.qingge.post.bean.db"-->
-<!--                 class="com.qingge.post.bean.db.User"/>-->
-<!--        <mapping package="com.qingge.post.bean.db"-->
-<!--                 class="com.qingge.post.bean.db.Post"/>-->
-<!--        <mapping package="com.qingge.post.bean.db"-->
-<!--                 class="com.qingge.post.bean.db.University"/>-->
-<!--        <mapping package="com.qingge.post.bean.db"-->
-<!--                 class="com.qingge.post.bean.db.Comment"/>-->
-<!--        <mapping package="com.qingge.post.bean.db"-->
-<!--                 class="com.qingge.post.bean.db.Reply"/>-->
-
-<!--        <mapping package="com.qingge.post.bean.db"-->
-<!--                 class="com.qingge.post.bean.db.Group"/>-->
-<!--        <mapping package="com.qingge.post.bean.db"-->
-<!--                 class="com.qingge.post.bean.db.GroupMember"/>-->
-<!--        <mapping package="com.qingge.post.bean.db"-->
-<!--                 class="com.qingge.post.bean.db.Message"/>-->
-<!--        <mapping package="com.qingge.post.bean.db"-->
-<!--                 class="com.qingge.post.bean.db.PushHistory"/>-->
-<!--        <mapping package="com.qingge.post.bean.db"-->
-<!--                 class="com.qingge.post.bean.db.UserFollow"/>-->
-<!--        <mapping package="com.qingge.post.bean.db"-->
-<!--                 class="com.qingge.post.bean.db.Apply"/>-->
-<!--        <mapping package="com.qingge.post.bean.db"-->
-<!--                 class="com.qingge.post.bean.db.Album"/>-->
-
+        <mapping class="com.wuxiankeneng.jian.bean.db.Trader"/>
+        <mapping class="com.wuxiankeneng.jian.bean.db.Student"/>
 
     </session-factory>
 </hibernate-configuration>
