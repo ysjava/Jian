@@ -57,6 +57,7 @@
         -->
         <mapping class="com.wuxiankeneng.jian.bean.db.Trader"/>
         <mapping class="com.wuxiankeneng.jian.bean.db.Student"/>
-
+        <mapping class="com.wuxiankeneng.jian.bean.db.Shop"/>
+        <mapping class="com.wuxiankeneng.jian.bean.db.Goods"/>
     </session-factory>
 </hibernate-configuration>

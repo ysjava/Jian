@@ -27,9 +27,15 @@ public class ResponseModel<M> implements Serializable {
     public static final int ERROR_PARAMETERS_EXIST_ACCOUNT = 4002;
     // 请求参数错误-已存在名称
     public static final int ERROR_PARAMETERS_EXIST_NAME = 4003;
+    // 请求参数错误-已存在店铺名称
+    public static final int ERROR_PARAMETERS_EXIST_SHOP_NAME = 4004;
 
     // 绑定pushId失败
     public static final int ERROR_BIND_PUSH_ID = 3001;
+    // 服务器错误
+    public static final int ERROR_SERVER = 3002;
+    // xx未找到错误
+    public static final int ERROR_XX_NOTFOUND = 3003;
     @Expose
     private int code;
     @Expose
@@ -59,8 +65,6 @@ public class ResponseModel<M> implements Serializable {
         this.message = message;
         this.result = result;
     }
-
-
 
 
     public boolean isSucceed() {
@@ -123,15 +127,27 @@ public class ResponseModel<M> implements Serializable {
         return new ResponseModel<>(ERROR_PARAMETERS_EXIST_NAME, "昵称已经存在");
     }
 
+    public static <M> ResponseModel<M> buildHaveShopNameError() {
+        return new ResponseModel<>(ERROR_PARAMETERS_EXIST_SHOP_NAME, "店铺名已经存在");
+    }
+
     public static <M> ResponseModel<M> buildRegisterError() {
         return new ResponseModel<>(ERROR_ACCOUNT_REGISTER, "有这个账户了");
     }
 
-    public static <M> ResponseModel<M> buildServiceError() {
-        return new ResponseModel<>(ERROR_BIND_PUSH_ID, "绑定错误");
+    public static <M> ResponseModel<M> buildBindServiceError() {
+        return new ResponseModel<>(ERROR_BIND_PUSH_ID, "绑定错误,可能是服务器问题,稍后再试");
     }
 
     public static <M> ResponseModel<M> buildLoginError() {
-        return new ResponseModel<>(ERROR_ACCOUNT_LOGIN,"登陆失败,账户或密码错误");
+        return new ResponseModel<>(ERROR_ACCOUNT_LOGIN, "登陆失败,账户或密码错误");
+    }
+
+    public static <M> ResponseModel<M> buildServiceError() {
+        return new ResponseModel<>(ERROR_SERVER, "服务器异常,稍后再试");
+    }
+
+    public static <M> ResponseModel<M> buildError(String str) {
+        return new ResponseModel<>(ERROR_XX_NOTFOUND, str);
     }
 }

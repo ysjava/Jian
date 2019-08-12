@@ -2,14 +2,18 @@ package com.wuxiankeneng.jian.bean.db;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "TB_TRADER")
-public class Trader implements Principal, User {
+public class Trader implements Principal{
     /*
      * UUID是为了保证id的安全性
      * */
@@ -52,6 +56,15 @@ public class Trader implements Principal, User {
     @CreationTimestamp
     @Column(nullable = false)
     private LocalDateTime createAt = LocalDateTime.now();
+
+
+    @JoinColumn(name = "creatorId")
+    // 定义为懒加载，默认加载Shop信息的时候，并不查询这个集合
+    @LazyCollection(LazyCollectionOption.EXTRA)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<Shop> shops = new HashSet<>();
+
+
 
     public String getId() {
         return id;
@@ -116,5 +129,13 @@ public class Trader implements Principal, User {
 
     public void setCreateAt(LocalDateTime createAt) {
         this.createAt = createAt;
+    }
+
+    public Set<Shop> getShops() {
+        return shops;
+    }
+
+    public void setShops(Set<Shop> shops) {
+        this.shops = shops;
     }
 }

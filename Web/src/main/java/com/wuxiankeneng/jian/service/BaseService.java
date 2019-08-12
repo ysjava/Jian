@@ -2,7 +2,7 @@ package com.wuxiankeneng.jian.service;
 
 import com.wuxiankeneng.jian.bean.db.Student;
 import com.wuxiankeneng.jian.bean.db.Trader;
-import com.wuxiankeneng.jian.bean.db.User;
+
 
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.SecurityContext;
@@ -13,25 +13,13 @@ public class BaseService {
     @Context
     protected SecurityContext securityContext;
 
-    /**
-     * 从上下文中直接获取当前用户的信息 : 学生或者商家
-     *
-     * @return User :接口, 学生和商家都实现了它
-     */
-    protected User getSelf() {
-        if (getStudentSelf() == null) {
-            return getTraderSelf();
-        }
-        return getStudentSelf();
-    }
-
 
     /**
      * 从上下文中直接获取自己(学生)的信息
      *
      * @return Student
      */
-    private Student getStudentSelf() {
+    protected Student getStudentSelf() {
         return (Student) securityContext.getUserPrincipal();
     }
 
@@ -40,7 +28,7 @@ public class BaseService {
      *
      * @return Trader
      */
-    private Trader getTraderSelf() {
+    protected Trader getTraderSelf() {
         return (Trader) securityContext.getUserPrincipal();
     }
 }

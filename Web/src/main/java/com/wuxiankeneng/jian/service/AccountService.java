@@ -114,7 +114,7 @@ public class AccountService extends BaseService {
         if (trader != null)
             return ResponseModel.buildOk(new TraderAccountRspModel(trader, true));
         else
-            return ResponseModel.buildServiceError();
+            return ResponseModel.buildBindServiceError();
     }
 
 
@@ -205,6 +205,6 @@ public class AccountService extends BaseService {
         if (student != null)
             return ResponseModel.buildOk(new StudentAccountRspModel(student, true));
         else
-            return ResponseModel.buildServiceError();
+            return ResponseModel.buildBindServiceError();
     }
 }

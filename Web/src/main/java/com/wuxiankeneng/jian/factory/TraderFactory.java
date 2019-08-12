@@ -1,12 +1,16 @@
 package com.wuxiankeneng.jian.factory;
 
 import com.google.common.base.Strings;
+import com.wuxiankeneng.jian.bean.db.Shop;
 import com.wuxiankeneng.jian.bean.db.Trader;
 import com.wuxiankeneng.jian.utils.Hib;
 import com.wuxiankeneng.jian.utils.TextUtil;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class TraderFactory {
     public static Trader findByToken(String token) {
@@ -185,4 +189,5 @@ public class TraderFactory {
 
         return trader;
     }
+
 }

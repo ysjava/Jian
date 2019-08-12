@@ -2,16 +2,22 @@ package com.wuxiankeneng.jian.bean.db;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "TB_STUDENT")
-public class Student implements Principal,User {
+public class Student implements Principal {
     /*
      * UUID是为了保证id的安全性
-     * */
+     *
+     **/
     //这是一个主键
     @Id
     @PrimaryKeyJoinColumn
