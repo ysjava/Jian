@@ -68,6 +68,14 @@ public class Shop {
     private LocalDateTime createAt = LocalDateTime.now();
 
 
+    //该店铺所属学校
+    @JoinColumn(name = "schoolId")
+    @ManyToOne(optional = false)
+    private School school;
+
+    @Column(nullable = false, insertable = false, updatable = false)
+    private String schoolId;
+
     //创建者,一个人可以创建多个店铺
     @JoinColumn(name = "creatorId")
     @ManyToOne(optional = false)
@@ -81,27 +89,28 @@ public class Shop {
     @JoinColumn(name = "recommendShopId")
     // 定义为懒加载，默认加载Shop信息的时候，并不查询这个集合
     @LazyCollection(LazyCollectionOption.EXTRA)
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY)
     private Set<Goods> recommendGoods = new HashSet<>();
 
     //店铺的所有菜
     @JoinColumn(name = "shopId")
     @LazyCollection(LazyCollectionOption.EXTRA)
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Set<Goods> allGoods = new HashSet<>();
 
     public Shop() {
     }
 
-    public Shop(Trader creator, CreateShopModel model) {
+    public Shop(Trader creator, CreateShopModel model, School school) {
         this.creator = creator;
+        this.school = school;
         this.name = model.getName();
         this.icon = model.getIcon();
         this.picture = model.getPicture();
         this.deliveryDate = model.getDeliveryDate();
         this.deliveryRange = model.getDeliveryRange();
         this.isBusiness = true;
-        this.isReserve= true;
+        this.isReserve = true;
     }
 
 
@@ -233,5 +242,21 @@ public class Shop {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public School getSchool() {
+        return school;
+    }
+
+    public void setSchool(School school) {
+        this.school = school;
+    }
+
+    public String getSchoolId() {
+        return schoolId;
+    }
+
+    public void setSchoolId(String schoolId) {
+        this.schoolId = schoolId;
     }
 }

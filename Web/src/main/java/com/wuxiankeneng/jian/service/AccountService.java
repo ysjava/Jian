@@ -6,9 +6,13 @@ import com.google.common.base.Strings;
 
 import com.wuxiankeneng.jian.bean.api.account.*;
 import com.wuxiankeneng.jian.bean.base.ResponseModel;
+import com.wuxiankeneng.jian.bean.db.Admin;
+import com.wuxiankeneng.jian.bean.db.School;
 import com.wuxiankeneng.jian.bean.db.Student;
 import com.wuxiankeneng.jian.bean.db.Trader;
 
+import com.wuxiankeneng.jian.factory.AdminFactory;
+import com.wuxiankeneng.jian.factory.SchoolFactory;
 import com.wuxiankeneng.jian.factory.StudentFactory;
 import com.wuxiankeneng.jian.factory.TraderFactory;
 import com.wuxiankeneng.jian.utils.Hib;
@@ -137,8 +141,15 @@ public class AccountService extends BaseService {
         if (student != null) {
             return ResponseModel.buildHaveNameError();
         }
+        //检查此学校是否存在
+        School school = SchoolFactory.findById(model.getSchoolId());
+        if (school == null) {
+            return ResponseModel.buildParameterError();
+        }
+
+
         //注册操作   完成得到一个用户
-        student = StudentFactory.register(model.getPhone(), model.getPassword(), model.getName());
+        student = StudentFactory.register(model.getPhone(), model.getPassword(), model.getName(), school);
 
         if (student != null) {
             if (!Strings.isNullOrEmpty(model.getPushId())) {
@@ -206,5 +217,41 @@ public class AccountService extends BaseService {
             return ResponseModel.buildOk(new StudentAccountRspModel(student, true));
         else
             return ResponseModel.buildBindServiceError();
+    }
+
+    @POST
+    @Path("/register/admin/{account}|{password}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public ResponseModel adminRegister(@PathParam("account") String account, @PathParam("password") String password) {
+        if (Strings.isNullOrEmpty(account) && Strings.isNullOrEmpty(account))
+            return ResponseModel.buildParameterError();
+
+        Admin admin = AdminFactory.findByAccount(account.trim());
+        if (admin!=null){
+            return ResponseModel.buildHaveAccountError();
+        }
+        admin = AdminFactory.register(account, password);
+        if (admin == null)
+            return ResponseModel.buildServiceError();
+
+        return ResponseModel.buildOk();
+
+    }
+
+    @POST
+    @Path("/login/admin/{account}|{password}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public ResponseModel adminLogin(@PathParam("account") String account, @PathParam("password") String password) {
+        if (Strings.isNullOrEmpty(account) && Strings.isNullOrEmpty(account))
+            return ResponseModel.buildParameterError();
+
+        Admin admin = AdminFactory.login(account, password);
+        if (admin == null)
+            return ResponseModel.buildServiceError();
+
+        return ResponseModel.buildOk();
+
     }
 }

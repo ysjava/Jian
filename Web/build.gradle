@@ -30,11 +30,13 @@ dependencies {
 
     // 数据库操作框架
     // https://mvnrepository.com/artifact/org.hibernate/hibernate-core
-    compile 'org.hibernate:hibernate-core:5.2.9.Final'
+    compile 'org.hibernate:hibernate-core:5.4.4.Final'
+
     // https://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager
-    compile 'org.hibernate:hibernate-entitymanager:5.2.9.Final'
+    compile 'org.hibernate:hibernate-entitymanager:5.4.4.Final'
     // https://mvnrepository.com/artifact/org.hibernate/hibernate-c3p0
-    compile 'org.hibernate:hibernate-c3p0:5.2.9.Final'
+    compile 'org.hibernate:hibernate-c3p0:5.4.4.Final'
+
 
     // MySQL 驱动库
     // https://mvnrepository.com/artifact/mysql/mysql-connector-java

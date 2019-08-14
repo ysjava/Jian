@@ -4,6 +4,7 @@ import com.google.common.base.Strings;
 import com.wuxiankeneng.jian.bean.api.shop.CreateGoodsModel;
 import com.wuxiankeneng.jian.bean.api.shop.CreateShopModel;
 import com.wuxiankeneng.jian.bean.db.Goods;
+import com.wuxiankeneng.jian.bean.db.School;
 import com.wuxiankeneng.jian.bean.db.Shop;
 import com.wuxiankeneng.jian.bean.db.Trader;
 import com.wuxiankeneng.jian.utils.Hib;
@@ -28,9 +29,9 @@ public class ShopFactory {
     }
 
     //开店
-    public static Shop createShop(Trader creator, CreateShopModel model) {
+    public static Shop createShop(Trader creator, CreateShopModel model, School school) {
         return Hib.query(session -> {
-            Shop shop = new Shop(creator, model);
+            Shop shop = new Shop(creator, model,school);
             session.save(shop);
             return shop;
         });

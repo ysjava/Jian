@@ -13,12 +13,14 @@ public class RegisterByStudentModel {
     @Expose
     private String name;
     @Expose
-    private String schoolName;
+    private String schoolId;
+
 
     public static boolean check(RegisterByStudentModel model) {
         return model != null
                 && !Strings.isNullOrEmpty(model.getPhone())
                 && !Strings.isNullOrEmpty(model.getPassword())
+                && !Strings.isNullOrEmpty(model.getSchoolId())
                 && !Strings.isNullOrEmpty(model.getName());
     }
 
@@ -54,11 +56,11 @@ public class RegisterByStudentModel {
         this.name = name;
     }
 
-    public String getSchoolName() {
-        return schoolName;
+    public String getSchoolId() {
+        return schoolId;
     }
 
-    public void setSchoolName(String schoolName) {
-        this.schoolName = schoolName;
+    public void setSchoolId(String schoolId) {
+        this.schoolId = schoolId;
     }
 }

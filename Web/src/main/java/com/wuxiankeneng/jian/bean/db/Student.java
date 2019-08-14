@@ -58,6 +58,12 @@ public class Student implements Principal {
     @Column(nullable = false)
     private LocalDateTime createAt = LocalDateTime.now();
 
+    @JoinColumn(name = "schoolId")
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private School school;
+    @Column(nullable = false, updatable = false, insertable = false)
+    private String schoolId;
+
     public String getId() {
         return id;
     }
@@ -121,5 +127,21 @@ public class Student implements Principal {
 
     public void setCreateAt(LocalDateTime createAt) {
         this.createAt = createAt;
+    }
+
+    public School getSchool() {
+        return school;
+    }
+
+    public void setSchool(School school) {
+        this.school = school;
+    }
+
+    public String getSchoolId() {
+        return schoolId;
+    }
+
+    public void setSchoolId(String schoolId) {
+        this.schoolId = schoolId;
     }
 }

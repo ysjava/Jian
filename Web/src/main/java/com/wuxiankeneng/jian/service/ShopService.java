@@ -8,10 +8,12 @@ import com.wuxiankeneng.jian.bean.base.ResponseModel;
 import com.wuxiankeneng.jian.bean.card.GoodsCard;
 import com.wuxiankeneng.jian.bean.card.ShopCard;
 import com.wuxiankeneng.jian.bean.db.Goods;
+import com.wuxiankeneng.jian.bean.db.School;
 import com.wuxiankeneng.jian.bean.db.Shop;
 import com.wuxiankeneng.jian.bean.db.Trader;
 
 import com.wuxiankeneng.jian.factory.GoodsFactory;
+import com.wuxiankeneng.jian.factory.SchoolFactory;
 import com.wuxiankeneng.jian.factory.ShopFactory;
 
 import javax.ws.rs.*;
@@ -40,7 +42,11 @@ public class ShopService extends BaseService {
             return ResponseModel.buildHaveShopNameError();
         }
 
-        shop = ShopFactory.createShop(creator, model);
+        School school = SchoolFactory.findById(model.getSchoolId());
+        if (school==null)
+            return ResponseModel.buildParameterError();
+
+        shop = ShopFactory.createShop(creator, model,school);
         if (shop == null) {
             //创建失败,服务器异常
             return ResponseModel.buildServiceError();

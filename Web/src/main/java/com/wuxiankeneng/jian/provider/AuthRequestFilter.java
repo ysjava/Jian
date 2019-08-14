@@ -2,8 +2,10 @@ package com.wuxiankeneng.jian.provider;
 
 import com.google.common.base.Strings;
 import com.wuxiankeneng.jian.bean.base.ResponseModel;
+import com.wuxiankeneng.jian.bean.db.Admin;
 import com.wuxiankeneng.jian.bean.db.Student;
 import com.wuxiankeneng.jian.bean.db.Trader;
+import com.wuxiankeneng.jian.factory.AdminFactory;
 import com.wuxiankeneng.jian.factory.StudentFactory;
 import com.wuxiankeneng.jian.factory.TraderFactory;
 import org.glassfish.jersey.server.ContainerRequest;
@@ -26,6 +28,22 @@ public class AuthRequestFilter implements ContainerRequestFilter {
             return;
         }
 
+        //管理的访问
+        if (relationPath.startsWith("admin")) {
+            // 从Headers中去找到第一个token节点
+            String token = requestContext.getHeaders().getFirst("token");
+            if (!Strings.isNullOrEmpty(token)) {
+
+                // 查询自己的信息
+                final Admin admin = AdminFactory.findByToken(token);
+                if (admin != null) {
+                    // 给当前请求添加一个上下文
+                    requestContext.setSecurityContext(new MySecurityContext(admin));
+                    // 写入上下文后就返回
+                    return;
+                }
+            }
+        }
 
         //商家的访问
         if (relationPath.startsWith("trader") || relationPath.startsWith("account/bind/trader")) {
@@ -79,6 +97,7 @@ public class AuthRequestFilter implements ContainerRequestFilter {
     class MySecurityContext implements SecurityContext {
         private Student student;
         private Trader trader;
+        private Admin admin;
 
         MySecurityContext(Student student) {
             this.student = student;
@@ -88,8 +107,14 @@ public class AuthRequestFilter implements ContainerRequestFilter {
             this.trader = trader;
         }
 
+        public MySecurityContext(Admin admin) {
+            this.admin = admin;
+        }
+
         @Override
         public Principal getUserPrincipal() {
+            if (admin != null)
+                return admin;
             return student == null ? trader : student;
         }
 

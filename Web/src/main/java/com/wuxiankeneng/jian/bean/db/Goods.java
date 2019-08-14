@@ -65,7 +65,7 @@ public class Goods {
     @ManyToOne(optional = false)
     private Shop shop;
     //把这个列提取到我们的Model中,不允许更新，插入
-    @Column(nullable = false, insertable = false, updatable = false)
+    @Column(insertable = false, updatable = false)
     private String shopId;
 
     public Goods() {

@@ -59,5 +59,8 @@
         <mapping class="com.wuxiankeneng.jian.bean.db.Student"/>
         <mapping class="com.wuxiankeneng.jian.bean.db.Shop"/>
         <mapping class="com.wuxiankeneng.jian.bean.db.Goods"/>
+        <mapping class="com.wuxiankeneng.jian.bean.db.School"/>
+        <mapping class="com.wuxiankeneng.jian.bean.db.Admin"/>
+        <mapping class="com.wuxiankeneng.jian.bean.db.Recommend"/>
     </session-factory>
 </hibernate-configuration>

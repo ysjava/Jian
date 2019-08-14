@@ -1,8 +1,8 @@
 package com.wuxiankeneng.jian.factory;
 
 import com.google.common.base.Strings;
+import com.wuxiankeneng.jian.bean.db.School;
 import com.wuxiankeneng.jian.bean.db.Student;
-import com.wuxiankeneng.jian.bean.db.Trader;
 import com.wuxiankeneng.jian.utils.Hib;
 import com.wuxiankeneng.jian.utils.TextUtil;
 
@@ -46,12 +46,12 @@ public class StudentFactory {
      * @param name     用户名
      * @return User
      */
-    public static Student register(String phone, String password, String name) {
+    public static Student register(String phone, String password, String name, School school) {
         // 去除账户中的首位空格
         phone = phone.trim();
         // 处理密码
         password = encodePassword(password);
-        Student student = createTrader(phone, password, name);
+        Student student = createTrader(phone, password, name, school);
         if (student != null) {
             student = login(student);
         }
@@ -66,12 +66,12 @@ public class StudentFactory {
      * @param name     用户名
      * @return 返回一个商人
      */
-    private static Student createTrader(String phone, String password, String name) {
+    private static Student createTrader(String phone, String password, String name, School school) {
         Student student = new Student();
         student.setName(name);
         student.setPassword(password);
         student.setPhone(phone);
-
+        student.setSchool(school);
         // 数据库存储
         return Hib.query(session -> {
             session.save(student);
@@ -171,7 +171,7 @@ public class StudentFactory {
     public static Student login(String phone, String password) {
         //空格处理
         String phoneStr = phone.trim();
-        //密码是进行过处理的,所以要想匹配就的进行同样的而处理
+        //密码是进行过处理的,所以要想匹配就的进行同样而处理
         String encodePassword = encodePassword(password);
 
         Student student = Hib.query(session -> (Student) session

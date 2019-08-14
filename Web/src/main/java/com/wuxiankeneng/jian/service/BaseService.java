@@ -1,5 +1,6 @@
 package com.wuxiankeneng.jian.service;
 
+import com.wuxiankeneng.jian.bean.db.Admin;
 import com.wuxiankeneng.jian.bean.db.Student;
 import com.wuxiankeneng.jian.bean.db.Trader;
 
@@ -31,4 +32,8 @@ public class BaseService {
     protected Trader getTraderSelf() {
         return (Trader) securityContext.getUserPrincipal();
     }
+    protected Admin getAdminSelf() {
+        return (Admin) securityContext.getUserPrincipal();
+    }
+
 }
