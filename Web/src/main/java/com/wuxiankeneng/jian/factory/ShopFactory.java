@@ -1,10 +1,15 @@
 package com.wuxiankeneng.jian.factory;
 
 import com.google.common.base.Strings;
+import com.wuxiankeneng.jian.bean.api.shop.CreateGoodsModel;
 import com.wuxiankeneng.jian.bean.api.shop.CreateShopModel;
+import com.wuxiankeneng.jian.bean.db.Goods;
 import com.wuxiankeneng.jian.bean.db.Shop;
 import com.wuxiankeneng.jian.bean.db.Trader;
 import com.wuxiankeneng.jian.utils.Hib;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ShopFactory {
 
@@ -53,5 +58,18 @@ public class ShopFactory {
             session.saveOrUpdate(shop);
             return shop;
         });
+    }
+
+    public static List<Goods> createGoods(Shop shop, List<CreateGoodsModel> models) {
+        return Hib.query(session -> {
+           List<Goods> goodsList = new ArrayList<>();
+            for (CreateGoodsModel model : models) {
+                Goods goods = new Goods(shop,model);
+                session.save(goods);
+                goodsList.add(goods);
+            }
+            return goodsList;
+        });
+
     }
 }
