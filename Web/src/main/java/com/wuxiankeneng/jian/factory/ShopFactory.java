@@ -31,7 +31,7 @@ public class ShopFactory {
     //开店
     public static Shop createShop(Trader creator, CreateShopModel model, School school) {
         return Hib.query(session -> {
-            Shop shop = new Shop(creator, model,school);
+            Shop shop = new Shop(creator, model, school);
             session.save(shop);
             return shop;
         });
@@ -63,14 +63,22 @@ public class ShopFactory {
 
     public static List<Goods> createGoods(Shop shop, List<CreateGoodsModel> models) {
         return Hib.query(session -> {
-           List<Goods> goodsList = new ArrayList<>();
+            List<Goods> goodsList = new ArrayList<>();
             for (CreateGoodsModel model : models) {
-                Goods goods = new Goods(shop,model);
+                Goods goods = new Goods(shop, model);
                 session.save(goods);
                 goodsList.add(goods);
             }
             return goodsList;
         });
 
+    }
+
+    //学生用学校id拿到店铺集合
+    public static List<Shop> getShopsBySchoolId(School school) {
+        return Hib.query(session -> {
+            session.load(school, school.getId());
+            return new ArrayList<>(school.getShops());
+        });
     }
 }

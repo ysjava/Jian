@@ -52,4 +52,12 @@ public class School {
     public void setName(String name) {
         this.name = name;
     }
+
+    public Set<Shop> getShops() {
+        return shops;
+    }
+
+    public void setShops(Set<Shop> shops) {
+        this.shops = shops;
+    }
 }
