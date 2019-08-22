@@ -33,7 +33,7 @@ public class ResponseModel<M> implements Serializable {
     // 绑定pushId失败
     public static final int ERROR_BIND_PUSH_ID = 3001;
     // 服务器错误
-    public static final int ERROR_SERVER = 3002;
+    public static final int ERROR_SERVER = 5001;
     // xx未找到错误
     public static final int ERROR_XX_NOTFOUND = 3003;
     @Expose

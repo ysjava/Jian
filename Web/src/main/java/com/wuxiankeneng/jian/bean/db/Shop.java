@@ -18,6 +18,15 @@ public class Shop {
     public static final int RANGE_DORM = 0;//寝室
     public static final int RANGE_DOWNSTAIRS = 1;//楼下
     public static final int RANGE_NULL = 2;//不能配送
+
+    public static final int TYPE_FAST_FOOD = 10;//快餐
+    public static final int TYPE_DRINK = 11;//饮品
+    public static final int TYPE_NOODLE = 12;//面食
+    public static final int TYPE_STIR_FRY = 13;//炒菜
+    public static final int TYPE_MULTIPLE = 14;//综合
+    public static final int TYPE_FRUITS = 15;//水果
+    public static final int TYPE_SUPERMARKET = 16;//超市
+
     /*
      * UUID是为了保证id的安全性
      * */
@@ -59,6 +68,16 @@ public class Shop {
     //配送时间
     @Column(nullable = false)
     private String deliveryDate;
+    //配送费
+    @Column
+    private String deliveryPrice;
+    //最低起送金额
+    @Column
+    private String minimumPrice;
+    //店铺的类型
+    @Column
+    private int shopType;
+
     //是否营业
     @Column(nullable = false)
     private boolean isBusiness;
@@ -101,9 +120,12 @@ public class Shop {
     public Shop() {
     }
 
+
     public Shop(Trader creator, CreateShopModel model, School school) {
         this.creator = creator;
         this.school = school;
+        //默认综合的
+        this.shopType = TYPE_MULTIPLE;
         this.name = model.getName();
         this.icon = model.getIcon();
         this.picture = model.getPicture();
@@ -244,6 +266,14 @@ public class Shop {
         this.description = description;
     }
 
+    public int getShopType() {
+        return shopType;
+    }
+
+    public void setShopType(int shopType) {
+        this.shopType = shopType;
+    }
+
     public School getSchool() {
         return school;
     }
@@ -258,5 +288,21 @@ public class Shop {
 
     public void setSchoolId(String schoolId) {
         this.schoolId = schoolId;
+    }
+
+    public String getDeliveryPrice() {
+        return deliveryPrice;
+    }
+
+    public void setDeliveryPrice(String deliveryPrice) {
+        this.deliveryPrice = deliveryPrice;
+    }
+
+    public String getMinimumPrice() {
+        return minimumPrice;
+    }
+
+    public void setMinimumPrice(String minimumPrice) {
+        this.minimumPrice = minimumPrice;
     }
 }

@@ -3,12 +3,16 @@ package com.wuxiankeneng.jian.factory;
 import com.google.common.base.Strings;
 import com.wuxiankeneng.jian.bean.api.shop.CreateGoodsModel;
 import com.wuxiankeneng.jian.bean.api.shop.CreateShopModel;
+import com.wuxiankeneng.jian.bean.card.SearchShopCard;
+import com.wuxiankeneng.jian.bean.card.SimpleGoodsCard;
+import com.wuxiankeneng.jian.bean.card.SimpleShopCard;
 import com.wuxiankeneng.jian.bean.db.Goods;
 import com.wuxiankeneng.jian.bean.db.School;
 import com.wuxiankeneng.jian.bean.db.Shop;
 import com.wuxiankeneng.jian.bean.db.Trader;
 import com.wuxiankeneng.jian.utils.Hib;
 
+import javax.persistence.NamedQuery;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,10 +79,45 @@ public class ShopFactory {
     }
 
     //学生用学校id拿到店铺集合
-    public static List<Shop> getShopsBySchoolId(School school) {
-        return Hib.query(session -> {
-            session.load(school, school.getId());
-            return new ArrayList<>(school.getShops());
-        });
+    public static List<SimpleShopCard> getShopsBySchoolId(School school) {
+        return Hib.query(session ->
+                session.createQuery("select new com.wuxiankeneng.jian.bean.card.SimpleShopCard(" +
+                                "id,name,icon,isBusiness,description,deliveryDate,deliveryPrice,minimumPrice,sales)" +
+                                " from Shop where school=:school order by sales desc ",
+                        SimpleShopCard.class)
+                        .setParameter("school", school)
+                        .getResultList());
+    }
+
+    //用店铺id拿到简单的goods  推荐菜品
+    public static List<SimpleGoodsCard> getRecommendsById(String shopId) {
+        return Hib.query(session ->
+                session.createQuery("select new com.wuxiankeneng.jian.bean.card.SimpleGoodsCard(icon,g_name)" +
+                                " from Goods where recommendShopId=:shopId order by g_name asc ",
+                        SimpleGoodsCard.class)
+                        .setParameter("shopId", shopId)
+                        .getResultList());
+
+    }
+
+    //搜索店铺
+    public static List<SearchShopCard> searchShops(String name, School school) {
+        return Hib.query(session ->
+
+                session.createQuery("select new com.wuxiankeneng.jian.bean.card.SearchShopCard(id,name,description)" +
+                        " from Shop where school=:school and name like ?1")
+                        .setParameter("school", school)
+                        .setParameter(1, "%" + name + "%")
+                        .getResultList()
+        );
+    }
+
+    public static List<SimpleShopCard> findShopsByType(School school, int type) {
+        return Hib.query(session -> session.createQuery("select new com.wuxiankeneng.jian.bean.card.SimpleShopCard(" +
+                "id,name,icon,isBusiness,description,deliveryDate,deliveryPrice,minimumPrice,sales) " +
+                "from Shop where school=:school and shopType=:s_type order by sales desc ")
+                .setParameter("school", school)
+                .setParameter("s_type", type)
+                .getResultList());
     }
 }

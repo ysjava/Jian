@@ -36,6 +36,8 @@ public class Goods {
     //月销量
     @Column
     private int monthlySales;
+    //日销量
+    private int dailySales;
     //商品类型
     @Column(nullable = false)
     private String type;
@@ -81,6 +83,22 @@ public class Goods {
         this.price = model.getPrice();
         this.originalPrice = model.getOriginalPrice();
 
+    }
+
+    public String getG_name() {
+        return g_name;
+    }
+
+    public void setG_name(String g_name) {
+        this.g_name = g_name;
+    }
+
+    public int getDailySales() {
+        return dailySales;
+    }
+
+    public void setDailySales(int dailySales) {
+        this.dailySales = dailySales;
     }
 
     public String getId() {
