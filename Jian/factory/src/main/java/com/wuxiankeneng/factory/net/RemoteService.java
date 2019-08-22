@@ -4,7 +4,9 @@ package com.wuxiankeneng.factory.net;
 import com.wuxiankeneng.factory.card.GoodsCard;
 import com.wuxiankeneng.factory.card.Recommend;
 import com.wuxiankeneng.factory.card.RecommendCard;
+import com.wuxiankeneng.factory.card.SearchShopCard;
 import com.wuxiankeneng.factory.card.ShopCard;
+import com.wuxiankeneng.factory.card.SimpleShopCard;
 import com.wuxiankeneng.factory.db.Shop;
 import com.wuxiankeneng.factory.model.ResponseModel;
 import com.wuxiankeneng.factory.model.account.AccountRspModel;
@@ -32,7 +34,7 @@ public interface RemoteService {
      * @param model 传入的是RegisterModel
      * @return 返回的是RspModel<AccountRspModel>
      */
-    @POST("account/register")
+    @POST("account/register/student")
     Call<ResponseModel<AccountRspModel>> accountRegister(@Body RegisterModel model);
 
     /**
@@ -41,7 +43,7 @@ public interface RemoteService {
      * @param model LoginModel
      * @return RspModel<AccountRspModel>
      */
-    @POST("account/login")
+    @POST("account/login/student")
     Call<ResponseModel<AccountRspModel>> accountLogin(@Body LoginModel model);
 
     /**
@@ -50,41 +52,50 @@ public interface RemoteService {
      * @param pushId 设备Id
      * @return RspModel<AccountRspModel>
      */
-    @POST("account/bind/{pushId}")
+    @POST("account/bind/student/{pushId}")
     Call<ResponseModel<AccountRspModel>> accountBind(@Path(encoded = true, value = "pushId") String pushId);
 
     /**
      * 获取推荐列表
      *
-     * @param url 推广链接地址
+     * @param shopId 推广链接地址
      * @return RspModel<AccountRspModel>
      */
-    @GET("user/recommend/{url}")
-    Call<ResponseModel<List<RecommendCard>>> loadRecommend(@Path("url") String url);
+    @GET("student/loadRecommend/{shopId}")
+    Call<ResponseModel<List<RecommendCard>>> loadRecommend(@Path("shopId") String shopId);
+
+    /**
+     * 获取商店列表 (简单的)
+     *
+     * @param schoolId 学校id
+     * @return ResponseModel<List<SimpleShopCard>>
+     */
+    @GET("student/getSimpleShops/{schoolId}")
+    Call<ResponseModel<List<SimpleShopCard>>> loadSimpleShop(@Path("schoolId") String schoolId);
 
     /**
      * 获取商店列表
      *
      * @param schoolId 学校id
-     * @return RspModel<AccountRspModel>
+     * @return ResponseModel<List<ShopCard>>
      */
-    @GET("shops/{schoolId}")
+    @GET("student/getShops/{schoolId}")
     Call<ResponseModel<List<ShopCard>>> loadShop(@Path("schoolId") String schoolId);
 
     /**
      * 搜索商店
      *
      * @param shopName 商店名字
-     * @return RspModel<AccountRspModel>
+     * @return ResponseModel<List<ShopCard>>
      */
-    @GET("shops/search/{shopName}")
-    Call<ResponseModel<List<ShopCard>>> searchShop(@Path("shopName") String shopName);
+    @GET("student/searchShops/{shopName}")
+    Call<ResponseModel<List<SearchShopCard>>> searchShop(@Path("shopName") String shopName);
 
     /**
      * 搜索商品
      *
      * @param goodsName 商品名字
-     * @return RspModel<AccountRspModel>
+     * @return ResponseModel<List<GoodsCard>>
      */
     @GET("goods/search/{goodsName}")
     Call<ResponseModel<List<GoodsCard>>> searchGoods(@Path("goodsName") String goodsName);
@@ -93,8 +104,17 @@ public interface RemoteService {
      * 用店铺id获取店铺信息
      *
      * @param shopId 店铺id
-     * @return RspModel<AccountRspModel>
+     * @return ResponseModel<ShopCard>
      */
     @GET("shop/{shopId}")
     Call<ResponseModel<ShopCard>> getShopById(@Path("shopId") String shopId);
+
+    /**
+     * 用类型找到同类型店铺集合
+     *
+     * @param type 店铺类型
+     * @return ResponseModel<List<SimpleShopCard>>>
+     */
+    @GET("student/findShopsByType/{type}")
+    Call<ResponseModel<List<SimpleShopCard>>> findShopsByType(@Path("type") int type);
 }

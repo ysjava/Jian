@@ -1,27 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:paddingTop="@dimen/dp_8"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="@dimen/dp_8"
+    android:paddingEnd="@dimen/dp_8"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingStart="@dimen/len_12"
+
         android:paddingBottom="@dimen/len_4"
         tools:ignore="RtlSymmetry,UselessParent">
-
-        <com.wuxiankeneng.common.widget.RoundAngleImageView
-            android:id="@+id/portrait"
-            android:layout_width="@dimen/len_68"
-            android:layout_height="@dimen/len_52"
-            android:layout_marginTop="@dimen/len_2"
-            android:adjustViewBounds="true"
-            android:contentDescription="@string/app_name"
-            android:scaleType="fitXY"
-
-            android:src="@drawable/default_portrait" />
+        <ImageView
+            android:id="@+id/img_icon"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_search_shop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/txt_shop_name"
@@ -29,12 +27,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/len_10"
             android:layout_marginTop="@dimen/len_4"
-            android:layout_toEndOf="@id/portrait"
+            android:layout_toEndOf="@id/img_icon"
             android:ellipsize="end"
             android:maxEms="7"
             android:singleLine="true"
             android:text="张二哥饭店"
-            android:textColor="@color/black"
+            android:textColor="@color/grey_800"
             android:textSize="@dimen/len_16"
             android:textStyle="bold" />
 
@@ -44,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/len_16"
             android:layout_marginTop="@dimen/len_32"
-            android:layout_toEndOf="@id/portrait"
+            android:layout_toEndOf="@id/img_icon"
             android:ellipsize="end"
             android:maxEms="14"
             android:singleLine="true"
@@ -53,4 +51,8 @@
             android:textSize="@dimen/font_14" />
     </RelativeLayout>
 
+    <View
+        android:background="@color/grey_400"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_0_5"/>
 </LinearLayout>

@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.wuxiankeneng.common.widget.PlaceHolderView;
+
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -20,6 +22,7 @@ import butterknife.ButterKnife;
  */
 public abstract class BaseActivity extends AppCompatActivity {
     protected Bundle mSavedInstanceState;
+    protected PlaceHolderView mPlaceHolderView;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,5 +104,12 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     }
 
-
+    /**
+     * 设置占位布局
+     *
+     * @param placeHolderView 继承了占位布局规范的View
+     */
+    public void setPlaceHolderView(PlaceHolderView placeHolderView) {
+        this.mPlaceHolderView = placeHolderView;
+    }
 }

@@ -8,11 +8,9 @@ import android.util.Log;
  * Describe :
  */
 @SuppressWarnings("unchecked")
-public  class BasePresenter<View extends BaseContract.View> implements BaseContract.Presenter<View> {
+public class BasePresenter<View extends BaseContract.View> implements BaseContract.Presenter<View> {
 
     private View mView;
-
-
     public BasePresenter() {
     }
 
@@ -25,14 +23,17 @@ public  class BasePresenter<View extends BaseContract.View> implements BaseContr
 
     @Override
     public void start() {
-
+        if (mView != null) {
+            mView.showLoading();
+        }
     }
 
     @Override
     public void destroy() {
-        Log.e("TAGa","销毁: 我是base pre");
+        Log.e("TAGa", "销毁: 我是base pre");
         if (mView != null)
             mView = null;
+
     }
 
     @Override

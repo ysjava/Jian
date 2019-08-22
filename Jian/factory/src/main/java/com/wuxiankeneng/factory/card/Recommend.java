@@ -3,33 +3,34 @@ package com.wuxiankeneng.factory.card;
 public class Recommend {
     public static final int TYPE_ID = 0;
     public static final int TYPE_URL = 1;
-    private String imgPath;
-    private String urlOrId;
+    private String imgUrl;
+    private String shopIdOrAdvertUrl;
     private int type;
 
     public Recommend() {
     }
 
-    public Recommend(String imgPath, String urlOrId, int type) {
-        this.imgPath = imgPath;
-        this.urlOrId = urlOrId;
+    public Recommend(String imgUrl, String shopIdOrAdvertUrl, int type) {
+        this.imgUrl = imgUrl;
+        this.shopIdOrAdvertUrl = shopIdOrAdvertUrl;
         this.type = type;
     }
 
-    public String getImgPath() {
-        return imgPath;
+
+    public String getImgUrl() {
+        return imgUrl;
     }
 
-    public void setImgPath(String imgPath) {
-        this.imgPath = imgPath;
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 
-    public String getUrlOrId() {
-        return urlOrId;
+    public String getShopIdOrAdvertUrl() {
+        return shopIdOrAdvertUrl;
     }
 
-    public void setUrlOrId(String urlOrId) {
-        this.urlOrId = urlOrId;
+    public void setShopIdOrAdvertUrl(String shopIdOrAdvertUrl) {
+        this.shopIdOrAdvertUrl = shopIdOrAdvertUrl;
     }
 
     public int getType() {

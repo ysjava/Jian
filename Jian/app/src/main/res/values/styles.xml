@@ -41,4 +41,10 @@
         <!-- 加载网络数据时覆盖在BGABanner最上层的占位图 -->
         <item name="banner_placeholderDrawable">@mipmap/ic_launcher</item>
     </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="elevation">0dp</item><!--去掉toolbar阴影-->
+        <item name="colorControlNormal">?android:attr/textColorPrimary</item>
+        <item name="searchViewStyle">@style/Widget.AppCompat.SearchView.ActionBar</item>
+    </style>
 </resources>

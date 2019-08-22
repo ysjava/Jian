@@ -28,7 +28,7 @@ public class RegisterPresenter extends BasePresenter<RegisterContract.View>
         if (TextUtils.isEmpty(phone) || TextUtils.isEmpty(password)) {
             view.showError(R.string.account_or_password_error);
         } else {
-            RegisterModel model = new RegisterModel(phone, password, Account.getPushId());
+            RegisterModel model = new RegisterModel(phone, password, Account.getPushId(),"王八","9c49e380-636d-477a-884c-5983cdff03da");
             AccountHelper.register(model, this);
         }
     }

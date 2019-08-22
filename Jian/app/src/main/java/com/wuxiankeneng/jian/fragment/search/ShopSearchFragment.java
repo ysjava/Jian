@@ -12,11 +12,13 @@ import com.wuxiankeneng.common.app.Application;
 import com.wuxiankeneng.common.app.BaseFragment;
 import com.wuxiankeneng.common.widget.RoundAngleImageView;
 import com.wuxiankeneng.common.widget.recycler.RecyclerAdapter;
+import com.wuxiankeneng.factory.card.SearchShopCard;
 import com.wuxiankeneng.factory.db.Shop;
 import com.wuxiankeneng.factory.presenter.search.ShopSearchContract;
 import com.wuxiankeneng.factory.presenter.search.ShopSearchPresenter;
 import com.wuxiankeneng.jian.R;
 import com.wuxiankeneng.jian.activity.SearchActivity;
+import com.wuxiankeneng.jian.activity.ShopActivity;
 import com.wuxiankeneng.jian.fragment.BaseFragmentView;
 
 import butterknife.BindView;
@@ -25,7 +27,7 @@ public class ShopSearchFragment extends BaseFragmentView<ShopSearchPresenter>
         implements SearchActivity.SearchFragment, ShopSearchContract.View {
     @BindView(R.id.recycler)
     RecyclerView mRecyclerView;
-    RecyclerAdapter<Shop> adapter;
+    RecyclerAdapter<SearchShopCard> adapter;
 
     @Override
     protected int getContentLayoutId() {
@@ -36,15 +38,23 @@ public class ShopSearchFragment extends BaseFragmentView<ShopSearchPresenter>
     protected void initWidget(View root) {
         super.initWidget(root);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mRecyclerView.setAdapter(adapter = new RecyclerAdapter<Shop>() {
+        mRecyclerView.setAdapter(adapter = new RecyclerAdapter<SearchShopCard>() {
             @Override
-            protected int getItemViewType(int position, Shop shop) {
+            protected int getItemViewType(int position, SearchShopCard shop) {
                 return R.layout.item_search_shop;
             }
 
             @Override
-            protected ViewHolder<Shop> onCreateViewHolder(View view, int viewType) {
+            protected ViewHolder<SearchShopCard> onCreateViewHolder(View view, int viewType) {
                 return new ShopSearchFragment.ViewHolder(view);
+            }
+        });
+
+        adapter.setListener(new RecyclerAdapter.AdapterListenerImpl<SearchShopCard>() {
+            @Override
+            public void onItemClick(RecyclerAdapter.ViewHolder viewHolder, SearchShopCard searchShopCard) {
+                super.onItemClick(viewHolder, searchShopCard);
+                ShopActivity.show(getContext(), searchShopCard.getId());
             }
         });
     }
@@ -60,9 +70,7 @@ public class ShopSearchFragment extends BaseFragmentView<ShopSearchPresenter>
     }
 
 
-    class ViewHolder extends RecyclerAdapter.ViewHolder<Shop> {
-        @BindView(R.id.portrait)
-        RoundAngleImageView mPortrait;
+    class ViewHolder extends RecyclerAdapter.ViewHolder<SearchShopCard> {
         @BindView(R.id.txt_shop_name)
         TextView mShopName;
         @BindView(R.id.txt_shop_describe)
@@ -73,18 +81,15 @@ public class ShopSearchFragment extends BaseFragmentView<ShopSearchPresenter>
         }
 
         @Override
-        protected void onBind(Shop shop) {
-            Glide.with(getContext())
-                    .load(shop.getImg())
-                    .dontAnimate()
-                    .into(mPortrait);
+        protected void onBind(SearchShopCard shop) {
             mShopDesc.setText(shop.getDesc());
             mShopName.setText(shop.getName());
+
         }
     }
 
     @Override
-    public RecyclerAdapter<Shop> getRecyclerAdapter() {
+    public RecyclerAdapter<SearchShopCard> getRecyclerAdapter() {
         return adapter;
     }
 

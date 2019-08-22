@@ -8,6 +8,7 @@ import com.wuxiankeneng.common.factory.base.BaseRecyclerPresenter;
 import com.wuxiankeneng.common.widget.recycler.RecyclerAdapter;
 import com.wuxiankeneng.factory.card.Recommend;
 import com.wuxiankeneng.factory.db.Shop;
+import com.wuxiankeneng.factory.db.SimpleShop;
 import com.wuxiankeneng.factory.helper.HomeHelper;
 import com.wuxiankeneng.factory.tools.DiffUiDataCallback;
 
@@ -18,7 +19,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class HomePresenter extends BaseRecyclerPresenter<Shop, HomeContact.View>
+public class HomePresenter extends BaseRecyclerPresenter<SimpleShop, HomeContact.View>
         implements HomeContact.Presenter, DataSource.Callback<List<Recommend>> {
     @Inject
     public HomePresenter() {
@@ -32,8 +33,8 @@ public class HomePresenter extends BaseRecyclerPresenter<Shop, HomeContact.View>
 
     //加载商店信息
     @Override
-    public void loadShops() {
-        HomeHelper.loadShop("", new DataSource.Callback<List<Shop>>() {
+    public void loadSimpleShops() {
+        HomeHelper.loadSimpleShop("9c49e380-636d-477a-884c-5983cdff03da", new DataSource.Callback<List<SimpleShop>>() {
             @Override
             public void onDataNotAvailable(final int strRes) {
                 Run.onUiAsync(new Action() {
@@ -48,7 +49,7 @@ public class HomePresenter extends BaseRecyclerPresenter<Shop, HomeContact.View>
             }
 
             @Override
-            public void onDataLoaded(final List<Shop> shops) {
+            public void onDataLoaded(final List<SimpleShop> shops) {
                 Run.onUiAsync(new Action() {
                     @Override
                     public void call() {
@@ -56,9 +57,9 @@ public class HomePresenter extends BaseRecyclerPresenter<Shop, HomeContact.View>
                         if (view == null)
                             return;
                         //拿到商店列表的适配器
-                        RecyclerAdapter<Shop> adapter = view.getRecyclerAdapter();
+                        RecyclerAdapter<SimpleShop> adapter = view.getRecyclerAdapter();
                         //拿到旧数据
-                        List<Shop> oldShops = adapter.getItems();
+                        List<SimpleShop> oldShops = adapter.getItems();
                         //进行数据对比
                         DiffUtil.Callback callback = new DiffUiDataCallback<>(oldShops, shops);
                         DiffUtil.DiffResult result = DiffUtil.calculateDiff(callback);
@@ -67,6 +68,8 @@ public class HomePresenter extends BaseRecyclerPresenter<Shop, HomeContact.View>
                         adapter.getItems().addAll(shops);
                         // 进行增量更新
                         result.dispatchUpdatesTo(adapter);
+
+                        view.onAdapterDataChanged();
                     }
                 });
             }

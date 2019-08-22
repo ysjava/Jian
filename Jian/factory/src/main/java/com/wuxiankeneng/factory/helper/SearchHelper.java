@@ -4,6 +4,7 @@ import com.wuxiankeneng.common.factory.DataSource;
 import com.wuxiankeneng.factory.Factory;
 import com.wuxiankeneng.factory.R;
 import com.wuxiankeneng.factory.card.GoodsCard;
+import com.wuxiankeneng.factory.card.SearchShopCard;
 import com.wuxiankeneng.factory.card.ShopCard;
 import com.wuxiankeneng.factory.db.Goods;
 import com.wuxiankeneng.factory.db.Shop;
@@ -19,21 +20,21 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SearchHelper {
-    public static void searchShop(String shopName, final DataSource.Callback<List<Shop>> callback) {
+    public static void searchShop(String shopName, final DataSource.Callback<List<SearchShopCard>> callback) {
         RemoteService service = Network.remote();
-        service.searchShop(shopName).enqueue(new Callback<ResponseModel<List<ShopCard>>>() {
+        service.searchShop(shopName).enqueue(new Callback<ResponseModel<List<SearchShopCard>>>() {
             @Override
-            public void onResponse(Call<ResponseModel<List<ShopCard>>> call, Response<ResponseModel<List<ShopCard>>> response) {
-                ResponseModel<List<ShopCard>> model = response.body();
-                assert model != null;
+            public void onResponse(Call<ResponseModel<List<SearchShopCard>>> call, Response<ResponseModel<List<SearchShopCard>>> response) {
+                ResponseModel<List<SearchShopCard>> model = response.body();
+                if (model == null){
+                    callback.onDataNotAvailable(R.string.txt_error_server);
+                    return;
+                }
                 if (model.success()) {
-                    List<ShopCard> cards = model.getResult();
-                    List<Shop> shops = new ArrayList<>();
-                    for (ShopCard card : cards) {
-                        shops.add(card.build());
-                    }
+                    List<SearchShopCard> cards = model.getResult();
+
                     if (callback != null)
-                        callback.onDataLoaded(shops);
+                        callback.onDataLoaded(cards);
                 } else {
                     if (callback != null)
                         Factory.decodeRspCode(model, callback);
@@ -42,7 +43,7 @@ public class SearchHelper {
             }
 
             @Override
-            public void onFailure(Call<ResponseModel<List<ShopCard>>> call, Throwable t) {
+            public void onFailure(Call<ResponseModel<List<SearchShopCard>>> call, Throwable t) {
                 if (callback != null)
                     callback.onDataNotAvailable(R.string.data_network_error);
             }
@@ -55,7 +56,10 @@ public class SearchHelper {
             @Override
             public void onResponse(Call<ResponseModel<List<GoodsCard>>> call, Response<ResponseModel<List<GoodsCard>>> response) {
                 ResponseModel<List<GoodsCard>> model = response.body();
-                assert model != null;
+                if (model == null){
+                    callback.onDataNotAvailable(R.string.txt_error_server);
+                    return;
+                }
                 if (model.success()) {
                     List<GoodsCard> cards = model.getResult();
                     List<Goods> goods = new ArrayList<>();

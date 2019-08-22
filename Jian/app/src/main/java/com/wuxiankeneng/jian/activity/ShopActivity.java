@@ -133,7 +133,7 @@ public class ShopActivity extends BaseActivityView<ShopPresenter>
     protected void initWidget() {
         super.initWidget();
         activity = this;
-
+        Application.showToast(shopId);
         mTypeRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         mTypeRecyclerView.setAdapter(adapter = new TypeAdapter(new RecyclerAdapter.AdapterListenerImpl<TypeBean>() {
@@ -485,7 +485,7 @@ public class ShopActivity extends BaseActivityView<ShopPresenter>
         }
 
         Shop shop = new Shop();
-        shop.setId("");
+
         shop.setsId("");
         shop.setName("");
         shop.setDesc("");
@@ -494,7 +494,7 @@ public class ShopActivity extends BaseActivityView<ShopPresenter>
         shop.setReserve(true);
         shop.setDeliveryRange(1);
         shop.setSales("");
-        shop.setDeliveryDate(50);
+        shop.setDeliveryDate("50");
         shop.setNotice("");
         shop.setRecommendGoods(null);
         shop.setAllGoods(goodsList);

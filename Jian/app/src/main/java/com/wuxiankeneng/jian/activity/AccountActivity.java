@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.wuxiankeneng.common.app.BaseActivity;
+import com.wuxiankeneng.jian.MainActivity;
 import com.wuxiankeneng.jian.R;
 import com.wuxiankeneng.jian.fragment.account.AccountTrigger;
 import com.wuxiankeneng.jian.fragment.account.LoginFragment;
@@ -31,7 +32,7 @@ public class AccountActivity extends BaseActivity
     ImageView mBack;
 
     public static void show(Context context) {
-        context.startActivity(new Intent(context, AccountActivity.class));
+        ((MainActivity)context).startActivityForResult(new Intent(context, AccountActivity.class),1);
     }
 
     @Override
@@ -77,4 +78,9 @@ public class AccountActivity extends BaseActivity
                 .commit();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        setResult(0);
+    }
 }

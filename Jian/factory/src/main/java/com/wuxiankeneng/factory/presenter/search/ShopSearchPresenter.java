@@ -2,6 +2,7 @@ package com.wuxiankeneng.factory.presenter.search;
 
 import com.wuxiankeneng.common.factory.DataSource;
 import com.wuxiankeneng.common.factory.base.BaseRecyclerPresenter;
+import com.wuxiankeneng.factory.card.SearchShopCard;
 import com.wuxiankeneng.factory.db.Shop;
 import com.wuxiankeneng.factory.helper.SearchHelper;
 import com.wuxiankeneng.factory.presenter.shop.ShopContract;
@@ -13,8 +14,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class ShopSearchPresenter extends BaseRecyclerPresenter<Shop, ShopSearchContract.View>
-        implements ShopSearchContract.Presenter, DataSource.Callback<List<Shop>> {
+public class ShopSearchPresenter extends BaseRecyclerPresenter<SearchShopCard, ShopSearchContract.View>
+        implements ShopSearchContract.Presenter, DataSource.Callback<List<SearchShopCard>> {
 
     @Inject
     public ShopSearchPresenter() {
@@ -22,12 +23,12 @@ public class ShopSearchPresenter extends BaseRecyclerPresenter<Shop, ShopSearchC
 
     @Override
     public void searchShop(String shopName) {
-        SearchHelper.searchShop(shopName, this);
+        SearchHelper.searchShop(shopName.trim(), this);
     }
 
 
     @Override
-    public void onDataLoaded(final List<Shop> shops) {
+    public void onDataLoaded(final List<SearchShopCard> shops) {
         Run.onUiAsync(new Action() {
             @Override
             public void call() {

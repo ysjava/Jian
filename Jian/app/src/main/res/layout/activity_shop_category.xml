@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFF8F8F9"
+                app:contentScrim="@color/white"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+
+                <android.support.v7.widget.Toolbar
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_63"
+                    android:paddingTop="@dimen/dp_25"
+                    app:layout_collapseMode="pin">
+
+                    <ImageView
+                        android:id="@+id/img_back"
+                        android:layout_width="@dimen/dp_20"
+                        android:layout_height="@dimen/dp_20"
+                        android:src="@drawable/ic_back_shop" />
+
+                    <TextView
+                        android:id="@+id/txt_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dp_145"
+                        android:text="@string/app_name"
+                        android:textColor="@color/grey_700"
+                        android:textStyle="bold"
+                        android:typeface="monospace" />
+
+                </android.support.v7.widget.Toolbar>
+
+                <EditText
+                    android:id="@+id/edt_search_goods_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_26"
+                    android:layout_marginStart="@dimen/dp_16"
+                    android:layout_marginTop="@dimen/dp_66"
+                    android:layout_marginEnd="@dimen/dp_16"
+                    android:layout_marginBottom="@dimen/dp_6"
+                    android:background="@drawable/bg_edt_search_goods_type"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:gravity="center"
+                    android:hint="@string/txt_nav_edt_hint"
+                    android:inputType="text"
+                    android:textColorHint="@color/grey_500"
+                    android:textSize="@dimen/sp_12"
+                    tools:ignore="Autofill" />
+
+            </android.support.design.widget.CollapsingToolbarLayout>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dp_6"
+            app:layout_behavior="android.support.design.widget.AppBarLayout$ScrollingViewBehavior" />
+
+    </android.support.design.widget.CoordinatorLayout>
+
+    <com.wuxiankeneng.common.widget.EmptyView
+        android:id="@+id/empty_view"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</FrameLayout>

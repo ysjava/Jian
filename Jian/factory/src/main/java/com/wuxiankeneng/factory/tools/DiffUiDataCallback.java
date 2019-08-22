@@ -1,6 +1,7 @@
 package com.wuxiankeneng.factory.tools;
 
 import android.support.v7.util.DiffUtil;
+import android.util.Log;
 
 import java.util.List;
 

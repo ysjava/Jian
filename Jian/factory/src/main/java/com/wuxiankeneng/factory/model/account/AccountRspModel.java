@@ -3,7 +3,7 @@ package com.wuxiankeneng.factory.model.account;
 import com.wuxiankeneng.factory.card.StudentCard;
 
 public class AccountRspModel {
-    private StudentCard studentCard;
+    private StudentCard card;
     private String phone;
     // 当前登录成功后获取的Token,可以通过Token获取用户的所有信息
     private String token;
@@ -11,12 +11,12 @@ public class AccountRspModel {
     private boolean isBind;
 
 
-    public StudentCard getStudentCard() {
-        return studentCard;
+    public StudentCard getCard() {
+        return card;
     }
 
-    public void setStudentCard(StudentCard studentCard) {
-        this.studentCard = studentCard;
+    public void setCard(StudentCard card) {
+        this.card = card;
     }
 
     public String getPhone() {

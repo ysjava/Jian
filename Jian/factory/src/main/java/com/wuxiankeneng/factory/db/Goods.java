@@ -11,11 +11,11 @@ public class Goods implements Serializable {
     private String img;
     private int count;
     private String sales;
+    private int dailySales;
     private String type;
     private int typeId;
     private double price;
     private Shop shop;
-
     public Goods() {
     }
 

@@ -11,25 +11,26 @@ public class ShopCard {
 
     private String id;
     private String name;
-    private String desc;
-    private String img;
+    private String description;
+    private String picture;
     private String sales;
     private String icon;
-    private int deliveryDate;//配送大约时间
+    private String deliveryDate;//配送大约时间
     private String notice;//公告
     private int range;//配送范围
     private boolean isReserve;//是否预约
     private boolean isBusiness;//是否营业
     private List<Goods> recommendGoods;//商店的推荐菜品,限制三个
     private List<Goods> allGoods;//所有商品
+    private Date createAt;
+
 
     public Shop build() {
         Shop shop = new Shop();
-        shop.setId(UUID.randomUUID().toString());//生成一个uuid
         shop.setsId(id);
         shop.setName(name);
-        shop.setDesc(desc);
-        shop.setImg(img);
+        shop.setDesc(description);
+        shop.setImg(picture);
         shop.setSales(sales);
         shop.setRecommendGoods(recommendGoods);
         shop.setIcon(icon);
@@ -58,20 +59,20 @@ public class ShopCard {
         this.name = name;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getImg() {
-        return img;
+    public String getPicture() {
+        return picture;
     }
 
-    public void setImg(String img) {
-        this.img = img;
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
     public String getSales() {
@@ -106,11 +107,11 @@ public class ShopCard {
         this.icon = icon;
     }
 
-    public int getDeliveryDate() {
+    public String getDeliveryDate() {
         return deliveryDate;
     }
 
-    public void setDeliveryDate(int deliveryDate) {
+    public void setDeliveryDate(String deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
 

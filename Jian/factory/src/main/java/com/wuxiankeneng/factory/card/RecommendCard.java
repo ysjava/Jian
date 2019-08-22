@@ -1,37 +1,35 @@
 package com.wuxiankeneng.factory.card;
 
 public class RecommendCard {
-    private String mImgUrl;
-    private String mShopId;//这儿可作为广告的链接或商店的id
+    private String imgUrl;
+    private String shopIdOrAdvertUrl;//这儿可作为广告的链接或商店的id
+    private int type;
 
-    public String getmImgUrl() {
-        return mImgUrl;
+    public String getImgUrl() {
+        return imgUrl;
     }
 
-    public void setmImgUrl(String mImgUrl) {
-        this.mImgUrl = mImgUrl;
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
 
-    public String getmShopId() {
-        return mShopId;
+    public String getShopIdOrAdvertUrl() {
+        return shopIdOrAdvertUrl;
     }
 
-    public void setmShopId(String mShopId) {
-        this.mShopId = mShopId;
+    public void setShopIdOrAdvertUrl(String shopIdOrAdvertUrl) {
+        this.shopIdOrAdvertUrl = shopIdOrAdvertUrl;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 
     public Recommend buildRecommend() {
-        Recommend recommend = new Recommend();
-        recommend.setImgPath(mImgUrl);
-        recommend.setUrlOrId(mShopId);
-        //判断是链接还是id
-        String substring = mShopId.substring(0, 4);
-        boolean isHttp = substring.equals("http");
-        if (isHttp)
-            recommend.setType(Recommend.TYPE_URL);
-        else
-            recommend.setType(Recommend.TYPE_ID);
-
-        return recommend;
+        return new Recommend(imgUrl,shopIdOrAdvertUrl,type);
     }
 }

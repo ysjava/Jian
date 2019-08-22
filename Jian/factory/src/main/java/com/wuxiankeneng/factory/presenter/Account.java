@@ -154,7 +154,7 @@ public class Account {
         // 存储当前登录的账户, token, 用户Id，方便从数据库中查询我的信息
         Account.token = model.getToken();
         Account.account = model.getPhone();
-        Account.stuId = model.getStudentCard().getId();
+        Account.stuId = model.getCard().getId();
         save(Factory.app());
     }
 
@@ -183,7 +183,7 @@ public class Account {
      */
     public static Student getUser() {
         // 如果为null返回一个new的User，其次从数据库查询
-        return TextUtils.isEmpty(stuId) ? new Student() : LitePal.where("id=?", stuId).findFirst(Student.class);
+        return TextUtils.isEmpty(stuId) ? new Student() : LitePal.where("sId=?", stuId).findFirst(Student.class);
     }
 //
 //    public static Student getSelf() {

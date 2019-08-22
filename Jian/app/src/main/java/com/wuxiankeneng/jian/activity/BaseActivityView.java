@@ -6,13 +6,18 @@ import com.wuxiankeneng.common.factory.base.BaseContract;
 import com.wuxiankeneng.common.factory.base.BasePresenter;
 import com.wuxiankeneng.factory.Factory;
 import com.wuxiankeneng.jian.App;
+import com.wuxiankeneng.jian.R;
 import com.wuxiankeneng.jian.di.component.ActivityComponent;
 import com.wuxiankeneng.jian.di.component.DaggerActivityComponent;
 import com.wuxiankeneng.jian.di.module.ActivityModule;
 
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import javax.inject.Inject;
+
+import static android.view.View.GONE;
 
 
 /**
@@ -24,7 +29,6 @@ public abstract class BaseActivityView<Presenter extends BasePresenter> extends 
 
     @Inject
     protected Presenter mPresenter;
-
     @SuppressWarnings("unchecked")
     @Override
     protected void initBefore() {
@@ -45,7 +49,9 @@ public abstract class BaseActivityView<Presenter extends BasePresenter> extends 
 
     @Override
     public void showLoading() {
-        //TODO 显示loading
+        if (mPlaceHolderView!=null){
+            mPlaceHolderView.triggerLoading();
+        }
     }
 
     //子类注入
@@ -59,7 +65,6 @@ public abstract class BaseActivityView<Presenter extends BasePresenter> extends 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.e("TAGa", "销毁: 我是base act");
         if (mPresenter != null) {
             mPresenter.destroy();
             mPresenter = null;
@@ -67,7 +72,15 @@ public abstract class BaseActivityView<Presenter extends BasePresenter> extends 
     }
 
     @Override
+    public void reFresh() {
+
+    }
+
+    @Override
     public void showError(int str) {
-        Application.showToast(str);
+        if (mPlaceHolderView != null) {
+            mPlaceHolderView.triggerError(str);
+        } else
+            Application.showToast(str);
     }
 }

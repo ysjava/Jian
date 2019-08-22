@@ -4,4 +4,6 @@
     <string name="txt_hint_goods_name">输入菜品</string>
     <string name="data_network_error">网络错误</string>
     <string name="account_or_password_error">账户或密码输入有误</string>
+    <string name="txt_error_server">服务器睡了,刷新试着叫醒她</string>
+    <string name="txt_multiple">综合</string>
 </resources>

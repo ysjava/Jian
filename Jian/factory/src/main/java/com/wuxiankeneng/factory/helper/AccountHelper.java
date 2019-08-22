@@ -45,12 +45,16 @@ public class AccountHelper {
         @Override
         public void onResponse(Call<ResponseModel<AccountRspModel>> call, Response<ResponseModel<AccountRspModel>> response) {
             ResponseModel<AccountRspModel> responseModel = response.body();
-            assert responseModel != null;
+            if (responseModel == null){
+                callback.onDataNotAvailable(R.string.txt_error_server);
+                return;
+            }
+
             if (responseModel.success()) {
                 AccountRspModel model = responseModel.getResult();
-                Student student = model.getStudentCard().build();
+                Student student = model.getCard().build();
                 //保存
-                DbHelper.save(Student.class, student);
+                student.saveOrUpdate();
 
                 //同步到xml持续化文件中
                 Account.login(model);

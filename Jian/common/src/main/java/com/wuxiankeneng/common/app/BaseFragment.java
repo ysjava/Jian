@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.wuxiankeneng.common.widget.PlaceHolderView;
+
 import butterknife.ButterKnife;
 
 /**
@@ -20,7 +22,7 @@ public abstract class BaseFragment extends Fragment {
     protected View mRoot;
     protected BaseActivity mActivity;
     protected Bundle mSaveState;
-
+    protected PlaceHolderView mPlaceHolderView;
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -90,5 +92,14 @@ public abstract class BaseFragment extends Fragment {
     //返回按键  返回true代表fragment自己处理返回逻辑,不用activity自己finish,false就让activity自己处理
     public boolean onBackPressed() {
         return false;
+    }
+
+    /**
+     * 设置占位布局
+     *
+     * @param placeHolderView 继承了占位布局规范的View
+     */
+    public void setPlaceHolderView(PlaceHolderView placeHolderView) {
+        this.mPlaceHolderView = placeHolderView;
     }
 }

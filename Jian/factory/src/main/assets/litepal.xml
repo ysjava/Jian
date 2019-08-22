@@ -2,10 +2,13 @@
 <resources>
     <litepal>
         <dbname value="DB_Jian" />
-        <version value="1" />
+        <version value="4" />
 
         <list>
             <mapping class="com.wuxiankeneng.factory.db.Shop"/>
+            <mapping class="com.wuxiankeneng.factory.db.Student"/>
+            <mapping class="com.wuxiankeneng.factory.db.SimpleShop"/>
+            <mapping class="com.wuxiankeneng.factory.db.SimpleGoods"/>
         </list>
 
     </litepal>

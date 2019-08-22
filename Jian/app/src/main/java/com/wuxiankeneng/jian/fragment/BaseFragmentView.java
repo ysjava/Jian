@@ -33,11 +33,6 @@ public abstract class BaseFragmentView<Presenter extends BasePresenter> extends 
         mPresenter.attachView(this);
     }
 
-//    protected final Presenter getPresenter() {
-//        return mPresenter;
-//    }
-
-    //    protected abstract Presenter initPresenter();
     protected abstract void initInject();
 
     //拿到注入器
@@ -54,11 +49,30 @@ public abstract class BaseFragmentView<Presenter extends BasePresenter> extends 
 
     @Override
     public void showLoading() {
-        //TODO 显示loading
+        if (mPlaceHolderView != null) {
+            mPlaceHolderView.triggerLoading();
+        }
+    }
+
+    @Override
+    public void reFresh() {
+
     }
 
     @Override
     public void showError(int str) {
-        Application.showToast(str);
+        if (mPlaceHolderView != null) {
+            mPlaceHolderView.triggerError(str);
+        } else
+            Application.showToast(str);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (mPresenter != null) {
+            mPresenter.destroy();
+            mPresenter = null;
+        }
     }
 }

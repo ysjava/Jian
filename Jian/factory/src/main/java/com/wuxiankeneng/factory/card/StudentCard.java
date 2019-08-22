@@ -5,19 +5,20 @@ import com.wuxiankeneng.factory.db.Student;
 import java.util.Date;
 
 public class StudentCard {
+
     private String id;
     private String name;
     private String phone;
-    private Date modifyAt;
+    //    private Date modifyAt;
     private String portrait;
 
 
     public Student build() {
         Student student = new Student();
-        student.setId(id);
+        student.setsId(id);
         student.setName(name);
         student.setPhone(phone);
-        student.setModifyAt(modifyAt);
+//        student.setModifyAt(modifyAt);
         student.setPortrait(portrait);
 
         return student;
@@ -47,13 +48,13 @@ public class StudentCard {
         this.phone = phone;
     }
 
-    public Date getModifyAt() {
-        return modifyAt;
-    }
-
-    public void setModifyAt(Date modifyAt) {
-        this.modifyAt = modifyAt;
-    }
+//    public Date getModifyAt() {
+//        return modifyAt;
+//    }
+//
+//    public void setModifyAt(Date modifyAt) {
+//        this.modifyAt = modifyAt;
+//    }
 
     public String getPortrait() {
         return portrait;

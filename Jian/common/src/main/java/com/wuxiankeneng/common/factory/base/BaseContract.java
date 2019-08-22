@@ -14,6 +14,8 @@ public interface BaseContract {
         void showError(@StringRes int str);
         //加载框
         void showLoading();
+        //网络错误 重新刷新
+        void reFresh();
     }
 
     interface Presenter<V extends View> {

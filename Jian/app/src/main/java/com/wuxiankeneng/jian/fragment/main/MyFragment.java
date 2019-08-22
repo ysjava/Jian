@@ -1,6 +1,7 @@
 package com.wuxiankeneng.jian.fragment.main;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.support.annotation.NonNull;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.wuxiankeneng.common.app.BaseFragment;
 import com.wuxiankeneng.factory.presenter.Account;
+import com.wuxiankeneng.jian.MainActivity;
 import com.wuxiankeneng.jian.R;
 import com.wuxiankeneng.jian.activity.AccountActivity;
 
@@ -46,7 +48,7 @@ public class MyFragment extends BaseFragment {
         if (Account.isLogin()) {
             //登陆就显示保存到xml文件的信息
             Glide.with(Objects.requireNonNull(getActivity()))
-                    .load(Account.getUser().getPortrait())
+                    .load(R.drawable.default_portrait)
                     .placeholder(R.drawable.default_portrait)
                     .dontAnimate()
                     .into(mPortrait);
@@ -66,8 +68,32 @@ public class MyFragment extends BaseFragment {
             Toast.makeText(getActivity(), "已登陆,跳转设置详情带完成", Toast.LENGTH_SHORT).show();
         } else {
             //没登陆就跳转登陆界面
-            AccountActivity.show(Objects.requireNonNull(getActivity()));
+//            AccountActivity.show(Objects.requireNonNull(getActivity()));
+//            ((MainActivity)context).startActivityForResult(new Intent(context, AccountActivity.class),1);
+            startActivityForResult(new Intent(getContext(), AccountActivity.class), 1);
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1 && resultCode == 0) {
+            //进行更新用户信息
+
+            //是否登陆
+            if (Account.isLogin()) {
+                //登陆就显示保存到xml文件的信息
+                Glide.with(Objects.requireNonNull(getActivity()))
+                        .load(R.drawable.default_portrait)
+                        .placeholder(R.drawable.default_portrait)
+                        .dontAnimate()
+                        .into(mPortrait);
+                //设置为账户名字
+                mName.setText(Account.getUser().getName());
+            } else {
+                //没有登陆
+                mName.setText("登陆/注册");
+            }
+        }
+
+    }
 }

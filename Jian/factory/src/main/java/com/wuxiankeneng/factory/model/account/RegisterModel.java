@@ -4,11 +4,15 @@ public class RegisterModel {
     private String phone;
     private String password;
     private String pushId;
+    private String name;
+    private String schoolId;
 
-    public RegisterModel(String phone, String password, String pushId) {
+    public RegisterModel(String phone, String password, String pushId,String name,String schoolId) {
         this.phone = phone;
         this.password = password;
         this.pushId = pushId;
+        this.name = name;
+        this.schoolId = schoolId;
     }
 
     public String getPhone() {
@@ -33,5 +37,21 @@ public class RegisterModel {
 
     public void setPushId(String pushId) {
         this.pushId = pushId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSchoolId() {
+        return schoolId;
+    }
+
+    public void setSchoolId(String schoolId) {
+        this.schoolId = schoolId;
     }
 }
