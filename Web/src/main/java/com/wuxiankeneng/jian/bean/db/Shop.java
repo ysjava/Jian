@@ -108,7 +108,7 @@ public class Shop {
     @JoinColumn(name = "recommendShopId")
     // 定义为懒加载，默认加载Shop信息的时候，并不查询这个集合
     @LazyCollection(LazyCollectionOption.EXTRA)
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     private Set<Goods> recommendGoods = new HashSet<>();
 
     //店铺的所有菜

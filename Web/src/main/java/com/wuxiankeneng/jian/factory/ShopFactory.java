@@ -1,6 +1,5 @@
 package com.wuxiankeneng.jian.factory;
 
-import com.google.common.base.Strings;
 import com.wuxiankeneng.jian.bean.api.shop.CreateGoodsModel;
 import com.wuxiankeneng.jian.bean.api.shop.CreateShopModel;
 import com.wuxiankeneng.jian.bean.card.SearchShopCard;
@@ -12,7 +11,6 @@ import com.wuxiankeneng.jian.bean.db.Shop;
 import com.wuxiankeneng.jian.bean.db.Trader;
 import com.wuxiankeneng.jian.utils.Hib;
 
-import javax.persistence.NamedQuery;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +28,15 @@ public class ShopFactory {
                 .createQuery("from Shop where id=:shopId")
                 .setParameter("shopId", shopId)
                 .uniqueResult());
+    }
+
+    public static Shop load(Shop shop) {
+        return Hib.query(session -> {
+            //因为店铺的菜品集合是懒加载,所有这儿需要进行一次load
+            session.load(shop, shop.getId());
+            session.refresh(shop);
+            return shop;
+        });
     }
 
     //开店
@@ -119,5 +126,13 @@ public class ShopFactory {
                 .setParameter("school", school)
                 .setParameter("s_type", type)
                 .getResultList());
+    }
+
+    //TODO 懒加载出了问题,先自己进行查询店铺的商品集
+    public static List<Goods> getAllGoods(Shop shop) {
+        return Hib.query(session ->
+                session.createQuery("from Goods where shop=:shop order by typeId asc ")
+                        .setParameter("shop", shop)
+                        .list());
     }
 }

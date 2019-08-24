@@ -1,9 +1,15 @@
 package com.wuxiankeneng.jian.bean.card;
 
 import com.google.gson.annotations.Expose;
+import com.wuxiankeneng.jian.bean.db.Goods;
 import com.wuxiankeneng.jian.bean.db.Shop;
+import com.wuxiankeneng.jian.factory.GoodsFactory;
+import com.wuxiankeneng.jian.factory.ShopFactory;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ShopCard {
     @Expose
@@ -28,10 +34,13 @@ public class ShopCard {
     private String deliveryDate;
     @Expose
     private boolean isBusiness;
+//    @Expose
+//    private LocalDateTime createAt;
     @Expose
-    private LocalDateTime createAt ;
+    private List<GoodsCard> goodsList;
 
-    public ShopCard(Shop shop) {
+
+    public ShopCard(Shop shop, boolean isLoad) {
         this.id = shop.getId();
         this.name = shop.getName();
         this.icon = shop.getIcon();
@@ -43,7 +52,12 @@ public class ShopCard {
         this.sales = shop.getSales();
         this.deliveryDate = shop.getDeliveryDate();
         this.isBusiness = shop.isBusiness();
-        this.createAt = shop.getCreateAt();
+//        this.createAt = shop.getCreateAt();
+
+        if (isLoad)
+            this.goodsList = ShopFactory.getAllGoods(shop).stream()
+                    .map(GoodsCard::new)
+                    .collect(Collectors.toList());
     }
 
     public String getId() {
@@ -134,11 +148,19 @@ public class ShopCard {
         isBusiness = business;
     }
 
-    public LocalDateTime getCreateAt() {
-        return createAt;
+//    public LocalDateTime getCreateAt() {
+//        return createAt;
+//    }
+//
+//    public void setCreateAt(LocalDateTime createAt) {
+//        this.createAt = createAt;
+//    }
+
+    public List<GoodsCard> getGoodsList() {
+        return goodsList;
     }
 
-    public void setCreateAt(LocalDateTime createAt) {
-        this.createAt = createAt;
+    public void setGoodsList(List<GoodsCard> goodsList) {
+        this.goodsList = goodsList;
     }
 }

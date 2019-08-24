@@ -52,7 +52,7 @@ public class ShopService extends BaseService {
             return ResponseModel.buildServiceError();
         }
 
-        return ResponseModel.buildOk(new ShopCard(shop));
+        return ResponseModel.buildOk(new ShopCard(shop,false));
     }
 
     //关店(删除)
@@ -109,7 +109,7 @@ public class ShopService extends BaseService {
         if (shop == null)
             return ResponseModel.buildServiceError();
         //完成设置,返回
-        return ResponseModel.buildOk(new ShopCard(shop));
+        return ResponseModel.buildOk(new ShopCard(shop,false));
     }
 
     //上架商品

@@ -28,14 +28,11 @@ public class SchoolFactory {
     }
 
     public static List<Recommend> loadRecommend(School school) {
-        return Hib.query(session -> {
-
-            @SuppressWarnings("unchecked")
-            List<Recommend> recommends = session.createQuery("from Recommend where school=:school")
-                    .setParameter("school", school)
-                    .setMaxResults(6)
-                    .list();
-            return recommends;
-        });
+        return Hib.query(session ->
+                (List<Recommend>) session.createQuery("from Recommend where school=:school")
+                        .setParameter("school", school)
+                        .setMaxResults(6)
+                        .list()
+        );
     }
 }

@@ -1,5 +1,6 @@
 package com.wuxiankeneng.jian.factory;
 
+
 import com.wuxiankeneng.jian.bean.db.Goods;
 import com.wuxiankeneng.jian.bean.db.School;
 import com.wuxiankeneng.jian.bean.db.Shop;
@@ -37,4 +38,11 @@ public class GoodsFactory {
     }
 
 
+    public static List<Goods> searchGoodsInShop(String goodsName, Shop shop) {
+        return Hib.query(session ->
+                session.createQuery(" from Goods where shop=:shop and g_name like ?1")
+                        .setParameter("shop", shop)
+                        .setParameter(1, "%" + goodsName + "%")
+                        .list());
+    }
 }

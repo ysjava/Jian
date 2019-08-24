@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
 
 @Path("student")
 public class StudentService extends BaseService {
+    //根据学校id拿到首页的推荐卡片
     @GET
     @Path("loadRecommend/{schoolId}")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -46,7 +47,7 @@ public class StudentService extends BaseService {
                 .collect(Collectors.toList()));
     }
 
-    //拿到当前学校id下的所有店铺
+    //拿到当前学校id下的所有店铺  返回的店铺的简单信息
     @GET
     @Path("getSimpleShops/{schoolId}")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -65,9 +66,6 @@ public class StudentService extends BaseService {
             return ResponseModel.buildServiceError();
 
         return ResponseModel.buildOk(shopList);
-//                (shopList.stream()
-//                .map(ShopCard::new)
-//                .collect(Collectors.toList()));
     }
 
     //搜索店铺,主页界面搜索框的
@@ -118,4 +116,22 @@ public class StudentService extends BaseService {
                 type == Shop.TYPE_NOODLE || type == Shop.TYPE_STIR_FRY || type == Shop.TYPE_SUPERMARKET;
     }
 
+    //用店铺id拿到店铺的详细信息
+    //用于店铺界面
+    @GET
+    @Path("getShop/{shopId}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public ResponseModel<ShopCard> getShopById(@PathParam("shopId") String shopId) {
+        if (Strings.isNullOrEmpty(shopId))
+            return ResponseModel.buildParameterError();
+        Shop shop = ShopFactory.findById(shopId);
+        if (shop == null)
+            return ResponseModel.buildError("没找到店铺");
+        //重新加载一次,因为商品集合是懒加载的
+//        shop = ShopFactory.load(shop);
+
+
+        return ResponseModel.buildOk(new ShopCard(shop, true));
+    }
 }
