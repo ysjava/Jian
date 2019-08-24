@@ -26,7 +26,7 @@ public class SearchHelper {
             @Override
             public void onResponse(Call<ResponseModel<List<SearchShopCard>>> call, Response<ResponseModel<List<SearchShopCard>>> response) {
                 ResponseModel<List<SearchShopCard>> model = response.body();
-                if (model == null){
+                if (model == null) {
                     callback.onDataNotAvailable(R.string.txt_error_server);
                     return;
                 }
@@ -50,13 +50,14 @@ public class SearchHelper {
         });
     }
 
-    public static void searchGoods(String goodsName, final DataSource.Callback<List<Goods>> callback) {
+    //用名字搜索商品集合
+    public static void searchGoods(String goodsName, String shopId, final DataSource.Callback<List<Goods>> callback) {
         RemoteService service = Network.remote();
-        service.searchGoods(goodsName).enqueue(new Callback<ResponseModel<List<GoodsCard>>>() {
+        service.searchGoods(goodsName, shopId).enqueue(new Callback<ResponseModel<List<GoodsCard>>>() {
             @Override
             public void onResponse(Call<ResponseModel<List<GoodsCard>>> call, Response<ResponseModel<List<GoodsCard>>> response) {
                 ResponseModel<List<GoodsCard>> model = response.body();
-                if (model == null){
+                if (model == null) {
                     callback.onDataNotAvailable(R.string.txt_error_server);
                     return;
                 }

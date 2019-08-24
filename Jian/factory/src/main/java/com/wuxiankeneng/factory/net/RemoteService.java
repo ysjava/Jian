@@ -2,12 +2,11 @@ package com.wuxiankeneng.factory.net;
 
 
 import com.wuxiankeneng.factory.card.GoodsCard;
-import com.wuxiankeneng.factory.card.Recommend;
 import com.wuxiankeneng.factory.card.RecommendCard;
 import com.wuxiankeneng.factory.card.SearchShopCard;
 import com.wuxiankeneng.factory.card.ShopCard;
+
 import com.wuxiankeneng.factory.card.SimpleShopCard;
-import com.wuxiankeneng.factory.db.Shop;
 import com.wuxiankeneng.factory.model.ResponseModel;
 import com.wuxiankeneng.factory.model.account.AccountRspModel;
 import com.wuxiankeneng.factory.model.account.LoginModel;
@@ -92,13 +91,13 @@ public interface RemoteService {
     Call<ResponseModel<List<SearchShopCard>>> searchShop(@Path("shopName") String shopName);
 
     /**
-     * 搜索商品
+     * 在店铺搜索商品
      *
      * @param goodsName 商品名字
      * @return ResponseModel<List<GoodsCard>>
      */
-    @GET("goods/search/{goodsName}")
-    Call<ResponseModel<List<GoodsCard>>> searchGoods(@Path("goodsName") String goodsName);
+    @GET("student/searchGoods/inShop/{goodsName}|{shopId}")
+    Call<ResponseModel<List<GoodsCard>>> searchGoods(@Path("goodsName") String goodsName, @Path("shopId") String shopId);
 
     /**
      * 用店铺id获取店铺信息
@@ -106,7 +105,7 @@ public interface RemoteService {
      * @param shopId 店铺id
      * @return ResponseModel<ShopCard>
      */
-    @GET("shop/{shopId}")
+    @GET("student/getShop/{shopId}")
     Call<ResponseModel<ShopCard>> getShopById(@Path("shopId") String shopId);
 
     /**

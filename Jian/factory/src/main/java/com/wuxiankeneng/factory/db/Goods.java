@@ -8,25 +8,27 @@ public class Goods implements Serializable {
     private String sId;
     private String name;
     private String desc;
-    private String img;
+    private String icon;
     private int count;
-    private String sales;
+    private int sales;
     private int dailySales;
     private String type;
     private int typeId;
-    private double price;
+    private String price;
+    private String originalPrice;
     private Shop shop;
     public Goods() {
     }
 
-    public Goods(String id, String name, String img, String sales, String type, int typeId, double price) {
+    public Goods(String id, String name, String icon, int sales, String type, int typeId, String price,String originalPrice) {
         this.id = id;
         this.name = name;
-        this.img = img;
+        this.icon = icon;
         this.sales = sales;
         this.type = type;
         this.typeId = typeId;
         this.price = price;
+        this.originalPrice = originalPrice;
     }
 
     public String getId() {
@@ -61,12 +63,12 @@ public class Goods implements Serializable {
         this.desc = desc;
     }
 
-    public String getImg() {
-        return img;
+    public String getIcon() {
+        return icon;
     }
 
-    public void setImg(String img) {
-        this.img = img;
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
     public int getCount() {
@@ -77,11 +79,11 @@ public class Goods implements Serializable {
         this.count = count;
     }
 
-    public String getSales() {
+    public int getSales() {
         return sales;
     }
 
-    public void setSales(String sales) {
+    public void setSales(int sales) {
         this.sales = sales;
     }
 
@@ -101,12 +103,20 @@ public class Goods implements Serializable {
         this.shop = shop;
     }
 
-    public double getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(String price) {
         this.price = price;
+    }
+
+    public String getOriginalPrice() {
+        return originalPrice;
+    }
+
+    public void setOriginalPrice(String originalPrice) {
+        this.originalPrice = originalPrice;
     }
 
     public int getTypeId() {

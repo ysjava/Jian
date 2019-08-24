@@ -9,12 +9,13 @@ import java.util.Map;
 
 public interface GoodsSearchContract {
     interface View extends BaseContract.RecyclerView<Goods> {
-        Map<String,Goods> getSelectedGoodsList();
+        Map<String, Goods> getSelectedGoodsList();
+
         //刷新购物车
         void updateShopping();
     }
 
     interface Presenter extends BaseContract.Presenter<View> {
-        void searchGoods(String goodsName);
+        void searchGoods(String goodsName, String shopId);
     }
 }

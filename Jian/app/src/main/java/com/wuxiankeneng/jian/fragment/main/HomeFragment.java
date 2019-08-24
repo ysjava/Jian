@@ -282,21 +282,42 @@ public class HomeFragment extends BaseFragmentView<HomePresenter>
 
                     List<SimpleGoods> goodsList = new ArrayList<>(shop.getSimpleGoods());
                     //into到推荐菜头像
-                    Glide.with(getContext())
-                            .load(goodsList.get(0).getIcon())
-                            .into(mTjImg1);
-                    mTjDesc1.setText(goodsList.get(0).getName());
 
-                    Glide.with(getContext())
-                            .load(goodsList.get(1).getIcon())
-                            .into(mTjImg2);
-                    mTjDesc2.setText(goodsList.get(1).getName());
+                    switch (goodsList.size()) {
+                        case 1:
+                            Glide.with(getContext())
+                                    .load(goodsList.get(0).getIcon())
+                                    .into(mTjImg1);
+                            mTjDesc1.setText(goodsList.get(0).getName());
+                            break;
+                        case 2:
+                            Glide.with(getContext())
+                                    .load(goodsList.get(0).getIcon())
+                                    .into(mTjImg1);
+                            mTjDesc1.setText(goodsList.get(0).getName());
 
-                    Glide.with(getContext())
-                            .load(goodsList.get(2).getIcon())
-                            .into(mTjImg3);
-                    mTjDesc3.setText(goodsList.get(2).getName());
+                            Glide.with(getContext())
+                                    .load(goodsList.get(1).getIcon())
+                                    .into(mTjImg2);
+                            mTjDesc2.setText(goodsList.get(1).getName());
+                        case 3:
+                            Glide.with(getContext())
+                                    .load(goodsList.get(0).getIcon())
+                                    .into(mTjImg1);
+                            mTjDesc1.setText(goodsList.get(0).getName());
 
+                            Glide.with(getContext())
+                                    .load(goodsList.get(1).getIcon())
+                                    .into(mTjImg2);
+                            mTjDesc2.setText(goodsList.get(1).getName());
+
+                            Glide.with(getContext())
+                                    .load(goodsList.get(2).getIcon())
+                                    .into(mTjImg3);
+                            mTjDesc3.setText(goodsList.get(2).getName());
+                        default:
+                            break;
+                    }
                 }
             });
         }
@@ -314,7 +335,7 @@ public class HomeFragment extends BaseFragmentView<HomePresenter>
 
     @OnClick(R.id.edt_nav_search)
     public void searchShop() {
-        SearchActivity.show(getContext(), SearchActivity.TYPE_SHOP, null);
+        SearchActivity.show(Objects.requireNonNull(getContext()));
     }
 
     @OnClick(R.id.lay_hot)

@@ -8,7 +8,6 @@ import com.wuxiankeneng.common.widget.recycler.RecyclerAdapter;
 import com.wuxiankeneng.factory.card.SimpleShopCard;
 import com.wuxiankeneng.factory.db.SimpleShop;
 import com.wuxiankeneng.factory.helper.ShopHelper;
-import com.wuxiankeneng.factory.presenter.main.hone.HomeContact;
 import com.wuxiankeneng.factory.tools.DiffUiDataCallback;
 
 

@@ -6,6 +6,7 @@ import com.wuxiankeneng.common.widget.BaseListAdapter;
 import com.wuxiankeneng.common.widget.recycler.RecyclerAdapter;
 import com.wuxiankeneng.factory.card.Recommend;
 import com.wuxiankeneng.factory.db.Goods;
+import com.wuxiankeneng.factory.db.Shop;
 import com.wuxiankeneng.factory.model.shop.TypeBean;
 
 import java.util.List;
@@ -15,6 +16,11 @@ public interface ShopContract {
         RecyclerAdapter<TypeBean> getTypeAdapter();
 
         BaseListAdapter<Goods> getGoodsAdapter();
+
+        void setGoodsList(List<Goods> goodsList);
+
+        void success(Shop shop);
+
     }
 
     interface Presenter extends BaseContract.Presenter<View> {

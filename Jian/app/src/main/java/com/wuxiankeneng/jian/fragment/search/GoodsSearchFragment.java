@@ -72,7 +72,8 @@ public class GoodsSearchFragment extends BaseFragmentView<GoodsSearchPresenter>
             Application.showToast("内容为空");
             return;
         }
-        mPresenter.searchGoods(content);
+
+        mPresenter.searchGoods(content,activity.getShopId());
     }
 
     @Override
@@ -100,26 +101,28 @@ public class GoodsSearchFragment extends BaseFragmentView<GoodsSearchPresenter>
             }
         });
         adapter.addFooterView(R.layout.item_type_footer);
-
+        update();
     }
 
     @Override
     protected void initData() {
         super.initData();
-        List<Goods> goodsList = new ArrayList<>();
+        //显示店铺中所有商品
 
-        Goods goods;
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                goods = new Goods("" + i + j, "商品" + (i * 100 + j),
-                        "https://italker-im-new.oss-cn-hongkong.aliyuncs.com/portrait/201812/5e2f33d5b2c89271b736e5f9c387ef91.jpg",
-                        String.valueOf((int) (Math.random() * 1000)), "类型" + i, i, Math.random() * 100);
-                goodsList.add(goods);
-            }
+//        List<Goods> goodsList = new ArrayList<>();
 
-        }
+//        Goods goods;
+//        for (int i = 0; i < 3; i++) {
+//            for (int j = 0; j < 3; j++) {
+//                goods = new Goods("" + i + j, "商品" + (i * 100 + j),
+//                        "https://italker-im-new.oss-cn-hongkong.aliyuncs.com/portrait/201812/5e2f33d5b2c89271b736e5f9c387ef91.jpg",
+//                        String.valueOf((int) (Math.random() * 1000)), "类型" + i, i, Math.random() * 100);
+//                goodsList.add(goods);
+//            }
+//
+//        }
 
-        mPresenter.onDataLoaded(goodsList);
+//        mPresenter.onDataLoaded(goodsList);
     }
 
     @Override
@@ -157,7 +160,7 @@ public class GoodsSearchFragment extends BaseFragmentView<GoodsSearchPresenter>
             switch (view.getId()) {
                 case R.id.iv_add: {
                     //判断当前点击的商品选中的数量
-                    int count = getCurrentGoodsCountById(goods.getId());
+                    int count = getCurrentGoodsCountById(goods.getsId());
                     if (count < 1) {
                         goodsCount.setVisibility(View.VISIBLE);
                         goodsMinus.setVisibility(View.VISIBLE);
@@ -168,7 +171,7 @@ public class GoodsSearchFragment extends BaseFragmentView<GoodsSearchPresenter>
                 }
                 break;
                 case R.id.iv_minus:
-                    int count = getCurrentGoodsCountById(goods.getId());
+                    int count = getCurrentGoodsCountById(goods.getsId());
                     if (count < 2) {
                         goodsCount.setVisibility(View.GONE);
                         goodsMinus.setVisibility(View.GONE);
@@ -184,14 +187,14 @@ public class GoodsSearchFragment extends BaseFragmentView<GoodsSearchPresenter>
         protected void onBind(Goods goods) {
             this.goods = goods;
             Glide.with(activity)
-                    .load(goods.getImg())
+                    .load(goods.getIcon())
                     .dontAnimate()
                     .error(R.drawable.default_portrait)
                     .placeholder(R.drawable.default_portrait)
                     .into(goodsIcon);
             goodsName.setText(goods.getName());
             goodsSales.setText(String.format("销量 :%s", goods.getSales()));
-            goodsPrice.setText(String.valueOf(Arithmetic.round(goods.getPrice(), 2)));
+            goodsPrice.setText(String.valueOf(Arithmetic.round(Double.parseDouble(goods.getPrice()), 2)));
 //            goods.setCount(activity.getCurrentGoodsCountById(goods.getId()));
             goodsCount.setText(String.valueOf(goods.getCount()));
 
@@ -267,10 +270,10 @@ public class GoodsSearchFragment extends BaseFragmentView<GoodsSearchPresenter>
     //商品添加
     public void addGoods(Goods goods) {
         //添加到商品集合
-        Goods gd = mSelectedGoodsList.get(goods.getId());
+        Goods gd = mSelectedGoodsList.get(goods.getsId());
         if (gd == null) {
             goods.setCount(1);
-            mSelectedGoodsList.put(goods.getId(), goods);
+            mSelectedGoodsList.put(goods.getsId(), goods);
         } else {
             gd.setCount(gd.getCount() + 1);
         }
@@ -283,12 +286,12 @@ public class GoodsSearchFragment extends BaseFragmentView<GoodsSearchPresenter>
     public void removeGoods(Goods goods) {
 
         //从商品集合删除
-        Goods gd = mSelectedGoodsList.get(goods.getId());
+        Goods gd = mSelectedGoodsList.get(goods.getsId());
         if (gd != null) {
             if (gd.getCount() < 2) {
                 //这儿减1后  对应商品的count就回到了0,不然的话,对应商品的count还是1,更新右边列表就会出问题
                 gd.setCount(gd.getCount() - 1);
-                mSelectedGoodsList.remove(goods.getId());
+                mSelectedGoodsList.remove(goods.getsId());
             } else {
                 gd.setCount(gd.getCount() - 1);
             }
@@ -303,7 +306,7 @@ public class GoodsSearchFragment extends BaseFragmentView<GoodsSearchPresenter>
         double totalPrice = 0;
         for (Goods goods : mSelectedGoodsList.values()) {
             totalCount += goods.getCount();
-            totalPrice = Arithmetic.round(Arithmetic.add(totalPrice, Arithmetic.mul(goods.getPrice(), goods.getCount())), 2);
+            totalPrice = Arithmetic.round(Arithmetic.add(totalPrice, Arithmetic.mul(Double.parseDouble(goods.getPrice()), goods.getCount())), 2);
 
         }
 

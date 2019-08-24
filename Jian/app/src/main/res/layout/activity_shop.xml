@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tool="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,8 +11,7 @@
     <com.flipboard.bottomsheet.BottomSheetLayout
         android:id="@+id/lay_bottom_sheet"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="match_parent">
 
         <android.support.design.widget.CoordinatorLayout
             android:layout_width="match_parent"
@@ -21,8 +20,7 @@
             <android.support.design.widget.AppBarLayout
                 android:id="@+id/appbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
+                android:layout_height="wrap_content">
 
                 <android.support.design.widget.CollapsingToolbarLayout
                     android:layout_width="match_parent"
@@ -33,7 +31,7 @@
 
 
                     <ImageView
-                        android:id="@+id/iv_shop_icon"
+                        android:id="@+id/iv_shop_pic"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_140"
                         android:foreground="@color/black_alpha_32"
@@ -54,6 +52,7 @@
                         android:paddingEnd="@dimen/dp_10">
 
                         <TextView
+                            android:id="@+id/txt_shop_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dp_5"
@@ -78,7 +77,7 @@
                                 tool:ignore="ContentDescription" />
 
                             <TextView
-                                android:id="@+id/txt_delivery"
+                                android:id="@+id/txt_delivery_date"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="@dimen/dp_3"
@@ -131,16 +130,17 @@
                     </LinearLayout>
 
                     <FrameLayout
-                        android:layout_width="@dimen/dp_40"
-                        android:layout_height="@dimen/dp_40"
+                        android:layout_width="@dimen/dp_66"
+                        android:layout_height="@dimen/dp_66"
                         android:layout_gravity="end"
                         android:layout_marginTop="@dimen/dp_70"
                         android:layout_marginEnd="@dimen/dp_40">
 
                         <com.wuxiankeneng.common.widget.RoundAngleImageView
                             android:id="@+id/card_view"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:layout_width="@dimen/dp_66"
+                            android:layout_height="@dimen/dp_66"
                             android:src="@mipmap/youyiku" />
                     </FrameLayout>
 
@@ -295,7 +295,7 @@
                     android:layout_height="match_parent"
                     android:layout_alignParentEnd="true"
                     android:background="@drawable/bg_go_pay"
-                    android:enabled="true"
+                    android:enabled="false"
                     android:gravity="center"
                     android:text="去结算"
                     android:textColor="@color/white_alpha_240" />
@@ -307,6 +307,11 @@
 
     </com.flipboard.bottomsheet.BottomSheetLayout>
 
+    <com.wuxiankeneng.common.widget.EmptyView
+        android:id="@+id/empty_view"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
-</LinearLayout>
+</FrameLayout>
 

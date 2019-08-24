@@ -249,20 +249,43 @@ public class ShopCategoryActivity extends BaseActivityView<ShopCategoryPresenter
 
                     List<SimpleGoods> goodsList = new ArrayList<>(shopCard.getSimpleGoods());
                     //into到推荐菜头像
-                    Glide.with(ShopCategoryActivity.this)
-                            .load(goodsList.get(0).getIcon())
-                            .into(mTjImg1);
-                    mTjDesc1.setText(goodsList.get(0).getName());
 
-                    Glide.with(ShopCategoryActivity.this)
-                            .load(goodsList.get(1).getIcon())
-                            .into(mTjImg2);
-                    mTjDesc2.setText(goodsList.get(1).getName());
+                    switch (goodsList.size()) {
+                        case 1:
+                            Glide.with(ShopCategoryActivity.this)
+                                    .load(goodsList.get(0).getIcon())
+                                    .into(mTjImg1);
+                            mTjDesc1.setText(goodsList.get(0).getName());
+                            break;
+                        case 2:
+                            Glide.with(ShopCategoryActivity.this)
+                                    .load(goodsList.get(0).getIcon())
+                                    .into(mTjImg1);
+                            mTjDesc1.setText(goodsList.get(0).getName());
 
-                    Glide.with(ShopCategoryActivity.this)
-                            .load(goodsList.get(2).getIcon())
-                            .into(mTjImg3);
-                    mTjDesc3.setText(goodsList.get(2).getName());
+                            Glide.with(ShopCategoryActivity.this)
+                                    .load(goodsList.get(1).getIcon())
+                                    .into(mTjImg2);
+                            mTjDesc2.setText(goodsList.get(1).getName());
+                        case 3:
+                            Glide.with(ShopCategoryActivity.this)
+                                    .load(goodsList.get(0).getIcon())
+                                    .into(mTjImg1);
+                            mTjDesc1.setText(goodsList.get(0).getName());
+
+                            Glide.with(ShopCategoryActivity.this)
+                                    .load(goodsList.get(1).getIcon())
+                                    .into(mTjImg2);
+                            mTjDesc2.setText(goodsList.get(1).getName());
+
+                            Glide.with(ShopCategoryActivity.this)
+                                    .load(goodsList.get(2).getIcon())
+                                    .into(mTjImg3);
+                            mTjDesc3.setText(goodsList.get(2).getName());
+                        default:
+                            break;
+
+                    }
 
                 }
             });

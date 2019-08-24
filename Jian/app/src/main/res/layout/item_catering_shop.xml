@@ -178,8 +178,7 @@
                     android:id="@+id/tj_food_img_1"
                     android:layout_width="@dimen/len_52"
                     android:layout_height="@dimen/len_52"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ribendoufu" />
+                    android:scaleType="centerCrop" />
 
                 <TextView
                     android:id="@+id/txt_tj_food_desc_1"
@@ -188,7 +187,6 @@
                     android:layout_marginTop="@dimen/len_4"
                     android:maxLength="6"
                     android:maxLines="1"
-                    android:text="日本豆腐日本豆腐"
                     android:textColor="@color/black_alpha_112"
                     android:textSize="@dimen/font_12" />
             </LinearLayout>
@@ -206,8 +204,7 @@
                     android:id="@+id/tj_food_img_2"
                     android:layout_width="@dimen/len_52"
                     android:layout_height="@dimen/len_52"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/suantairousi" />
+                    android:scaleType="centerCrop" />
 
                 <TextView
                     android:id="@+id/txt_tj_food_desc_2"
@@ -216,7 +213,6 @@
                     android:layout_marginTop="@dimen/len_4"
                     android:maxLength="6"
                     android:maxLines="1"
-                    android:text="蒜苔肉丝蒜苔肉丝"
                     android:textColor="@color/black_alpha_112"
                     android:textSize="@dimen/font_12" />
             </LinearLayout>
@@ -234,8 +230,7 @@
                     android:id="@+id/tj_food_img_3"
                     android:layout_width="@dimen/len_52"
                     android:layout_height="@dimen/len_52"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/mapodoufu" />
+                    android:scaleType="centerCrop" />
 
                 <TextView
                     android:id="@+id/txt_tj_food_desc_3"
@@ -244,7 +239,6 @@
                     android:layout_marginTop="@dimen/len_4"
                     android:maxLength="6"
                     android:maxLines="1"
-                    android:text="麻婆豆腐"
                     android:textColor="@color/black_alpha_112"
                     android:textSize="@dimen/font_12" />
             </LinearLayout>

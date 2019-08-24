@@ -37,6 +37,7 @@ public class SearchActivity extends BaseActivity {
     public static final int TYPE_GOODS_IN_SHOP = 1;//在店铺中搜索商品
 
     private int type;
+    private String shopId;
     private SearchFragment mSearchFragment;
     @BindView(R.id.edt_search)
     EditText mSearch;
@@ -47,21 +48,32 @@ public class SearchActivity extends BaseActivity {
     private HashMap<String, Goods> map;
 
     /**
+     * 主界面搜索时调用  搜索商店
+     *
+     * @param context 上下文
+     */
+    public static void show(Context context) {
+        Intent intent = new Intent(context, SearchActivity.class);
+        intent.putExtra(EXTRA_TYPE, TYPE_SHOP);
+        context.startActivity(intent);
+    }
+
+    /**
+     * 在商店中搜索时调用
+     *
      * @param context  上下文
-     * @param type     搜索的类型
+     * @param shopId   店铺id
      * @param goodsMap 在店铺界面搜索才需要的参数: 已选中的菜品
      */
-    public static void show(Context context, int type, HashMap<String, Goods> goodsMap) {
+    public static void show(Context context, String shopId, HashMap<String, Goods> goodsMap) {
         Intent intent = new Intent(context, SearchActivity.class);
-        intent.putExtra(EXTRA_TYPE, type);
+        intent.putExtra(EXTRA_TYPE, TYPE_GOODS_IN_SHOP);
+        intent.putExtra("SHOP_ID", shopId);
+        intent.putExtra("GOODS_LIST", goodsMap);
 
-        if (type == TYPE_GOODS_IN_SHOP) {
-            intent.putExtra("GOODS_LIST", goodsMap);
-            ((ShopActivity) context).startActivityForResult(intent, 1);
-        } else if (type == TYPE_SHOP) {
-            context.startActivity(intent);
-        }
+        ((ShopActivity) context).startActivityForResult(intent, 1);
     }
+
 
     public HashMap<String, Goods> getMap() {
         return map;
@@ -76,7 +88,7 @@ public class SearchActivity extends BaseActivity {
     @Override
     protected boolean initArgs(Bundle bundle) {
         this.type = bundle.getInt(EXTRA_TYPE);
-
+        this.shopId = bundle.getString("SHOP_ID");
         if (type == TYPE_GOODS_IN_SHOP) {
             map = (HashMap<String, Goods>) getIntent().getSerializableExtra("GOODS_LIST");
         }
@@ -130,5 +142,7 @@ public class SearchActivity extends BaseActivity {
         void search(String content);
     }
 
-
+    public String getShopId() {
+        return shopId;
+    }
 }

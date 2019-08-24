@@ -36,10 +36,10 @@ public class GoodsAdapter extends BaseListAdapter<Goods> implements StickyListHe
     }
 
     public GoodsAdapter(ArrayList<Goods> mDataList, Context context) {
-        super(mDataList);
+            super(mDataList);
 
-        this.activity = (ShopActivity) context;
-        this.inflater = LayoutInflater.from(context);
+            this.activity = (ShopActivity) context;
+            this.inflater = LayoutInflater.from(context);
 
     }
 
@@ -111,7 +111,7 @@ public class GoodsAdapter extends BaseListAdapter<Goods> implements StickyListHe
             switch (view.getId()) {
                 case R.id.iv_add: {
                     //判断当前点击的商品选中的数量
-                    int count = activity.getCurrentGoodsCountById(goods.getId());
+                    int count = activity.getCurrentGoodsCountById(goods.getsId());
                     if (count < 1) {
                         goodsCount.setVisibility(View.VISIBLE);
                         goodsMinus.setVisibility(View.VISIBLE);
@@ -122,7 +122,7 @@ public class GoodsAdapter extends BaseListAdapter<Goods> implements StickyListHe
                 }
                 break;
                 case R.id.iv_minus:
-                    int count = activity.getCurrentGoodsCountById(goods.getId());
+                    int count = activity.getCurrentGoodsCountById(goods.getsId());
                     if (count < 2) {
                         goodsCount.setVisibility(View.GONE);
                         goodsMinus.setVisibility(View.GONE);
@@ -138,14 +138,14 @@ public class GoodsAdapter extends BaseListAdapter<Goods> implements StickyListHe
         protected void onBind(Goods goods) {
             this.goods = goods;
             Glide.with(activity)
-                    .load(goods.getImg())
+                    .load(goods.getIcon())
                     .dontAnimate()
                     .error(R.drawable.default_portrait)
                     .placeholder(R.drawable.default_portrait)
                     .into(goodsIcon);
             goodsName.setText(goods.getName());
             goodsSales.setText(String.format("销量 :%s", goods.getSales()));
-            goodsPrice.setText(String.valueOf(Arithmetic.round(goods.getPrice(), 2)));
+            goodsPrice.setText(String.valueOf(Arithmetic.round(Double.parseDouble(goods.getPrice()), 2)));
 //            goods.setCount(activity.getCurrentGoodsCountById(goods.getId()));
             goodsCount.setText(String.valueOf(goods.getCount()));
 

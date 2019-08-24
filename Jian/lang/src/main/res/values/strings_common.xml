@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="prompt_empty">已经没有了!</string>
-    <string name="prompt_error">网络错误,请检查网络状态!</string>
+    <string name="prompt_error">网络错误,点击重试!</string>
     <string name="prompt_loading">加载中…</string>
 </resources>

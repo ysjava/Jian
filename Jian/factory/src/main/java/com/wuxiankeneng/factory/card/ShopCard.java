@@ -3,6 +3,7 @@ package com.wuxiankeneng.factory.card;
 import com.wuxiankeneng.factory.db.Goods;
 import com.wuxiankeneng.factory.db.Shop;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -17,29 +18,33 @@ public class ShopCard {
     private String icon;
     private String deliveryDate;//配送大约时间
     private String notice;//公告
-    private int range;//配送范围
+    private int deliveryRange;//配送范围
     private boolean isReserve;//是否预约
     private boolean isBusiness;//是否营业
-    private List<Goods> recommendGoods;//商店的推荐菜品,限制三个
-    private List<Goods> allGoods;//所有商品
-    private Date createAt;
+    private List<GoodsCard> goodsList;//所有商品
+//    private Date createAt;
 
 
     public Shop build() {
         Shop shop = new Shop();
+
+        List<Goods> goodsArrayList = new ArrayList<>();
+        for (GoodsCard goodsCard : goodsList) {
+            goodsArrayList.add(goodsCard.build());
+        }
+
         shop.setsId(id);
         shop.setName(name);
         shop.setDesc(description);
         shop.setImg(picture);
         shop.setSales(sales);
-        shop.setRecommendGoods(recommendGoods);
         shop.setIcon(icon);
         shop.setDeliveryDate(deliveryDate);
-        shop.setDeliveryRange(range);
+        shop.setDeliveryRange(deliveryRange);
         shop.setNotice(notice);
         shop.setReserve(isReserve);
         shop.setBusiness(isBusiness);
-        shop.setAllGoods(allGoods);
+        shop.setAllGoods(goodsArrayList);
         return shop;
     }
 
@@ -83,13 +88,7 @@ public class ShopCard {
         this.sales = sales;
     }
 
-    public List<Goods> getRecommendGoods() {
-        return recommendGoods;
-    }
 
-    public void setRecommendGoods(List<Goods> recommendGoods) {
-        this.recommendGoods = recommendGoods;
-    }
 
     public String getNotice() {
         return notice;
@@ -116,11 +115,11 @@ public class ShopCard {
     }
 
     public int getRange() {
-        return range;
+        return deliveryRange;
     }
 
     public void setRange(int range) {
-        this.range = range;
+        this.deliveryRange = range;
     }
 
     public boolean isReserve() {
@@ -139,11 +138,11 @@ public class ShopCard {
         isBusiness = business;
     }
 
-    public List<Goods> getAllGoods() {
-        return allGoods;
+    public List<GoodsCard> getGoodsList() {
+        return goodsList;
     }
 
-    public void setAllGoods(List<Goods> allGoods) {
-        this.allGoods = allGoods;
+    public void setGoodsList(List<GoodsCard> goodsList) {
+        this.goodsList = goodsList;
     }
 }

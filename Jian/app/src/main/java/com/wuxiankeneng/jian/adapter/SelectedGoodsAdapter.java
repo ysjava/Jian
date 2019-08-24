@@ -59,12 +59,12 @@ public class SelectedGoodsAdapter extends RecyclerAdapter<Goods> {
         protected void onBind(Goods goods) {
             this.goods = goods;
             Glide.with(mContext)
-                    .load(goods.getImg())
+                    .load(goods.getIcon())
                     .placeholder(R.drawable.default_portrait)
                     .error(R.drawable.default_portrait)
                     .into(icon);
             name.setText(goods.getName());
-            price.setText(String.valueOf(Arithmetic.round(goods.getPrice() * goods.getCount(), 2)));
+            price.setText(String.valueOf(Arithmetic.round(Double.parseDouble(goods.getPrice()) * goods.getCount(), 2)));
             count.setText(String.valueOf(goods.getCount()));
 
         }

@@ -58,7 +58,9 @@ public class ShopPresenter extends BasePresenter<ShopContract.View>
                         typeBeans.add(new TypeBean(good.getType(), good.getTypeId()));
                     }
                 }
-
+                view.success(shop);
+                //把数据交给界面
+                view.setGoodsList(shop.getAllGoods());
                 typeAdapter.replace(typeBeans);
                 //网络拿回来的商品集合
                 adapter.replace(shop.getAllGoods());
@@ -68,11 +70,13 @@ public class ShopPresenter extends BasePresenter<ShopContract.View>
     }
 
     @Override
-    public void onDataNotAvailable(int strRes) {
+    public void onDataNotAvailable(final int strRes) {
         Run.onUiAsync(new Action() {
             @Override
             public void call() {
-
+                ShopContract.View view = getView();
+                if (view!=null)
+                    view.showError(strRes);
             }
         });
     }
