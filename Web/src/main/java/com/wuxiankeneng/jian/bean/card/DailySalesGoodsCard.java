@@ -25,4 +25,52 @@ public class DailySalesGoodsCard {
         this.price = price;
         this.shopName = shopName;
     }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getG_name() {
+        return g_name;
+    }
+
+    public void setG_name(String g_name) {
+        this.g_name = g_name;
+    }
+
+    public int getDailySales() {
+        return dailySales;
+    }
+
+    public void setDailySales(int dailySales) {
+        this.dailySales = dailySales;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getShopName() {
+        return shopName;
+    }
+
+    public void setShopName(String shopName) {
+        this.shopName = shopName;
+    }
 }

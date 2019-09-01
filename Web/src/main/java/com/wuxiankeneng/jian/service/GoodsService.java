@@ -3,7 +3,7 @@ package com.wuxiankeneng.jian.service;
 import com.google.common.base.Strings;
 import com.wuxiankeneng.jian.bean.base.ResponseModel;
 import com.wuxiankeneng.jian.bean.card.GoodsCard;
-import com.wuxiankeneng.jian.bean.card.SimpleGoodsCard2;
+//import com.wuxiankeneng.jian.bean.card.SimpleGoodsCard2;
 import com.wuxiankeneng.jian.bean.db.Goods;
 import com.wuxiankeneng.jian.bean.db.School;
 import com.wuxiankeneng.jian.bean.db.Shop;

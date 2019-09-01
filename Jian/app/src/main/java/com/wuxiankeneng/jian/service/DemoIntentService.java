@@ -82,7 +82,8 @@ public class DemoIntentService extends GTIntentService {
      *
      * @param message 新消息
      */
-    private void onMessageArrived(String message) {
+        private void onMessageArrived(String message) {
+            Log.e("UYY","sda");
         // 交给Factory处理
 //        Factory.dispatchPush(message);
     }

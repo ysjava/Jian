@@ -485,9 +485,10 @@ public class ShopActivity extends BaseActivityView<ShopPresenter>
         }
     }
 
-//    @OnClick(R.id.txt_go_pay)
-//    public void payClick() {
-//    }
+    @OnClick(R.id.txt_go_pay)
+    public void payClick() {
+        //发起订单的提交
+    }
 
 
     @Override

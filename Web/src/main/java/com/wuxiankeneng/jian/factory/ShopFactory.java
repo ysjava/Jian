@@ -14,6 +14,7 @@ import com.wuxiankeneng.jian.utils.Hib;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("unchecked")
 public class ShopFactory {
 
     public static Shop findByName(String name) {

@@ -29,6 +29,8 @@ public class ResponseModel<M> implements Serializable {
     public static final int ERROR_PARAMETERS_EXIST_NAME = 4003;
     // 请求参数错误-已存在店铺名称
     public static final int ERROR_PARAMETERS_EXIST_SHOP_NAME = 4004;
+    // 请求参数错误-已存在订单
+    public static final int ERROR_PARAMETERS_EXIST_ORDER = 4005;
 
     // 绑定pushId失败
     public static final int ERROR_BIND_PUSH_ID = 3001;
@@ -129,6 +131,10 @@ public class ResponseModel<M> implements Serializable {
 
     public static <M> ResponseModel<M> buildHaveShopNameError() {
         return new ResponseModel<>(ERROR_PARAMETERS_EXIST_SHOP_NAME, "店铺名已经存在");
+    }
+
+    public static <M> ResponseModel<M> buildHaveOrderError() {
+        return new ResponseModel<>(ERROR_PARAMETERS_EXIST_ORDER, "订单已经存在");
     }
 
     public static <M> ResponseModel<M> buildRegisterError() {

@@ -32,6 +32,9 @@ public class GoodsCard {
     //原价格
     @Expose
     private String originalPrice;
+    //学生选购数量
+    @Expose
+    private int count;
 
     public GoodsCard(Goods goods) {
         this.id = goods.getId();
@@ -43,7 +46,6 @@ public class GoodsCard {
         this.typeId = goods.getTypeId();
         this.price = goods.getPrice();
         this.originalPrice = goods.getOriginalPrice();
-
     }
 
     public String getId() {
