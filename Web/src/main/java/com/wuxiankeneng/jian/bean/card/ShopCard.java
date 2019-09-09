@@ -38,7 +38,12 @@ public class ShopCard {
 //    private LocalDateTime createAt;
     @Expose
     private List<GoodsCard> goodsList;
-
+    //配送费
+    @Expose
+    private String deliveryPrice;
+    //最低起送金额
+    @Expose
+    private String minimumPrice;
 
     public ShopCard(Shop shop, boolean isLoad) {
         this.id = shop.getId();
@@ -52,6 +57,8 @@ public class ShopCard {
         this.sales = shop.getSales();
         this.deliveryDate = shop.getDeliveryDate();
         this.isBusiness = shop.isBusiness();
+        this.deliveryPrice = shop.getDeliveryPrice();
+        this.minimumPrice = shop.getMinimumPrice();
 //        this.createAt = shop.getCreateAt();
 
         if (isLoad)
@@ -162,5 +169,21 @@ public class ShopCard {
 
     public void setGoodsList(List<GoodsCard> goodsList) {
         this.goodsList = goodsList;
+    }
+
+    public String getDeliveryPrice() {
+        return deliveryPrice;
+    }
+
+    public void setDeliveryPrice(String deliveryPrice) {
+        this.deliveryPrice = deliveryPrice;
+    }
+
+    public String getMinimumPrice() {
+        return minimumPrice;
+    }
+
+    public void setMinimumPrice(String minimumPrice) {
+        this.minimumPrice = minimumPrice;
     }
 }

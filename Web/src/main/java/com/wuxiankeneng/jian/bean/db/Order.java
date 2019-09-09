@@ -1,5 +1,6 @@
 package com.wuxiankeneng.jian.bean.db;
 
+import com.gexin.fastjson.annotation.JSONType;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -31,8 +32,7 @@ public class Order {
     private String id;
 
     //订单的商品信息,以lob形式储存
-    @Lob
-    @Column(nullable = false, columnDefinition = "BLOB")
+    @Column(nullable = false, columnDefinition = "TEXT")
     private String entity;
 
     //订单的发起者
@@ -53,12 +53,21 @@ public class Order {
     @CreationTimestamp
     @Column(nullable = false)
     private LocalDateTime createAt = LocalDateTime.now();
-    //配送地址
-    @Column(nullable = false)
-    private String address;
+
+    //配送信息
+    @ManyToOne(optional = false,cascade = CascadeType.ALL)
+    private Address address;
+
     //订单状态
     @Column(nullable = false)
     private int state;
+
+     //配送费
+    @Column
+    private String deliveryPrice;
+
+
+
     public String getId() {
         return id;
     }
@@ -117,11 +126,11 @@ public class Order {
         this.createAt = createAt;
     }
 
-    public String getAddress() {
+    public Address getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(Address address) {
         this.address = address;
     }
 
@@ -131,5 +140,13 @@ public class Order {
 
     public void setState(int state) {
         this.state = state;
+    }
+
+    public String getDeliveryPrice() {
+        return deliveryPrice;
+    }
+
+    public void setDeliveryPrice(String deliveryPrice) {
+        this.deliveryPrice = deliveryPrice;
     }
 }

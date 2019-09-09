@@ -35,6 +35,9 @@ public class GoodsCard {
     //学生选购数量
     @Expose
     private int count;
+    //包装费
+    @Expose
+    private String packingPrice;
 
     public GoodsCard(Goods goods) {
         this.id = goods.getId();
@@ -46,6 +49,7 @@ public class GoodsCard {
         this.typeId = goods.getTypeId();
         this.price = goods.getPrice();
         this.originalPrice = goods.getOriginalPrice();
+        this.packingPrice = goods.getPackingPrice();
     }
 
     public String getId() {
@@ -118,5 +122,21 @@ public class GoodsCard {
 
     public void setOriginalPrice(String originalPrice) {
         this.originalPrice = originalPrice;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public String getPackingPrice() {
+        return packingPrice;
+    }
+
+    public void setPackingPrice(String packingPrice) {
+        this.packingPrice = packingPrice;
     }
 }

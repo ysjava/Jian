@@ -2,17 +2,12 @@ package com.wuxiankeneng.jian.service;
 
 import com.google.common.base.Strings;
 import com.wuxiankeneng.jian.bean.base.ResponseModel;
-import com.wuxiankeneng.jian.bean.card.RecommendCard;
-import com.wuxiankeneng.jian.bean.card.SearchShopCard;
-import com.wuxiankeneng.jian.bean.card.ShopCard;
+import com.wuxiankeneng.jian.bean.card.*;
 
-import com.wuxiankeneng.jian.bean.card.SimpleShopCard;
-import com.wuxiankeneng.jian.bean.db.Recommend;
-import com.wuxiankeneng.jian.bean.db.School;
-import com.wuxiankeneng.jian.bean.db.Shop;
-import com.wuxiankeneng.jian.bean.db.Student;
+import com.wuxiankeneng.jian.bean.db.*;
 import com.wuxiankeneng.jian.factory.SchoolFactory;
 import com.wuxiankeneng.jian.factory.ShopFactory;
+import com.wuxiankeneng.jian.factory.StudentFactory;
 import org.jvnet.hk2.internal.Collector;
 
 import javax.ws.rs.*;
@@ -133,5 +128,22 @@ public class StudentService extends BaseService {
 
 
         return ResponseModel.buildOk(new ShopCard(shop, true));
+    }
+
+    //查询地址集合
+    @GET
+    @Path("getAddressList")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public ResponseModel<List<AddressCard>> getAddressList() {
+        Student student = getStudentSelf();
+        List<Address> addressList = StudentFactory.getAddressList(student);
+        if (addressList == null)
+            return ResponseModel.buildServiceError();
+        List<AddressCard> cards = addressList.stream()
+                .map(AddressCard::new)
+                .collect(Collectors.toList());
+
+        return ResponseModel.buildOk(cards);
     }
 }

@@ -23,6 +23,9 @@ public class CreateGoodsModel {
     //原价
     @Expose
     private String originalPrice;
+    //包装费
+    @Expose
+    private String packingPrice;
 
     public static boolean check(CreateGoodsModel model) {
         return model != null
@@ -31,7 +34,8 @@ public class CreateGoodsModel {
                 && !Strings.isNullOrEmpty(model.type)
                 && !Strings.isNullOrEmpty(String.valueOf(model.typeId))
                 && !Strings.isNullOrEmpty(model.price)
-                && !Strings.isNullOrEmpty(model.originalPrice);
+                && !Strings.isNullOrEmpty(model.originalPrice)
+                && !Strings.isNullOrEmpty(model.packingPrice);
 
     }
 
@@ -90,5 +94,13 @@ public class CreateGoodsModel {
 
     public void setOriginalPrice(String originalPrice) {
         this.originalPrice = originalPrice;
+    }
+
+    public String getPackingPrice() {
+        return packingPrice;
+    }
+
+    public void setPackingPrice(String packingPrice) {
+        this.packingPrice = packingPrice;
     }
 }

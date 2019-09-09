@@ -2,6 +2,7 @@ package com.wuxiankeneng.jian.bean.api.order;
 
 import com.google.common.base.Strings;
 import com.google.gson.annotations.Expose;
+import com.wuxiankeneng.jian.bean.card.AddressCard;
 import com.wuxiankeneng.jian.bean.card.GoodsCard;
 
 import java.util.List;
@@ -16,9 +17,12 @@ public class CreateOrderModel {
     //购买的商品集合
     @Expose
     private List<GoodsCard> goodsCards;
-    //配送地址
     @Expose
-    private String address;
+    private AddressCard addressCard;//地址名字电话等信息
+    @Expose
+    private String remarks;//备注
+
+
     public String getId() {
         return id;
     }
@@ -47,15 +51,23 @@ public class CreateOrderModel {
         return model != null
                 && !Strings.isNullOrEmpty(model.getId())
                 && !Strings.isNullOrEmpty(model.getShopId())
-                && !Strings.isNullOrEmpty(model.getAddress())
+                && model.getAddressCard() != null
                 && !(model.getGoodsCards() == null || model.getGoodsCards().size() == 0);
     }
 
-    public String getAddress() {
-        return address;
+    public AddressCard getAddressCard() {
+        return addressCard;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setAddressCard(AddressCard addressCard) {
+        this.addressCard = addressCard;
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
     }
 }

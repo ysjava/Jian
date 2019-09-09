@@ -1,6 +1,7 @@
 package com.wuxiankeneng.jian.factory;
 
 import com.google.common.base.Strings;
+import com.wuxiankeneng.jian.bean.db.Address;
 import com.wuxiankeneng.jian.bean.db.School;
 import com.wuxiankeneng.jian.bean.db.Student;
 import com.wuxiankeneng.jian.utils.Hib;
@@ -125,6 +126,7 @@ public class StudentFactory {
     }
 
 
+    @SuppressWarnings("Duplicates")
     public static Student bindPushId(Student student, String pushId) {
         if (Strings.isNullOrEmpty(pushId))
             return null;
@@ -185,5 +187,17 @@ public class StudentFactory {
         }
 
         return student;
+    }
+
+
+    @SuppressWarnings("unchecked")
+    public static List<Address> getAddressList(Student student) {
+        return Hib.query(session -> session.createQuery("from Address where student=:student")
+                .setParameter("student", student)
+                .list());
+    }
+
+    public static Address findAddressById(String id) {
+        return Hib.query(session -> session.get(Address.class,id));
     }
 }

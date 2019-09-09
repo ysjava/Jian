@@ -22,12 +22,17 @@ public class OrderCard {
     //订单创建时间
     @Expose
     private LocalDateTime createAt;
-    //配送地址
+    //配送信息
     @Expose
-    private String address;
+    private AddressCard address;
     //订单状态
     @Expose
     private int state;
+    @Expose
+    private String shopIon;
+    //配送费
+    @Expose
+    private String deliveryPrice;
 
     public OrderCard(Order order) {
         this.id = order.getId();
@@ -36,8 +41,10 @@ public class OrderCard {
         this.s_phone = order.getStudent().getPhone();
         this.shopName = order.getShop().getName();
         this.createAt = order.getCreateAt();
-        this.address = order.getAddress();
+        this.address = new AddressCard(order.getAddress());
         this.state = order.getState();
+        this.shopIon = order.getShop().getIcon();
+        this.deliveryPrice = order.getDeliveryPrice();
     }
 
     public String getId() {
@@ -88,11 +95,11 @@ public class OrderCard {
         this.createAt = createAt;
     }
 
-    public String getAddress() {
+    public AddressCard getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(AddressCard address) {
         this.address = address;
     }
 
@@ -102,5 +109,21 @@ public class OrderCard {
 
     public void setState(int state) {
         this.state = state;
+    }
+
+    public String getShopIon() {
+        return shopIon;
+    }
+
+    public void setShopIon(String shopIon) {
+        this.shopIon = shopIon;
+    }
+
+    public String getDeliveryPrice() {
+        return deliveryPrice;
+    }
+
+    public void setDeliveryPrice(String deliveryPrice) {
+        this.deliveryPrice = deliveryPrice;
     }
 }

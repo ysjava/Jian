@@ -6,27 +6,34 @@ import com.google.common.base.Strings;
 
 import com.wuxiankeneng.jian.bean.api.account.*;
 import com.wuxiankeneng.jian.bean.base.ResponseModel;
-import com.wuxiankeneng.jian.bean.db.Admin;
-import com.wuxiankeneng.jian.bean.db.School;
-import com.wuxiankeneng.jian.bean.db.Student;
-import com.wuxiankeneng.jian.bean.db.Trader;
+import com.wuxiankeneng.jian.bean.db.*;
 
 import com.wuxiankeneng.jian.factory.AdminFactory;
 import com.wuxiankeneng.jian.factory.SchoolFactory;
 import com.wuxiankeneng.jian.factory.StudentFactory;
 import com.wuxiankeneng.jian.factory.TraderFactory;
 import com.wuxiankeneng.jian.utils.Hib;
+import com.wuxiankeneng.jian.utils.TextUtil;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.ArrayList;
+import java.util.List;
 
 @Path("/account")
 public class AccountService extends BaseService {
 
     @GET
     @Path("test")
-    public String get() {
-        return "测试";
+    public ResponseModel<String> get() {
+        List<TestCall> list = new ArrayList<>();
+        TestCall call = new TestCall();
+        call.setName("我要成为大佬");
+        TestCall call2 = new TestCall();
+        call2.setName("我要成为超级大佬");
+        list.add(call);
+        list.add(call2);
+        return ResponseModel.buildOk(TextUtil.toJson(list));
     }
 
     //商人注册

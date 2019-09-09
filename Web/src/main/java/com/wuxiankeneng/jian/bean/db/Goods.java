@@ -50,7 +50,9 @@ public class Goods {
     //原价格
     @Column(nullable = false)
     private String originalPrice;
-
+    //包装费
+    @Column(nullable = false)
+    private String packingPrice;
     //定义的店铺推荐菜
     //不是必须有,因为这道菜可能不是店铺推荐的
     @JoinColumn(name = "recommendShopId")
@@ -82,6 +84,7 @@ public class Goods {
         this.typeId = model.getTypeId();
         this.price = model.getPrice();
         this.originalPrice = model.getOriginalPrice();
+        this.packingPrice = model.getPackingPrice();
 
     }
 
@@ -203,5 +206,13 @@ public class Goods {
 
     public void setOriginalPrice(String originalPrice) {
         this.originalPrice = originalPrice;
+    }
+
+    public String getPackingPrice() {
+        return packingPrice;
+    }
+
+    public void setPackingPrice(String packingPrice) {
+        this.packingPrice = packingPrice;
     }
 }

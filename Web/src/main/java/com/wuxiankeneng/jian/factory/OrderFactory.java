@@ -2,12 +2,11 @@ package com.wuxiankeneng.jian.factory;
 
 import com.sun.org.apache.xpath.internal.operations.Or;
 import com.wuxiankeneng.jian.bean.api.order.CreateOrderModel;
-import com.wuxiankeneng.jian.bean.db.Order;
-import com.wuxiankeneng.jian.bean.db.Shop;
-import com.wuxiankeneng.jian.bean.db.Student;
-import com.wuxiankeneng.jian.bean.db.Trader;
+import com.wuxiankeneng.jian.bean.db.*;
 import com.wuxiankeneng.jian.utils.Hib;
 import com.wuxiankeneng.jian.utils.TextUtil;
+
+import java.util.List;
 
 public class OrderFactory {
     //用id查询订单
@@ -26,9 +25,14 @@ public class OrderFactory {
         Order order = new Order();
         order.setId(model.getId());
         order.setEntity(TextUtil.toJson(model.getGoodsCards()));
+
         order.setStudent(student);
         order.setShop(shop);
-        order.setAddress(model.getAddress());
+        order.setDeliveryPrice(shop.getDeliveryPrice());
+        Address address = StudentFactory.findAddressById(model.getAddressCard().getId());
+        if (address == null)
+            return null;
+        order.setAddress(address);
         order.setState(Order.STATE_PROCESSING);
         return saveOrder(order);
     }
@@ -53,5 +57,12 @@ public class OrderFactory {
             session.refresh(order);
             return order;
         });
+    }
+
+    @SuppressWarnings("unchecked")
+    public static List<Order> findOrders(Student student) {
+       return Hib.query(session -> session.createQuery("from Order where student=:student order by createAt desc ")
+                .setParameter("student", student)
+                .list());
     }
 }

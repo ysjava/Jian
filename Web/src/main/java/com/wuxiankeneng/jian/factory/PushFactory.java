@@ -11,15 +11,11 @@ public class PushFactory {
     public static void pushNewOrder(Order order) {
         if (order == null)
             return;
-
         OrderCard card = new OrderCard(order);
-
         //要推送的json字符串
         String entity = TextUtil.toJson(card);
-
         //发送者(给商家推送)
         PushDispatcher dispatcher = new PushDispatcher(PushDispatcher.PUSH_TYPE_TRADER);
-
         // 推送的真实Model
         PushModel pushModel = new PushModel();
         // 每一条历史记录都是独立的，可以单独的发送

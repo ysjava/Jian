@@ -22,7 +22,7 @@ public class AuthRequestFilter implements ContainerRequestFilter {
     public void filter(ContainerRequestContext requestContext) {
         // 检查是否是登录注册接口
         String relationPath = ((ContainerRequest) requestContext).getPath(false);
-        if (relationPath.startsWith("account/login")
+        if (relationPath.startsWith("account/login")||relationPath.startsWith("account/test")
                 || relationPath.startsWith("account/register")) {
             // 直接走正常逻辑，不做拦截
             return;

@@ -1,5 +1,6 @@
 package com.wuxiankeneng.jian.service;
 
+import com.google.common.base.Strings;
 import com.wuxiankeneng.jian.bean.api.order.CreateOrderModel;
 import com.wuxiankeneng.jian.bean.base.ResponseModel;
 import com.wuxiankeneng.jian.bean.card.OrderCard;
@@ -10,16 +11,16 @@ import com.wuxiankeneng.jian.factory.OrderFactory;
 import com.wuxiankeneng.jian.factory.PushFactory;
 import com.wuxiankeneng.jian.factory.ShopFactory;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Path("student")
 public class StudentOrderService extends BaseService {
 
-        //学生提交订单
+    //学生提交订单
     @POST
     @Path("commitOrder")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -34,7 +35,7 @@ public class StudentOrderService extends BaseService {
             return ResponseModel.buildParameterError();
         //订单是否存在
         Object o = OrderFactory.isExist(model.getId());
-        if (o!=null)
+        if (o != null)
             return ResponseModel.buildHaveOrderError();
 
         //创建订单
@@ -47,6 +48,35 @@ public class StudentOrderService extends BaseService {
         // 进行推送
         PushFactory.pushNewOrder(order);
 
+        return ResponseModel.buildOk(new OrderCard(order));
+    }
+
+    @GET
+    @Path("getOrders")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public ResponseModel<List<OrderCard>> getOrders() {
+        Student student = getStudentSelf();
+        List<Order> orders = OrderFactory.findOrders(student);
+        if (orders == null)
+            return ResponseModel.buildServiceError();
+
+        return ResponseModel.buildOk(orders.stream().map(OrderCard::new).collect(Collectors.toList()));
+    }
+
+    @GET
+    @Path("getOrder/{orderId}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public ResponseModel<OrderCard> getOrderById(@PathParam("orderId") String orderId) {
+        if (Strings.isNullOrEmpty(orderId))
+            return ResponseModel.buildParameterError();
+
+        Order order = OrderFactory.findById(orderId);
+        if (order == null)
+            return ResponseModel.buildServiceError();
+        if (!getStudentSelf().getId().equals(order.getStudent().getId()))
+            return ResponseModel.buildParameterError();//这儿返回的错误是订单的学生没对上
         return ResponseModel.buildOk(new OrderCard(order));
     }
 }
