@@ -17,6 +17,8 @@ public class ShopCard {
     private String sales;
     private String icon;
     private String deliveryDate;//配送大约时间
+    private String deliveryPrice;//配送费
+    private String minimumPrice;//最低起送金额
     private String notice;//公告
     private int deliveryRange;//配送范围
     private boolean isReserve;//是否预约
@@ -44,6 +46,8 @@ public class ShopCard {
         shop.setNotice(notice);
         shop.setReserve(isReserve);
         shop.setBusiness(isBusiness);
+        shop.setDeliveryPrice(deliveryPrice);
+        shop.setMinimumPrice(minimumPrice);
         shop.setAllGoods(goodsArrayList);
         return shop;
     }

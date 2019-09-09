@@ -24,9 +24,12 @@ import com.wuxiankeneng.common.widget.BaseListAdapter;
 import com.wuxiankeneng.common.widget.EmptyView;
 import com.wuxiankeneng.common.widget.RoundAngleImageView;
 import com.wuxiankeneng.common.widget.recycler.RecyclerAdapter;
+import com.wuxiankeneng.factory.card.GoodsCard;
 import com.wuxiankeneng.factory.db.Goods;
 import com.wuxiankeneng.factory.db.Shop;
+import com.wuxiankeneng.factory.model.order.CreateOrderModel;
 import com.wuxiankeneng.factory.model.shop.TypeBean;
+import com.wuxiankeneng.factory.presenter.Account;
 import com.wuxiankeneng.factory.presenter.shop.ShopContract;
 import com.wuxiankeneng.factory.presenter.shop.ShopPresenter;
 import com.wuxiankeneng.factory.tools.Arithmetic;
@@ -106,6 +109,8 @@ public class ShopActivity extends BaseActivityView<ShopPresenter>
     private HashMap<String, Goods> goodsSparseArray = new HashMap<>();
 
     private String shopId;
+    private String name;
+    private String mDeliPrice;
 
     public static void show(Context context, String shopId) {
         Intent intent = new Intent(context, ShopActivity.class);
@@ -488,6 +493,18 @@ public class ShopActivity extends BaseActivityView<ShopPresenter>
     @OnClick(R.id.txt_go_pay)
     public void payClick() {
         //发起订单的提交
+        List<GoodsCard> goodsList = new ArrayList<>();
+
+        for (Goods value : goodsSparseArray.values()) {
+            goodsList.add(value.buildCard());
+        }
+        if (goodsList.size() == 0) {
+            Application.showToast("没有选择商品");
+            return;
+        }
+        //TODO 这儿地址选不记忆,每次提交都需要选择一次地址
+        CreateOrderModel model = new CreateOrderModel(shopId, goodsList, null);
+        OrderCommitActivity.show(this, model, name, mDeliPrice);
     }
 
 
@@ -513,6 +530,11 @@ public class ShopActivity extends BaseActivityView<ShopPresenter>
 
     @Override
     public void success(Shop shop) {
+        //把店铺名字拿出来,跳转订单界面传过去
+        this.name = shop.getName();
+        //拿到店铺的配送费
+        this.mDeliPrice = shop.getDeliveryPrice();
+
         //TODO 加个替换图和错误加载图
         //加载背景图
         Glide.with(ShopActivity.this)

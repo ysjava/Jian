@@ -1,7 +1,9 @@
 package com.wuxiankeneng.factory.net;
 
 
+import com.wuxiankeneng.factory.card.AddressCard;
 import com.wuxiankeneng.factory.card.GoodsCard;
+import com.wuxiankeneng.factory.card.OrderCard;
 import com.wuxiankeneng.factory.card.RecommendCard;
 import com.wuxiankeneng.factory.card.SearchShopCard;
 import com.wuxiankeneng.factory.card.ShopCard;
@@ -11,6 +13,7 @@ import com.wuxiankeneng.factory.model.ResponseModel;
 import com.wuxiankeneng.factory.model.account.AccountRspModel;
 import com.wuxiankeneng.factory.model.account.LoginModel;
 import com.wuxiankeneng.factory.model.account.RegisterModel;
+import com.wuxiankeneng.factory.model.order.CreateOrderModel;
 
 import java.util.List;
 
@@ -116,4 +119,37 @@ public interface RemoteService {
      */
     @GET("student/findShopsByType/{type}")
     Call<ResponseModel<List<SimpleShopCard>>> findShopsByType(@Path("type") int type);
+    /**
+     * 拿到地址集合
+     * @return ResponseModel<List<SimpleShopCard>>>
+     */
+    @GET("student/getAddressList")
+    Call<ResponseModel<List<AddressCard>>> getAddressList();
+
+    /**
+     * 提交订单
+     *
+     * @param model 订单model
+     * @return ResponseModel<OrderCard>
+     */
+    @POST("student/commitOrder")
+    Call<ResponseModel<OrderCard>> commitOrder(@Body CreateOrderModel model);
+
+    /**
+     * 获取订单集
+     *
+     * @return ResponseModel<OrderCard>
+     */
+    @GET("student/getOrders")
+    Call<ResponseModel<List<OrderCard>>> getOrders();
+
+    /**
+     * 用id获取订单信息  一个
+     *
+     * @return ResponseModel<OrderCard>
+     */
+    @GET("student/getOrder/{orderId}")
+    Call<ResponseModel<OrderCard>> getOrderById(@Path("orderId") String orderId);
+
+
 }

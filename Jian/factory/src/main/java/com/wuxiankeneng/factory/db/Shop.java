@@ -33,6 +33,8 @@ public class Shop extends LitePalSupport
     private String icon;//店铺图标
     private boolean isReserve;//是否可预订
     private int deliveryRange;//配送范围,寝室还是楼下还是不能配送
+    private String deliveryPrice;//配送费
+    private String minimumPrice;//最低起送金额
     private String sales;//月销量
     private String deliveryDate;//配送时间
     private String notice;//公告
@@ -121,6 +123,22 @@ public class Shop extends LitePalSupport
         this.recommendGoods = recommendGoods;
     }
 
+    public String getDeliveryPrice() {
+        return deliveryPrice;
+    }
+
+    public void setDeliveryPrice(String deliveryPrice) {
+        this.deliveryPrice = deliveryPrice;
+    }
+
+    public String getMinimumPrice() {
+        return minimumPrice;
+    }
+
+    public void setMinimumPrice(String minimumPrice) {
+        this.minimumPrice = minimumPrice;
+    }
+
     public String getNotice() {
         return notice;
     }
@@ -167,6 +185,8 @@ public class Shop extends LitePalSupport
                         && Objects.equals(img, old.img)
                         && Objects.equals(recommendGoods, old.recommendGoods)
                         && Objects.equals(icon, old.icon)
+                        && Objects.equals(deliveryPrice, old.deliveryPrice)
+                        && Objects.equals(minimumPrice, old.minimumPrice)
         );
     }
 }

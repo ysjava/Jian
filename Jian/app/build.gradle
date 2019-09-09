@@ -63,4 +63,6 @@ dependencies {
     implementation 'se.emilsjolander:stickylistheaders:2.7.0'
     // 底部弹出框
     implementation 'com.flipboard:bottomsheet-core:1.5.3'
+
+    implementation 'com.google.code.gson:gson:2.8.5'
 }

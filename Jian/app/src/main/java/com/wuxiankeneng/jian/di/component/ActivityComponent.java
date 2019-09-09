@@ -1,6 +1,9 @@
 package com.wuxiankeneng.jian.di.component;
 
 
+import com.wuxiankeneng.jian.activity.AddressActivity;
+import com.wuxiankeneng.jian.activity.OrderActivity;
+import com.wuxiankeneng.jian.activity.OrderCommitActivity;
 import com.wuxiankeneng.jian.activity.SearchActivity;
 import com.wuxiankeneng.jian.activity.ShopActivity;
 import com.wuxiankeneng.jian.activity.ShopCategoryActivity;
@@ -23,4 +26,11 @@ public interface ActivityComponent {
     void inject(ShopActivity activity);
 
     void inject(ShopCategoryActivity activity);
+
+    void inject(OrderCommitActivity activity);
+
+    void inject(AddressActivity activity);
+
+    void inject(OrderActivity activity);
+
 }

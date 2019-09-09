@@ -5,6 +5,7 @@ import com.wuxiankeneng.jian.di.scope.FragmentScope;
 import com.wuxiankeneng.jian.fragment.account.LoginFragment;
 import com.wuxiankeneng.jian.fragment.account.RegisterFragment;
 import com.wuxiankeneng.jian.fragment.main.HomeFragment;
+import com.wuxiankeneng.jian.fragment.main.OrderFragment;
 import com.wuxiankeneng.jian.fragment.search.GoodsSearchFragment;
 import com.wuxiankeneng.jian.fragment.search.ShopSearchFragment;
 
@@ -27,4 +28,6 @@ public interface FragmentComponent {
     void inject(ShopSearchFragment fragment);
 
     void inject(GoodsSearchFragment fragment);
+
+    void inject(OrderFragment fragment);
 }

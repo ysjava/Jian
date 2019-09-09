@@ -1,5 +1,7 @@
 package com.wuxiankeneng.factory.db;
 
+import com.wuxiankeneng.factory.card.GoodsCard;
+
 import java.io.Serializable;
 
 //商品表
@@ -9,7 +11,7 @@ public class Goods implements Serializable {
     private String name;
     private String desc;
     private String icon;
-    private int count;
+    private int count;//选择数量的多少  这个只在购买商品时才会用到,并不会保存这个数据
     private int sales;
     private int dailySales;
     private String type;
@@ -17,6 +19,9 @@ public class Goods implements Serializable {
     private String price;
     private String originalPrice;
     private Shop shop;
+    //包装费
+    private String packingPrice;
+
     public Goods() {
     }
 
@@ -125,5 +130,31 @@ public class Goods implements Serializable {
 
     public void setTypeId(int typeId) {
         this.typeId = typeId;
+    }
+
+    public String getPackingPrice() {
+        return packingPrice;
+    }
+
+    public void setPackingPrice(String packingPrice) {
+        this.packingPrice = packingPrice;
+    }
+
+    //转换成卡片
+    public GoodsCard buildCard() {
+        GoodsCard goodsCard = new GoodsCard();
+        goodsCard.setId(sId);
+        goodsCard.setName(name);
+        goodsCard.setIcon(icon);
+        goodsCard.setDescription(desc);
+        goodsCard.setMonthlySales(sales);
+        goodsCard.setType(type);
+        goodsCard.setTypeId(typeId);
+        goodsCard.setPrice(price);
+        goodsCard.setOriginalPrice(originalPrice);
+        goodsCard.setCount(count);
+        goodsCard.setPackingPrice(packingPrice);
+
+        return goodsCard;
     }
 }

@@ -3,11 +3,13 @@ package com.wuxiankeneng.factory.helper;
 import com.wuxiankeneng.common.factory.DataSource;
 import com.wuxiankeneng.factory.Factory;
 import com.wuxiankeneng.factory.R;
+import com.wuxiankeneng.factory.card.OrderCard;
 import com.wuxiankeneng.factory.card.ShopCard;
 import com.wuxiankeneng.factory.card.SimpleShopCard;
 import com.wuxiankeneng.factory.db.Shop;
 import com.wuxiankeneng.factory.db.SimpleShop;
 import com.wuxiankeneng.factory.model.ResponseModel;
+import com.wuxiankeneng.factory.model.order.CreateOrderModel;
 import com.wuxiankeneng.factory.net.Network;
 import com.wuxiankeneng.factory.net.RemoteService;
 
@@ -18,6 +20,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+@SuppressWarnings("NullableProblems")
 public class ShopHelper {
     //用id找店铺
     public static void getShopById(String shopId, final DataSource.Callback<Shop> callback) {
@@ -79,6 +82,32 @@ public class ShopHelper {
 
             @Override
             public void onFailure(Call<ResponseModel<List<SimpleShopCard>>> call, Throwable t) {
+                if (callback != null)
+                    callback.onDataNotAvailable(R.string.data_network_error);
+            }
+        });
+    }
+
+    //提交订单
+    public static void commit(final CreateOrderModel model, final DataSource.Callback<OrderCard> callback) {
+        RemoteService service = Network.remote();
+        service.commitOrder(model).enqueue(new Callback<ResponseModel<OrderCard>>() {
+            @Override
+            public void onResponse(Call<ResponseModel<OrderCard>> call, Response<ResponseModel<OrderCard>> response) {
+                ResponseModel<OrderCard> responseModel = response.body();
+                if (responseModel == null) {
+                    callback.onDataNotAvailable(R.string.txt_error_server);
+                    return;
+                }
+                if (responseModel.success()) {
+                    if (callback != null)
+                        callback.onDataLoaded(responseModel.getResult());
+                } else//解析
+                    Factory.decodeRspCode(responseModel, callback);
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModel<OrderCard>> call, Throwable t) {
                 if (callback != null)
                     callback.onDataNotAvailable(R.string.data_network_error);
             }

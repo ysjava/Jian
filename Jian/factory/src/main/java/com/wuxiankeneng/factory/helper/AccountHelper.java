@@ -3,6 +3,7 @@ package com.wuxiankeneng.factory.helper;
 import com.wuxiankeneng.common.factory.DataSource;
 import com.wuxiankeneng.factory.Factory;
 import com.wuxiankeneng.factory.R;
+import com.wuxiankeneng.factory.card.AddressCard;
 import com.wuxiankeneng.factory.db.Student;
 import com.wuxiankeneng.factory.model.ResponseModel;
 import com.wuxiankeneng.factory.model.account.AccountRspModel;
@@ -12,6 +13,8 @@ import com.wuxiankeneng.factory.net.Network;
 import com.wuxiankeneng.factory.net.RemoteService;
 import com.wuxiankeneng.factory.presenter.Account;
 import com.wuxiankeneng.factory.presenter.accout.RegisterPresenter;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,7 +48,7 @@ public class AccountHelper {
         @Override
         public void onResponse(Call<ResponseModel<AccountRspModel>> call, Response<ResponseModel<AccountRspModel>> response) {
             ResponseModel<AccountRspModel> responseModel = response.body();
-            if (responseModel == null){
+            if (responseModel == null) {
                 callback.onDataNotAvailable(R.string.txt_error_server);
                 return;
             }
@@ -80,5 +83,35 @@ public class AccountHelper {
                 callback.onDataNotAvailable(R.string.data_network_error);
             }
         }
+    }
+
+    //地址信息获取
+    public static void getAddressList(final DataSource.Callback<List<AddressCard>> callback) {
+        RemoteService service = Network.remote();
+        service.getAddressList().enqueue(new Callback<ResponseModel<List<AddressCard>>>() {
+            @Override
+            public void onResponse(Call<ResponseModel<List<AddressCard>>> call, Response<ResponseModel<List<AddressCard>>> response) {
+                ResponseModel<List<AddressCard>> responseModel = response.body();
+                if (responseModel == null) {
+                    callback.onDataNotAvailable(R.string.txt_error_server);
+                    return;
+                }
+                if (responseModel.success()) {
+                    List<AddressCard> cards = responseModel.getResult();
+                    if (callback != null) {
+                        callback.onDataLoaded(cards);
+                    }
+                } else {
+                    if (callback != null)
+                        Factory.decodeRspCode(responseModel, callback);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModel<List<AddressCard>>> call, Throwable t) {
+                if (callback!=null)
+                    callback.onDataNotAvailable(R.string.data_network_error);
+            }
+        });
     }
 }

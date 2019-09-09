@@ -2,7 +2,9 @@ package com.wuxiankeneng.factory.card;
 
 import com.wuxiankeneng.factory.db.Goods;
 
-public class GoodsCard {
+import java.io.Serializable;
+
+public class GoodsCard implements Serializable {
     private String id;
     //商品名
     private String name;
@@ -20,6 +22,11 @@ public class GoodsCard {
     private String price;
     //原价格
     private String originalPrice;
+    //学生选购数量
+    private int count;
+    //包装费
+    private String packingPrice;
+
     public Goods build() {
         Goods goods = new Goods();
         goods.setsId(id);
@@ -31,6 +38,7 @@ public class GoodsCard {
         goods.setTypeId(typeId);
         goods.setPrice(price);
         goods.setOriginalPrice(originalPrice);
+        goods.setPackingPrice(packingPrice);
 
         return goods;
     }
@@ -105,5 +113,21 @@ public class GoodsCard {
 
     public void setOriginalPrice(String originalPrice) {
         this.originalPrice = originalPrice;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public String getPackingPrice() {
+        return packingPrice;
+    }
+
+    public void setPackingPrice(String packingPrice) {
+        this.packingPrice = packingPrice;
     }
 }

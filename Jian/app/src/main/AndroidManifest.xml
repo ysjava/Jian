@@ -34,6 +34,9 @@
             android:launchMode="singleTop"/>
         <!--<activity android:name=".activity.TestActivity" />-->
         <activity android:name=".activity.ShopCategoryActivity" />
+        <activity android:name=".activity.OrderCommitActivity" />
+        <activity android:name=".activity.AddressActivity" />
+        <activity android:name=".activity.OrderActivity" />
 
         <service
             android:name=".service.DemoPushService"

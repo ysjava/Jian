@@ -1,15 +1,20 @@
 package com.wuxiankeneng.jian;
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.wuxiankeneng.common.app.BaseActivity;
+import com.wuxiankeneng.factory.card.OrderCard;
+import com.wuxiankeneng.jian.activity.OrderCommitActivity;
 import com.wuxiankeneng.jian.fragment.main.HomeFragment;
 import com.wuxiankeneng.jian.fragment.main.MyFragment;
 import com.wuxiankeneng.jian.fragment.main.OrderFragment;
@@ -17,7 +22,10 @@ import com.wuxiankeneng.jian.fragment.main.OrderFragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
+import butterknife.OnClick;
 
 
 public class MainActivity extends BaseActivity
@@ -31,17 +39,35 @@ public class MainActivity extends BaseActivity
     @BindView(R.id.navigation)
     BottomNavigationView mNavigationView;
 
+    //是否时需要跳转到当前活动的其它界面
+    private boolean isJump = false;
+
+    public static void show(Context context) {
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra("JUMP", true);
+        context.startActivity(intent);
+    }
+
+
     @Override
     protected int getContentLayoutId() {
         return R.layout.activity_main;
     }
 
     @Override
+    protected boolean initArgs(Bundle bundle) {
+        if (bundle != null)
+            isJump = bundle.getBoolean("JUMP", false);
+        return super.initArgs(bundle);
+    }
+
+
+    @Override
     protected void initWidget() {
         super.initWidget();
         if (mSavedInstanceState != null) {
             //如果不为空就表示activity被系统回收了,在save...里面保存了fragment,直接用tag去找回
-
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
             //找到f并进行赋值,然后拿到回收前的frag
             Fragment saveFragment = findFragments();
@@ -65,7 +91,10 @@ public class MainActivity extends BaseActivity
                     .hide(myFragment)
                     .commit();
         }
+
         mNavigationView.setOnNavigationItemSelectedListener(this);
+        if (isJump)//跳转到订单界面
+            mNavigationView.setSelectedItemId(R.id.ic_order);
     }
 
     private Fragment findFragments() {
