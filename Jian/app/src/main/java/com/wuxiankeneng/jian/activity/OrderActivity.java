@@ -199,6 +199,7 @@ public class OrderActivity extends BaseActivityView<OrderPresenter> implements O
                     .load(card.getIcon())
                     .dontAnimate()
                     .into(mImageView);
+
             mName.setText(card.getName());
             mPrice.setText(card.getPrice());
             mNumber.setText(String.format("x%s", String.valueOf(card.getCount())));

@@ -15,11 +15,13 @@
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_46"
+        android:layout_height="@dimen/dp_42"
         android:layout_alignParentBottom="true"
         android:background="#fff"
+        app:itemBackground="@null"
         android:elevation="@dimen/dp_4"
         app:itemIconSize="@dimen/dp_18"
+        app:itemTextColor="@color/selector_main_bottom_tab_sel"
         app:itemIconTint="@color/selector_main_bottom_tab_sel"
         app:menu="@menu/menu_bottom_nav" />
 

@@ -29,7 +29,6 @@ import java.util.Map;
 
 import butterknife.BindView;
 
-//TODO 搜索的时候进行判断是否请求完了,没有就拦截,不然一直店搜索就会进行多次搜索
 public class SearchActivity extends BaseActivity {
 
     private static final String EXTRA_TYPE = "EXTRA_TYPE";

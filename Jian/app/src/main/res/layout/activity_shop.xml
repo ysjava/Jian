@@ -89,7 +89,7 @@
                                 android:id="@+id/img_reserve"
                                 android:layout_width="@dimen/dp_16"
                                 android:layout_height="@dimen/dp_16"
-                                android:layout_marginStart="@dimen/dp_3"
+                                android:layout_marginStart="@dimen/dp_6"
                                 android:src="@drawable/ic_reserve"
                                 tool:ignore="ContentDescription" />
 
@@ -106,7 +106,7 @@
                                 android:id="@+id/img_range"
                                 android:layout_width="@dimen/dp_16"
                                 android:layout_height="@dimen/dp_16"
-                                android:layout_marginStart="@dimen/dp_3"
+                                android:layout_marginStart="@dimen/dp_6"
                                 android:src="@drawable/ic_p_range"
                                 tool:ignore="ContentDescription" />
 
@@ -123,7 +123,8 @@
                             android:id="@+id/txt_notice"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_marginTop="@dimen/dp_5"
+                            android:layout_marginTop="@dimen/dp_8"
+                            android:layout_marginBottom="@dimen/dp_3"
                             android:text="公告 : 本店今天开业促销,买1块送一店"
                             android:textColor="@color/grey_500"
                             android:textSize="@dimen/sp_10" />
@@ -139,8 +140,8 @@
                         <com.wuxiankeneng.common.widget.RoundAngleImageView
                             android:id="@+id/card_view"
                             android:scaleType="centerCrop"
-                            android:layout_width="@dimen/dp_66"
-                            android:layout_height="@dimen/dp_66"
+                            android:layout_width="@dimen/dp_62"
+                            android:layout_height="@dimen/dp_62"
                             android:src="@mipmap/youyiku" />
                     </FrameLayout>
 

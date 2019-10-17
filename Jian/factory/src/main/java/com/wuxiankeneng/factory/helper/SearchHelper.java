@@ -20,9 +20,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SearchHelper {
-    public static void searchShop(String shopName, final DataSource.Callback<List<SearchShopCard>> callback) {
+    public static Call searchShop(String shopName, final DataSource.Callback<List<SearchShopCard>> callback) {
         RemoteService service = Network.remote();
-        service.searchShop(shopName).enqueue(new Callback<ResponseModel<List<SearchShopCard>>>() {
+        Call<ResponseModel<List<SearchShopCard>>> call = service.searchShop(shopName);
+        call.enqueue(new Callback<ResponseModel<List<SearchShopCard>>>() {
             @Override
             public void onResponse(Call<ResponseModel<List<SearchShopCard>>> call, Response<ResponseModel<List<SearchShopCard>>> response) {
                 ResponseModel<List<SearchShopCard>> model = response.body();
@@ -48,12 +49,14 @@ public class SearchHelper {
                     callback.onDataNotAvailable(R.string.data_network_error);
             }
         });
+        return call;
     }
 
     //用名字搜索商品集合
-    public static void searchGoods(String goodsName, String shopId, final DataSource.Callback<List<Goods>> callback) {
+    public static Call searchGoods(String goodsName, String shopId, final DataSource.Callback<List<Goods>> callback) {
         RemoteService service = Network.remote();
-        service.searchGoods(goodsName, shopId).enqueue(new Callback<ResponseModel<List<GoodsCard>>>() {
+        Call<ResponseModel<List<GoodsCard>>> call = service.searchGoods(goodsName, shopId);
+        call.enqueue(new Callback<ResponseModel<List<GoodsCard>>>() {
             @Override
             public void onResponse(Call<ResponseModel<List<GoodsCard>>> call, Response<ResponseModel<List<GoodsCard>>> response) {
                 ResponseModel<List<GoodsCard>> model = response.body();
@@ -82,6 +85,7 @@ public class SearchHelper {
                     callback.onDataNotAvailable(R.string.data_network_error);
             }
         });
+        return call;
     }
 
 }

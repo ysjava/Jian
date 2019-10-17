@@ -34,7 +34,8 @@ public class HomePresenter extends BaseRecyclerPresenter<SimpleShop, HomeContact
     //加载商店信息
     @Override
     public void loadSimpleShops() {
-        HomeHelper.loadSimpleShop("9c49e380-636d-477a-884c-5983cdff03da", new DataSource.Callback<List<SimpleShop>>() {
+        //TODO 登陆后保存学校id到v本地
+        HomeHelper.loadSimpleShop("b271a08d-d5b8-4b15-8422-237315ae5380", new DataSource.Callback<List<SimpleShop>>() {
             @Override
             public void onDataNotAvailable(final int strRes) {
                 Run.onUiAsync(new Action() {

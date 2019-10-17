@@ -18,16 +18,23 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import retrofit2.Call;
+
 public class GoodsSearchPresenter extends BaseRecyclerPresenter<Goods, GoodsSearchContract.View>
         implements GoodsSearchContract.Presenter, DataSource.Callback<List<Goods>> {
+    private Call searchCall;
+
     @Inject
     public GoodsSearchPresenter() {
     }
 
     @Override
     public void searchGoods(String goodsName, String shopId) {
-
-        SearchHelper.searchGoods(goodsName, shopId, this);
+        Call call = searchCall;
+        if (call != null && !call.isCanceled()) {
+            call.cancel();
+        }
+        searchCall = SearchHelper.searchGoods(goodsName, shopId, this);
     }
 
 

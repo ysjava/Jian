@@ -17,14 +17,19 @@ android {
                 GETUI_APP_SECRET: "lq1nKIH5Fs5EIrao7IByX1",
         ]
 
-        ndk {
-            abiFilters "armeabi", "armeabi-v7a", "x86_64"
-        }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 }
@@ -65,4 +70,5 @@ dependencies {
     implementation 'com.flipboard:bottomsheet-core:1.5.3'
 
     implementation 'com.google.code.gson:gson:2.8.5'
+
 }

@@ -14,8 +14,11 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import retrofit2.Call;
+
 public class ShopSearchPresenter extends BaseRecyclerPresenter<SearchShopCard, ShopSearchContract.View>
         implements ShopSearchContract.Presenter, DataSource.Callback<List<SearchShopCard>> {
+    private Call searchCall;
 
     @Inject
     public ShopSearchPresenter() {
@@ -23,7 +26,10 @@ public class ShopSearchPresenter extends BaseRecyclerPresenter<SearchShopCard, S
 
     @Override
     public void searchShop(String shopName) {
-        SearchHelper.searchShop(shopName.trim(), this);
+        Call call = searchCall;
+        if (call != null && !call.isCanceled())
+            call.cancel();
+        searchCall = SearchHelper.searchShop(shopName.trim(), this);
     }
 
 

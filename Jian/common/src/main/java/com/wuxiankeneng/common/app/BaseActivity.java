@@ -1,10 +1,16 @@
 package com.wuxiankeneng.common.app;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
@@ -23,6 +29,8 @@ import butterknife.ButterKnife;
 public abstract class BaseActivity extends AppCompatActivity {
     protected Bundle mSavedInstanceState;
     protected PlaceHolderView mPlaceHolderView;
+    protected ForceOffReceiver receiver;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,16 +43,17 @@ public abstract class BaseActivity extends AppCompatActivity {
             initBefore();
             initWidget();
             initData();
+
+            ActivityCollector.addActivity(this);
         }
     }
 
 
-
     //初始化窗口
     protected void initWindows() {
-            View decorView = getWindow().getDecorView();
-            decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-            getWindow().setStatusBarColor(Color.TRANSPARENT);
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+        getWindow().setStatusBarColor(Color.TRANSPARENT);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             //如果是6.0以上将状态栏文字改为黑色，并设置状态栏颜色
@@ -78,6 +87,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void initWidget() {
         //直接是activity中的view  ,不用像fragment那样需要view
         ButterKnife.bind(this);
+
+        //注册广播接收器  用于退出用户
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.wuxiankeneng.jian.FORCE_OFF");
+        receiver = new ForceOffReceiver();
+        registerReceiver(receiver, intentFilter);
     }
 
     //点击导航栏的返回键
@@ -109,6 +124,22 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //注销广播接收器
+        if (receiver != null) {
+            unregisterReceiver(receiver);
+            receiver = null;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ActivityCollector.removeActivity(this);
+    }
+
     /**
      * 设置占位布局
      *
@@ -116,5 +147,30 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     public void setPlaceHolderView(PlaceHolderView placeHolderView) {
         this.mPlaceHolderView = placeHolderView;
+    }
+
+    class ForceOffReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(final Context context, Intent intent) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle("提示");
+            builder.setMessage("是否退出登陆?");
+            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    ActivityCollector.finishAll();
+//                    context.startActivity(Accoun);
+                }
+            });
+
+            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+
+                }
+            });
+
+        }
     }
 }

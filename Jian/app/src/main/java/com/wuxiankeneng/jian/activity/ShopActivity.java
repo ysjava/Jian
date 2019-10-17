@@ -199,7 +199,6 @@ public class ShopActivity extends BaseActivityView<ShopPresenter>
                 Goods goods = goodsList.get(firstVisibleItem);
                 //判断第一个item的类型id是否是选择的类型id,不是就赋给它
 
-
                 if (adapter.selectTypeId != goods.getTypeId()) {
                     adapter.selectTypeId = goods.getTypeId();
                     //赋给它后就刷新,然后会adapter会更具当前selectTypeId进行移动左边的类型栏

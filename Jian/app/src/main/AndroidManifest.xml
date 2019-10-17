@@ -37,6 +37,7 @@
         <activity android:name=".activity.OrderCommitActivity" />
         <activity android:name=".activity.AddressActivity" />
         <activity android:name=".activity.OrderActivity" />
+        <activity android:name=".activity.A" />
 
         <service
             android:name=".service.DemoPushService"

@@ -141,7 +141,7 @@ public class AddressActivity extends BaseActivityView<AddressPresenter>
             mAddress.setText(addressCard.getAddress());
         }
 
-        //TODO 逻辑思考
+
         @OnCheckedChanged(R.id.checkbox)
         void onCheckedChanged(boolean checked) {
             if (checked) {

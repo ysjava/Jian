@@ -16,6 +16,7 @@ import com.wuxiankeneng.factory.net.Network;
 import com.wuxiankeneng.factory.net.RemoteService;
 import com.wuxiankeneng.factory.presenter.main.hone.HomeContact;
 
+import org.json.JSONArray;
 import org.litepal.LitePal;
 import org.litepal.crud.LitePalSupport;
 
@@ -30,7 +31,7 @@ public class HomeHelper {
     public static void loadRecommend(final DataSource.Callback<List<Recommend>> callback) {
 
         RemoteService service = Network.remote();
-        service.loadRecommend("9c49e380-636d-477a-884c-5983cdff03da")
+        service.loadRecommend("b271a08d-d5b8-4b15-8422-237315ae5380")
                 .enqueue(new Callback<ResponseModel<List<RecommendCard>>>() {
                     @Override
                     public void onResponse(Call<ResponseModel<List<RecommendCard>>> call, Response<ResponseModel<List<RecommendCard>>> response) {

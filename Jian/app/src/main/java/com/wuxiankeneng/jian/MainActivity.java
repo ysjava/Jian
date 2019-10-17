@@ -91,7 +91,7 @@ public class MainActivity extends BaseActivity
                     .hide(myFragment)
                     .commit();
         }
-
+        mNavigationView.setItemHorizontalTranslationEnabled(false);
         mNavigationView.setOnNavigationItemSelectedListener(this);
         if (isJump)//跳转到订单界面
             mNavigationView.setSelectedItemId(R.id.ic_order);
