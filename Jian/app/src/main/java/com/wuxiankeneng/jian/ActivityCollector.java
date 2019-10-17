@@ -1,4 +1,6 @@
-package com.wuxiankeneng.common.app;
+package com.wuxiankeneng.jian;
+
+import com.wuxiankeneng.jian.activity.BaseActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +10,7 @@ import java.util.List;
  * Describe : activity的管理
  */
 public class ActivityCollector {
-    public static List<BaseActivity> activities = new ArrayList<>();
+    private static List<BaseActivity> activities = new ArrayList<>();
 
     public static void addActivity(BaseActivity activity) {
         activities.add(activity);
@@ -24,5 +26,9 @@ public class ActivityCollector {
                 activity.finish();
         }
         activities.clear();
+    }
+
+    public static List<BaseActivity> getActivities() {
+        return activities;
     }
 }

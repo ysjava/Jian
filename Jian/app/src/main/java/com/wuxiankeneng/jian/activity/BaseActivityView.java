@@ -1,23 +1,14 @@
 package com.wuxiankeneng.jian.activity;
 
 import com.wuxiankeneng.common.app.Application;
-import com.wuxiankeneng.common.app.BaseActivity;
 import com.wuxiankeneng.common.factory.base.BaseContract;
 import com.wuxiankeneng.common.factory.base.BasePresenter;
-import com.wuxiankeneng.factory.Factory;
 import com.wuxiankeneng.jian.App;
-import com.wuxiankeneng.jian.R;
 import com.wuxiankeneng.jian.di.component.ActivityComponent;
 import com.wuxiankeneng.jian.di.component.DaggerActivityComponent;
 import com.wuxiankeneng.jian.di.module.ActivityModule;
 
-import android.util.Log;
-import android.view.View;
-import android.widget.ProgressBar;
-
 import javax.inject.Inject;
-
-import static android.view.View.GONE;
 
 
 /**

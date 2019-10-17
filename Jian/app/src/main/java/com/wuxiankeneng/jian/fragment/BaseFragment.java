@@ -1,4 +1,4 @@
-package com.wuxiankeneng.common.app;
+package com.wuxiankeneng.jian.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.wuxiankeneng.common.widget.PlaceHolderView;
+import com.wuxiankeneng.jian.activity.BaseActivity;
 
 import butterknife.ButterKnife;
 

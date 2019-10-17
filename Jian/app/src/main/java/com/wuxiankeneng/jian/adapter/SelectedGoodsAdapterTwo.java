@@ -7,12 +7,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.wuxiankeneng.common.app.BaseFragment;
 import com.wuxiankeneng.common.widget.recycler.RecyclerAdapter;
 import com.wuxiankeneng.factory.db.Goods;
 import com.wuxiankeneng.factory.tools.Arithmetic;
 import com.wuxiankeneng.jian.R;
-import com.wuxiankeneng.jian.activity.ShopActivity;
 import com.wuxiankeneng.jian.fragment.search.GoodsSearchFragment;
 
 import java.util.List;

@@ -51,7 +51,6 @@ public class Factory {
      */
     public static void setup() {
 
-
         // 持久化的数据进行初始化
         Account.load(app());
     }

@@ -3,7 +3,6 @@ package com.wuxiankeneng.jian.fragment;
 import android.content.Context;
 
 import com.wuxiankeneng.common.app.Application;
-import com.wuxiankeneng.common.app.BaseFragment;
 import com.wuxiankeneng.common.factory.base.BaseContract;
 import com.wuxiankeneng.common.factory.base.BasePresenter;
 import com.wuxiankeneng.jian.App;

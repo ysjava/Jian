@@ -5,16 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.MenuItem;
 
-import com.wuxiankeneng.common.app.BaseActivity;
-import com.wuxiankeneng.factory.card.OrderCard;
-import com.wuxiankeneng.jian.activity.OrderCommitActivity;
+import com.wuxiankeneng.jian.activity.BaseActivity;
 import com.wuxiankeneng.jian.fragment.main.HomeFragment;
 import com.wuxiankeneng.jian.fragment.main.MyFragment;
 import com.wuxiankeneng.jian.fragment.main.OrderFragment;
@@ -22,10 +18,7 @@ import com.wuxiankeneng.jian.fragment.main.OrderFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
-import butterknife.OnClick;
 
 
 public class MainActivity extends BaseActivity

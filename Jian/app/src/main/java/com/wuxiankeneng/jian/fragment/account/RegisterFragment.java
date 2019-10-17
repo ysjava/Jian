@@ -7,7 +7,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.wuxiankeneng.common.app.BaseFragment;
 import com.wuxiankeneng.factory.presenter.accout.RegisterContract;
 import com.wuxiankeneng.factory.presenter.accout.RegisterPresenter;
 import com.wuxiankeneng.jian.R;

@@ -1,6 +1,7 @@
 package com.wuxiankeneng.jian.fragment.account;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.style.BulletSpan;
@@ -12,6 +13,8 @@ import android.widget.Toast;
 
 import com.wuxiankeneng.factory.presenter.accout.LoginContract;
 import com.wuxiankeneng.factory.presenter.accout.LoginPresenter;
+import com.wuxiankeneng.jian.ActivityCollector;
+import com.wuxiankeneng.jian.MainActivity;
 import com.wuxiankeneng.jian.R;
 import com.wuxiankeneng.jian.activity.AccountActivity;
 import com.wuxiankeneng.jian.fragment.BaseFragmentView;
@@ -60,8 +63,14 @@ public class LoginFragment extends BaseFragmentView<LoginPresenter>
 
     @Override
     public void loginSuccess() {
-        //TODO 登陆成功就回到myFragment,接口回掉回去更新信息
-        Objects.requireNonNull(getActivity()).finish();
+        //==1就表示是点击退出登陆后重新登陆的 这时候没有finish就直接退出了
+        // 不等于1就代表是从myFragment中点击登陆的  这时候登陆成功就可以直接退出了
+        if (ActivityCollector.getActivities().size() == 1) {
+            startActivity(new Intent(getActivity(), MainActivity.class));
+            if (getActivity() != null)
+                getActivity().finish();
+        } else
+            Objects.requireNonNull(getActivity()).finish();
     }
 
     @OnClick(R.id.btn_login)
@@ -74,16 +83,16 @@ public class LoginFragment extends BaseFragmentView<LoginPresenter>
             return;
         }
         //发起登陆
-        mPresenter.login(phoneNumber,pawNumber);
+        mPresenter.login(phoneNumber, pawNumber);
     }
 
     @OnClick(R.id.txt_forget_password)
-    public void forgetPawClick(){
+    public void forgetPawClick() {
         //TODO 忘记密码
     }
 
     @OnClick(R.id.txt_new_register)
-    public void registerClick(){
+    public void registerClick() {
         //切换到注册界面
         mAccountTrigger.triggerView();
     }

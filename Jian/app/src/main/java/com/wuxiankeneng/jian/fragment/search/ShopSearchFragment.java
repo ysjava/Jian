@@ -7,13 +7,9 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.wuxiankeneng.common.app.Application;
-import com.wuxiankeneng.common.app.BaseFragment;
-import com.wuxiankeneng.common.widget.RoundAngleImageView;
 import com.wuxiankeneng.common.widget.recycler.RecyclerAdapter;
 import com.wuxiankeneng.factory.card.SearchShopCard;
-import com.wuxiankeneng.factory.db.Shop;
 import com.wuxiankeneng.factory.presenter.search.ShopSearchContract;
 import com.wuxiankeneng.factory.presenter.search.ShopSearchPresenter;
 import com.wuxiankeneng.jian.R;

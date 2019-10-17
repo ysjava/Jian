@@ -50,20 +50,15 @@ public class AddressActivity extends BaseActivityView<AddressPresenter>
     @Override
     protected void initWidget() {
         super.initWidget();
-        mFinish.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                Application.showToast("点击");
-                if (card == null) {
-                    Application.showToast("你还没有选择地址");
-                    return;
-                }
-                Intent intent = new Intent();
-                intent.putExtra("ADDRESS", card);
-                setResult(RESULT_OK, intent);
-                finish();
+        mFinish.setOnClickListener(v -> {
+            if (card == null) {
+                Application.showToast("你还没有选择地址");
+                return;
             }
+            Intent intent = new Intent();
+            intent.putExtra("ADDRESS", card);
+            setResult(RESULT_OK, intent);
+            finish();
         });
 
         mRecycler.setLayoutManager(new LinearLayoutManager(this));
@@ -149,6 +144,9 @@ public class AddressActivity extends BaseActivityView<AddressPresenter>
                 selectAddressFinish(card, this);
                 //添加进地址集合,用于地址勾选的切换
                 holders.add(this);
+            }else {
+                holders.remove(this);
+                AddressActivity.this.card = null;
             }
         }
     }

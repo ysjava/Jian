@@ -2,34 +2,24 @@ package com.wuxiankeneng.jian.fragment.main;
 
 
 import android.content.Intent;
-import android.os.Bundle;
 
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.wuxiankeneng.common.app.Application;
-import com.wuxiankeneng.common.app.BaseFragment;
+import com.wuxiankeneng.jian.fragment.BaseFragment;
 import com.wuxiankeneng.common.widget.recycler.RecyclerAdapter;
-import com.wuxiankeneng.factory.Factory;
 import com.wuxiankeneng.factory.model.MyItemModel;
 import com.wuxiankeneng.factory.presenter.Account;
-import com.wuxiankeneng.jian.MainActivity;
 import com.wuxiankeneng.jian.R;
 import com.wuxiankeneng.jian.activity.AccountActivity;
 
@@ -72,8 +62,11 @@ public class MyFragment extends BaseFragment
             if (menuItem.getItemId() == R.id.set_menu) {
                 if (!Account.isLogin())
                     login();
-                else
-                    Application.showToast("已经登陆");
+                else{
+                    Intent intent = new Intent("com.wuxiankeneng.jian.FORCE_OFF");
+                    getContext().sendBroadcast(intent);
+                }
+
             }
             return false;
         });
@@ -93,7 +86,7 @@ public class MyFragment extends BaseFragment
                 return new MyFragment.ViewHolder(view);
             }
         });
-
+        adapter.setListener(this);
 //        //是否登陆
         if (Account.isLogin()) {
             //登陆就显示保存到xml文件的信息
@@ -155,7 +148,11 @@ public class MyFragment extends BaseFragment
 
     @Override
     public void onItemClick(RecyclerAdapter.ViewHolder viewHolder, MyItemModel myItemModel) {
-
+        switch (myItemModel.getName()){
+            case "地址管理" :
+                Application.showToast("地址管理待实现");
+                break;
+        }
     }
 
     @Override

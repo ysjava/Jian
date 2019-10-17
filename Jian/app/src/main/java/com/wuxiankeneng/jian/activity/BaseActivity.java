@@ -1,4 +1,4 @@
-package com.wuxiankeneng.common.app;
+package com.wuxiankeneng.jian.activity;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -14,9 +14,10 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 
+import com.wuxiankeneng.jian.fragment.BaseFragment;
 import com.wuxiankeneng.common.widget.PlaceHolderView;
+import com.wuxiankeneng.jian.ActivityCollector;
 
 import java.util.List;
 
@@ -87,12 +88,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void initWidget() {
         //直接是activity中的view  ,不用像fragment那样需要view
         ButterKnife.bind(this);
-
-        //注册广播接收器  用于退出用户
-        IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction("com.wuxiankeneng.jian.FORCE_OFF");
-        receiver = new ForceOffReceiver();
-        registerReceiver(receiver, intentFilter);
     }
 
     //点击导航栏的返回键
@@ -122,6 +117,16 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onBackPressed();
         finish();
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //注册广播接收器  用于退出用户
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction("com.wuxiankeneng.jian.FORCE_OFF");
+        receiver = new ForceOffReceiver();
+        registerReceiver(receiver, intentFilter);
     }
 
     @Override
@@ -156,21 +161,15 @@ public abstract class BaseActivity extends AppCompatActivity {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle("提示");
             builder.setMessage("是否退出登陆?");
-            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    ActivityCollector.finishAll();
-//                    context.startActivity(Accoun);
-                }
+            builder.setPositiveButton("确定", (dialog, which) -> {
+                ActivityCollector.finishAll();
+                AccountActivity.show(context);
             });
 
-            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
+            builder.setNegativeButton("取消", (dialog, which) -> {
 
-                }
             });
-
+            builder.show();
         }
     }
 }
