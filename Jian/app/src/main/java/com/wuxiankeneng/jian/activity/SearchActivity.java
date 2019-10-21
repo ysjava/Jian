@@ -101,12 +101,7 @@ public class SearchActivity extends BaseActivity {
             }
         });
 
-        mBtnSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mSearchFragment.search(mSearch.getText().toString().trim());
-            }
-        });
+        mBtnSearch.setOnClickListener(view -> mSearchFragment.search(mSearch.getText().toString().trim()));
 
         //这儿是缓存一个而不是用全局的是因为就优化而言,使用局部变量快得多
         BaseFragment fragment;
