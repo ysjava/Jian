@@ -52,7 +52,7 @@ public class StudentFactory {
         phone = phone.trim();
         // 处理密码
         password = encodePassword(password);
-        Student student = createTrader(phone, password, name, school);
+        Student student = createStudent(phone, password, name, school);
         if (student != null) {
             student = login(student);
         }
@@ -65,9 +65,9 @@ public class StudentFactory {
      * @param phone    手机号
      * @param password 加密后的密码
      * @param name     用户名
-     * @return 返回一个商人
+     * @return 返回一个学生
      */
-    private static Student createTrader(String phone, String password, String name, School school) {
+    private static Student createStudent(String phone, String password, String name, School school) {
         Student student = new Student();
         student.setName(name);
         student.setPassword(password);

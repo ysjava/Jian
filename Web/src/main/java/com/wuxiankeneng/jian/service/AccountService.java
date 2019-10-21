@@ -143,17 +143,18 @@ public class AccountService extends BaseService {
         if (student != null) {
             return ResponseModel.buildHaveAccountError();
         }
+
         //检查此名字是否存在
         student = StudentFactory.findByName(model.getName().trim());
         if (student != null) {
             return ResponseModel.buildHaveNameError();
         }
+
         //检查此学校是否存在
         School school = SchoolFactory.findById(model.getSchoolId());
         if (school == null) {
             return ResponseModel.buildParameterError();
         }
-
 
         //注册操作   完成得到一个用户
         student = StudentFactory.register(model.getPhone(), model.getPassword(), model.getName(), school);
@@ -169,6 +170,7 @@ public class AccountService extends BaseService {
         } else
             return ResponseModel.buildRegisterError();
     }
+
 
     //学生登陆
     @POST
@@ -235,7 +237,7 @@ public class AccountService extends BaseService {
             return ResponseModel.buildParameterError();
 
         Admin admin = AdminFactory.findByAccount(account.trim());
-        if (admin!=null){
+        if (admin != null) {
             return ResponseModel.buildHaveAccountError();
         }
         admin = AdminFactory.register(account, password);
